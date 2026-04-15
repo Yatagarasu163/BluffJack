@@ -1,4 +1,4 @@
-extends Control
+extends Node2D
 
 #Life Counter
 var player_life = 3
@@ -34,7 +34,7 @@ func start_round():
 	$ClaimedTotalLabel.text = "Claimed Total: -"
 	$ResultLabel.text = "Result:"
 	$OpponentActionLabel.text = "Opponent:"
-	$BluffInput.text = ""
+	# $BluffInput.text = ""
 	
 	set_buttons_enabled(true)
 # Drawing the card
