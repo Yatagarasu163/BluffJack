@@ -29,6 +29,8 @@ func start_round():
 	claimed_total = 0
 	opponent_total = randi_range(15, 25)
 	game_over = false
+	
+	$MonitorCards.clear_cards()
 
 	$ActualTotalLabel.text = "Actual Total: 0"
 	$ClaimedTotalLabel.text = "Claimed Total: -"
@@ -51,12 +53,15 @@ func _on_draw_card_button_pressed():
 		
 	var card = randi_range(1, 9)
 	cards.append(card)
+	$MonitorCards.show_card(card)
+
 
 	actual_total = 0
 	for i in cards:
 		actual_total += i
 	
 	$ActualTotalLabel.text = "Actual Total: " + str(actual_total)
+
 # To have actual number without bluffing
 func _on_stay_button_pressed():
 	if game_over:
@@ -159,6 +164,8 @@ func player_loses_round(message):
 	$ResultLabel.text = message
 	$BluffUI/Control/BluffInput.visible = false
 	
+	$MonitorCards.clear_cards()
+	
 	if player_life <= 0:
 		$ResultLabel.text = message + " Game Over! You lose the match."
 	
@@ -171,6 +178,8 @@ func opponent_loses_round(message):
 	update_life_labels()
 	$ResultLabel.text = message
 	$BluffUI/Control/BluffInput.visible = false
+	
+	$MonitorCards.clear_cards()
 	
 	if opponent_life <= 0:
 		$ResultLabel.text = message + " You win " 

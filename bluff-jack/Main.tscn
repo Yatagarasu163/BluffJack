@@ -1,8 +1,9 @@
 [gd_scene format=3 uid="uid://dk8vmtpnubwkt"]
 
-[ext_resource type="Script" uid="uid://b2wxefweqctn1" path="res://Main.gd" id="1_glv2v"]
+[ext_resource type="Script" uid="uid://b2wxefweqctn1" path="res://Assets/Scripts/PlayerControl.gd" id="1_glv2v"]
 [ext_resource type="Texture2D" uid="uid://ysn5gxf7npkb" path="res://Assets/environment/table reworked the looonnggg way now in 4k (2).png" id="2_r0du0"]
 [ext_resource type="Texture2D" uid="uid://cxbha1fqn4ido" path="res://Assets/environment/monitor upscaled.png" id="3_cm0pq"]
+[ext_resource type="Script" uid="uid://ny3drku50ag8" path="res://Assets/Scripts/MonitorCards.gd" id="4_cm0pq"]
 
 [node name="Main" type="Node2D" unique_id=382712453]
 position = Vector2(575.00006, 507)
@@ -70,10 +71,10 @@ position = Vector2(-347.91672, 69.791626)
 scale = Vector2(1.0416666, 1.0416666)
 
 [node name="BluffButton" type="Button" parent="BluffUI" unique_id=61446488]
-offset_left = 347.0
-offset_top = 2.0
-offset_right = 509.0
-offset_bottom = 48.0
+offset_left = 394.91998
+offset_top = 15.640039
+offset_right = 556.92
+offset_bottom = 61.640038
 text = "Bluff"
 metadata/_edit_use_anchors_ = true
 
@@ -105,18 +106,18 @@ position = Vector2(-598.9584, -528.125)
 scale = Vector2(1.0416666, 1.0416666)
 
 [node name="DrawCardButton" type="Button" parent="ActionButton" unique_id=1605012144]
-offset_left = 241.0
-offset_top = 574.0
-offset_right = 396.0
-offset_bottom = 620.0
+offset_left = 288.91998
+offset_top = 587.64
+offset_right = 443.91998
+offset_bottom = 633.64
 text = "Draw Card"
 metadata/_edit_use_anchors_ = true
 
 [node name="StayButton" type="Button" parent="ActionButton" unique_id=1478570547]
-offset_left = 413.0
-offset_top = 575.0
-offset_right = 572.0
-offset_bottom = 620.0
+offset_left = 460.91998
+offset_top = 588.64
+offset_right = 619.92
+offset_bottom = 633.64
 text = "Stay"
 metadata/_edit_use_anchors_ = true
 
@@ -125,12 +126,30 @@ position = Vector2(-598.9584, -528.125)
 scale = Vector2(1.0416666, 1.0416666)
 
 [node name="RestartButton" type="Button" parent="RestartUI" unique_id=906117710]
-offset_left = 1045.3999
-offset_top = 24.120003
-offset_right = 1115.3999
+offset_left = 1054.0402
+offset_top = 24.12
+offset_right = 1124.0402
 offset_bottom = 62.120003
 text = "Restart"
 metadata/_edit_use_anchors_ = true
+
+[node name="MonitorCards" type="Node2D" parent="." unique_id=1026316270]
+script = ExtResource("4_cm0pq")
+
+[node name="Slot1" type="Marker2D" parent="MonitorCards" unique_id=1195413463]
+position = Vector2(-239.00006, 27)
+
+[node name="Slot2" type="Marker2D" parent="MonitorCards" unique_id=1553201821]
+position = Vector2(-148.00006, 27)
+
+[node name="Slot3" type="Marker2D" parent="MonitorCards" unique_id=2025908435]
+position = Vector2(-44.00006, 27)
+
+[node name="Slot4" type="Marker2D" parent="MonitorCards" unique_id=191959639]
+position = Vector2(55.99994, 27)
+
+[node name="Slot5" type="Marker2D" parent="MonitorCards" unique_id=436614274]
+position = Vector2(146.99994, 27)
 
 [connection signal="pressed" from="BluffUI/BluffButton" to="." method="_on_bluff_button_pressed"]
 [connection signal="text_submitted" from="BluffUI/Control/BluffInput" to="." method="_on_bluff_input_text_submitted"]
