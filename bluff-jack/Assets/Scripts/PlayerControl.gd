@@ -10,11 +10,16 @@ var opponent_total = 0
 var game_over = false
 var cards = []
 var is_player_turn = false;
-@onready var bluff_buttons = $Bluff;
-@onready var draw_buttons = $Draw;
+@onready var bluff_buttons = $BluffUI;
+@onready var draw_buttons = $ActionButton;
+@onready var player_life_label = get_node("PlayerLifeLabel");
 
 # starting the game
 func _ready():
+	#print(player_life_label);
+	print("I am: ", self);
+	print("My children: ", get_children());
+	print("Looking for: ", get_node_or_null("PlayerLifeLabel"));
 	randomize()
 	start_match()
 
@@ -95,7 +100,7 @@ func _on_stay_button_pressed():
 	
 func to_phase_2() -> void:
 	bluff_buttons.visible = true;
-	bluff_buttons.get_child(1).text = "";
+	bluff_buttons.get_child(1).get_child(0).text = "";
 	draw_buttons.visible = false;
 
 func to_phase_1() -> void:
@@ -220,9 +225,9 @@ func opponent_loses_round(message):
 	
 #Updating Life labels
 func update_life_labels():
-	$PlayerLifeLabel.text ="Player Life: " + str(player_life)
+	player_life_label.text = "Player Life: " + str(player_life)
 	$OpponentLifeLabel.text ="Opponent Life: " + str(opponent_life)
-
+	
 # Restart Game
 func _on_restart_button_pressed():
 	if player_life <= 0 or opponent_life <= 0:
