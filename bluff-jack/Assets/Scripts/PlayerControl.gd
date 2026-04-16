@@ -1,12 +1,5 @@
 extends Node2D
 
-#Scren Shake Values
-@export var shake_strength_min: float = 2.0
-@export var shake_strength_max: float = 6.0
-@export var shake_count: int = 4
-@export var shake_speed: float = 0.03
-@export var return_speed: float = 0.05
-
 @onready var main = $"..";
 
 #Life Counter
@@ -89,6 +82,7 @@ func start_round():
 	
 # Drawing the card
 func _on_draw_card_button_pressed():
+	await draw_buttons.get_child(0).anim.animation_finished;
 	if cards.size() < 5:
 		game_manager.player_state = game_manager.State.DRAW;
 		draw_cards();
@@ -136,7 +130,7 @@ func _on_stay_button_pressed():
 	print("Player stays. Now entering Bluff Phase...");
 	#to_enemy_turn();
 	game_manager.end_turn();
-	to_phase_2();
+	await to_phase_2();
 	if game_over:
 		return
 	main.screen_shake()
@@ -147,6 +141,9 @@ func to_phase_1() -> void:
 	showdown_buttons.visible = false;
 	
 func to_phase_2() -> void:
+	draw_buttons.visible = true;
+	draw_buttons.get_child(0)._on_change_to_truth();
+	await draw_buttons.get_child(0).anim.animation_finished;
 	bluff_buttons.visible = true;
 	bluff_buttons.get_child(0).visible = true; # Makes the bluff button appear
 	bluff_buttons.get_child(1).visible = true; # Makes the truth button appear
@@ -216,6 +213,8 @@ func _on_truth_button_pressed() -> void:
 	if game_over:
 		return;
 	
+	await bluff_buttons.get_child(1).anim.animation_finished;
+	
 	claimed_total = calculate_total();
 	game_manager.claimed_player_total = claimed_total;
 	game_manager.player_total = calculate_total();
@@ -241,19 +240,3 @@ func _on_call_bluff_button_pressed() -> void:
 func _on_pass_button_pressed() -> void:
 	print("I'll accept that number");
 	game_manager.end_turn();
-
-func screen_shake():
-	var original_pos = position
-	
-	var tween = create_tween()
-	
-	for i in range(shake_count):
-		var strength = randf_range(shake_strength_min,shake_strength_max)
-		var offset = Vector2(
-			randf_range(-strength, strength),
-			randf_range(-strength, strength)
-		)
-		
-		tween.tween_property(self, "position", original_pos + offset, 0.03)
-	#Returning it to the original Position
-	tween.tween_property(self, "position", original_pos, 0.05)
