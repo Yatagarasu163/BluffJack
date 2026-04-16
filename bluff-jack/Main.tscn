@@ -1,102 +1,158 @@
 [gd_scene format=3 uid="uid://dk8vmtpnubwkt"]
 
-[ext_resource type="Script" uid="uid://b2wxefweqctn1" path="res://Main.gd" id="1_glv2v"]
-[ext_resource type="PackedScene" uid="uid://dx3axclabcvlo" path="res://Scenes/GameManager.tscn" id="2_uu6xs"]
-[ext_resource type="Script" uid="uid://rsbjnj66wmuy" path="res://Scenes/game_manager.gd" id="3_r0du0"]
+[ext_resource type="Script" uid="uid://b2wxefweqctn1" path="res://Assets/Scripts/PlayerControl.gd" id="1_glv2v"]
+[ext_resource type="Texture2D" uid="uid://ysn5gxf7npkb" path="res://Assets/environment/table reworked the looonnggg way now in 4k (2).png" id="2_r0du0"]
+[ext_resource type="Texture2D" uid="uid://cxbha1fqn4ido" path="res://Assets/environment/monitor upscaled.png" id="3_cm0pq"]
+[ext_resource type="Script" uid="uid://ny3drku50ag8" path="res://Assets/Scripts/MonitorCards.gd" id="4_cm0pq"]
 
-[node name="Main" type="Node2D" unique_id=893868877 groups=["Player"]]
+[node name="Main" type="Node2D" unique_id=382712453]
+position = Vector2(575.00006, 507)
 script = ExtResource("1_glv2v")
 
-[node name="ActualTotalLabel" type="Label" parent="." unique_id=376982041]
-offset_right = 166.0
-offset_bottom = 39.0
+[node name="table" type="Sprite2D" parent="." unique_id=1488168273]
+scale = Vector2(0.96, 0.96)
+texture = ExtResource("2_r0du0")
+
+[node name="Monitor" type="Sprite2D" parent="." unique_id=615090485]
+position = Vector2(16.999939, 34)
+scale = Vector2(0.93749994, 0.93749994)
+texture = ExtResource("3_cm0pq")
+
+[node name="ActualTotalLabel" type="Label" parent="." unique_id=707240355]
+offset_left = -568.00006
+offset_top = -499.0
+offset_right = -402.00006
+offset_bottom = -460.0
 text = "Actual Total:0"
 metadata/_edit_use_anchors_ = true
 
-[node name="ClaimedTotalLabel" type="Label" parent="." unique_id=448312306]
-offset_left = 4.0
-offset_top = 29.0
-offset_right = 150.0
-offset_bottom = 66.0
+[node name="ClaimedTotalLabel" type="Label" parent="." unique_id=1559161359]
+offset_left = -563.8334
+offset_top = -468.79166
+offset_right = -417.83337
+offset_bottom = -431.79166
 text = "Claimed Total: -"
 metadata/_edit_use_anchors_ = true
 
-[node name="ResultLabel" type="Label" parent="." unique_id=1334867070]
-offset_left = 3.0
-offset_top = 59.0
-offset_right = 56.0
-offset_bottom = 82.0
+[node name="ResultLabel" type="Label" parent="." unique_id=1979220070]
+offset_left = -564.87506
+offset_top = -437.54166
+offset_right = -511.87506
+offset_bottom = -414.54166
 text = "Result:"
 metadata/_edit_use_anchors_ = true
 
-[node name="OpponentActionLabel" type="Label" parent="." unique_id=1513859817]
-offset_left = 535.0
-offset_top = 13.0
-offset_right = 713.0
-offset_bottom = 54.0
+[node name="OpponentActionLabel" type="Label" parent="." unique_id=1161481911]
+offset_left = -77.00006
+offset_top = -500.0
+offset_right = 100.99994
+offset_bottom = -459.0
 text = "Opponent :"
 metadata/_edit_use_anchors_ = true
 
-[node name="PlayerLifeLabel" type="Label" parent="." unique_id=2146824772]
-offset_left = 25.0
-offset_top = 518.0
-offset_right = 175.0
-offset_bottom = 555.0
+[node name="PlayerLifeLabel" type="Label" parent="." unique_id=1260512833]
+offset_left = -547.00006
+offset_top = 6.0
+offset_right = -397.00006
+offset_bottom = 43.0
 text = "Player Life: 3"
 metadata/_edit_use_anchors_ = true
 
-[node name="OpponentLifeLabel" type="Label" parent="." unique_id=784453208]
-offset_left = 972.0
-offset_top = 58.0
-offset_right = 1136.0
-offset_bottom = 98.0
+[node name="OpponentLifeLabel" type="Label" parent="." unique_id=1644546417]
+offset_left = 407.99994
+offset_top = -454.0
+offset_right = 571.99994
+offset_bottom = -414.0
 text = "Opponent Life: 3"
 metadata/_edit_use_anchors_ = true
 
-[node name="Restart" type="Node2D" parent="." unique_id=1896277026]
+[node name="BluffUI" type="Node2D" parent="." unique_id=1918217277]
+position = Vector2(-347.91672, 69.791626)
+scale = Vector2(1.0416666, 1.0416666)
 
-[node name="RestartButton" type="Button" parent="Restart" unique_id=1281447820]
-offset_left = 1071.0
-offset_top = 8.0
-offset_right = 1141.0
-offset_bottom = 46.0
-text = "Restart"
+[node name="BluffButton" type="Button" parent="BluffUI" unique_id=61446488]
+offset_left = 394.91998
+offset_top = 15.640039
+offset_right = 556.92
+offset_bottom = 61.640038
+text = "Bluff"
 metadata/_edit_use_anchors_ = true
 
-[node name="Bluff" type="Node2D" parent="." unique_id=1481535271]
-visible = false
+[node name="Control" type="Control" parent="BluffUI" unique_id=1933192621]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="BluffButton" type="Button" parent="Bluff" unique_id=927721919]
-offset_left = 462.0
-offset_top = 572.0
-offset_right = 624.0
-offset_bottom = 618.0
-text = "Bluff"
+[node name="BluffInput" type="LineEdit" parent="BluffUI/Control" unique_id=1728926931]
+layout_mode = 0
+offset_left = 238.00002
+offset_top = -280.11996
+offset_right = 405.0
+offset_bottom = -235.11996
+placeholder_text = "Enter Bluff Number"
+metadata/_edit_use_anchors_ = true
 
-[node name="BluffInput" type="LineEdit" parent="Bluff" unique_id=1772715640]
-offset_left = 634.0
-offset_top = 571.0
-offset_right = 801.0
-offset_bottom = 616.0
-text = "Enter Bluff Number"
+[node name="ActionButton" type="Node2D" parent="." unique_id=1203750555]
+position = Vector2(-598.9584, -528.125)
+scale = Vector2(1.0416666, 1.0416666)
 
-[node name="Draw" type="Node2D" parent="." unique_id=700600554]
-
-[node name="DrawCardButton" type="Button" parent="Draw" unique_id=1247646234]
-offset_left = 465.0
-offset_top = 571.0
-offset_right = 620.0
-offset_bottom = 617.0
+[node name="DrawCardButton" type="Button" parent="ActionButton" unique_id=1605012144]
+offset_left = 288.91998
+offset_top = 587.64
+offset_right = 443.91998
+offset_bottom = 633.64
 text = "Draw Card"
 metadata/_edit_use_anchors_ = true
 
-[node name="StayButton" type="Button" parent="Draw" unique_id=725157621]
-offset_left = 637.0
-offset_top = 572.0
-offset_right = 796.0
-offset_bottom = 617.0
+[node name="StayButton" type="Button" parent="ActionButton" unique_id=1478570547]
+offset_left = 460.91998
+offset_top = 588.64
+offset_right = 619.92
+offset_bottom = 633.64
 text = "Stay"
 metadata/_edit_use_anchors_ = true
 
-[node name="GameManager" parent="." unique_id=1851428323 instance=ExtResource("2_uu6xs")]
-script = ExtResource("3_r0du0")
+[node name="RestartUI" type="Node2D" parent="." unique_id=1323523315]
+position = Vector2(-598.9584, -528.125)
+scale = Vector2(1.0416666, 1.0416666)
+
+[node name="RestartButton" type="Button" parent="RestartUI" unique_id=906117710]
+offset_left = 1054.0402
+offset_top = 24.12
+offset_right = 1124.0402
+offset_bottom = 62.120003
+text = "Restart"
+metadata/_edit_use_anchors_ = true
+
+[node name="MonitorCards" type="Node2D" parent="." unique_id=1026316270]
+script = ExtResource("4_cm0pq")
+
+[node name="Slot1" type="Marker2D" parent="MonitorCards" unique_id=1195413463]
+position = Vector2(-239.00006, 27)
+
+[node name="Slot2" type="Marker2D" parent="MonitorCards" unique_id=1553201821]
+position = Vector2(-148.00006, 27)
+
+[node name="Slot3" type="Marker2D" parent="MonitorCards" unique_id=2025908435]
+position = Vector2(-44.00006, 27)
+
+[node name="Slot4" type="Marker2D" parent="MonitorCards" unique_id=191959639]
+position = Vector2(55.99994, 27)
+
+[node name="Slot5" type="Marker2D" parent="MonitorCards" unique_id=436614274]
+position = Vector2(146.99994, 27)
+
+[connection signal="pressed" from="BluffUI/BluffButton" to="." method="_on_bluff_button_pressed"]
+[connection signal="text_submitted" from="BluffUI/Control/BluffInput" to="." method="_on_bluff_input_text_submitted"]
+[connection signal="pressed" from="ActionButton/DrawCardButton" to="." method="_on_draw_card_button_pressed"]
+[connection signal="pressed" from="ActionButton/StayButton" to="." method="_on_stay_button_pressed"]
+[connection signal="pressed" from="RestartUI/RestartButton" to="." method="_on_restart_button_pressed"]
