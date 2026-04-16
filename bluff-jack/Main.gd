@@ -34,7 +34,10 @@ func start_round():
 	$ClaimedTotalLabel.text = "Claimed Total: -"
 	$ResultLabel.text = "Result:"
 	$OpponentActionLabel.text = "Opponent:"
-	# $BluffInput.text = ""
+	$BluffUI/Control/BluffInput.visible = false
+	$BluffUI/Control/BluffInput.text = ""
+	$BluffUI/Control/BluffInput.placeholder_text = "Enter Bluff Number"
+	
 	
 	set_buttons_enabled(true)
 # Drawing the card
@@ -69,7 +72,11 @@ func _on_bluff_button_pressed():
 		return
 
 	$OpponentActionLabel.text = "Opponent: Enter bluff number and press Enter"
-
+	
+	$BluffUI/Control/BluffInput.visible = true
+	$BluffUI/Control/BluffInput.text = ""
+	$BluffUI/Control/BluffInput.grab_focus()
+	
 func _on_bluff_input_text_submitted(new_text):
 	if game_over:
 		return
@@ -77,6 +84,8 @@ func _on_bluff_input_text_submitted(new_text):
 	if new_text.is_valid_int():
 		claimed_total = int(new_text)
 		$ClaimedTotalLabel.text = "Claimed Total: " + str(claimed_total)
+		$BluffUI/Control/BluffInput.visible = false
+		$BluffUI/Control/BluffInput.text = ""
 		resolve_opponent_decision()
 
 # Opponents decision
@@ -148,6 +157,7 @@ func player_loses_round(message):
 	player_life -= 1
 	update_life_labels()
 	$ResultLabel.text = message
+	$BluffUI/Control/BluffInput.visible = false
 	
 	if player_life <= 0:
 		$ResultLabel.text = message + " Game Over! You lose the match."
@@ -160,6 +170,7 @@ func opponent_loses_round(message):
 	opponent_life -= 1
 	update_life_labels()
 	$ResultLabel.text = message
+	$BluffUI/Control/BluffInput.visible = false
 	
 	if opponent_life <= 0:
 		$ResultLabel.text = message + " You win " 
@@ -181,7 +192,7 @@ func _on_restart_button_pressed():
 	
 
 func set_buttons_enabled(enabled):
-	$DrawCardButton.disabled = not enabled
-	$StayButton.disabled = not enabled
-	$BluffButton.disabled = not enabled
-	$BluffInput.editable = enabled
+	$ActionButton/DrawCardButton.disabled = not enabled
+	$ActionButton/StayButton.disabled = not enabled
+	$BluffUI/BluffButton.disabled = not enabled
+	$BluffUI/Control/BluffInput.editable = enabled

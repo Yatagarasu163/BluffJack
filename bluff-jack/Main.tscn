@@ -9,75 +9,67 @@ position = Vector2(575.00006, 507)
 script = ExtResource("1_glv2v")
 
 [node name="table" type="Sprite2D" parent="." unique_id=1488168273]
-scale = Vector2(0.99999994, 0.99999994)
+scale = Vector2(0.96, 0.96)
 texture = ExtResource("2_r0du0")
 
 [node name="Monitor" type="Sprite2D" parent="." unique_id=615090485]
-position = Vector2(13.541687, 43.75)
+position = Vector2(16.999939, 34)
 scale = Vector2(0.93749994, 0.93749994)
 texture = ExtResource("3_cm0pq")
 
 [node name="ActualTotalLabel" type="Label" parent="." unique_id=707240355]
-offset_left = -598.9584
-offset_top = -528.125
-offset_right = -432.95837
-offset_bottom = -489.125
+offset_left = -568.00006
+offset_top = -499.0
+offset_right = -402.00006
+offset_bottom = -460.0
 text = "Actual Total:0"
 metadata/_edit_use_anchors_ = true
 
 [node name="ClaimedTotalLabel" type="Label" parent="." unique_id=1559161359]
-offset_left = -594.7917
-offset_top = -497.91666
-offset_right = -448.7917
-offset_bottom = -460.91666
+offset_left = -563.8334
+offset_top = -468.79166
+offset_right = -417.83337
+offset_bottom = -431.79166
 text = "Claimed Total: -"
 metadata/_edit_use_anchors_ = true
 
 [node name="ResultLabel" type="Label" parent="." unique_id=1979220070]
-offset_left = -595.8334
-offset_top = -466.66666
-offset_right = -542.8334
-offset_bottom = -443.66666
+offset_left = -564.87506
+offset_top = -437.54166
+offset_right = -511.87506
+offset_bottom = -414.54166
 text = "Result:"
 metadata/_edit_use_anchors_ = true
 
 [node name="OpponentActionLabel" type="Label" parent="." unique_id=1161481911]
-offset_left = -41.666748
-offset_top = -514.5833
-offset_right = 136.33325
-offset_bottom = -473.5833
+offset_left = -77.00006
+offset_top = -500.0
+offset_right = 100.99994
+offset_bottom = -459.0
 text = "Opponent :"
 metadata/_edit_use_anchors_ = true
 
 [node name="PlayerLifeLabel" type="Label" parent="." unique_id=1260512833]
-offset_left = -572.9167
-offset_top = 11.458313
-offset_right = -422.9167
-offset_bottom = 48.458313
+offset_left = -547.00006
+offset_top = 6.0
+offset_right = -397.00006
+offset_bottom = 43.0
 text = "Player Life: 3"
 metadata/_edit_use_anchors_ = true
 
 [node name="OpponentLifeLabel" type="Label" parent="." unique_id=1644546417]
-offset_left = 413.54156
-offset_top = -467.70834
-offset_right = 577.54156
-offset_bottom = -427.70834
+offset_left = 407.99994
+offset_top = -454.0
+offset_right = 571.99994
+offset_bottom = -414.0
 text = "Opponent Life: 3"
 metadata/_edit_use_anchors_ = true
 
-[node name="Node2D2" type="Node2D" parent="." unique_id=1918217277]
+[node name="BluffUI" type="Node2D" parent="." unique_id=1918217277]
 position = Vector2(-347.91672, 69.791626)
 scale = Vector2(1.0416666, 1.0416666)
 
-[node name="BluffInput" type="LineEdit" parent="Node2D2" unique_id=1728926931]
-offset_left = 519.0
-offset_top = 1.0
-offset_right = 686.0
-offset_bottom = 46.0
-text = "Enter Bluff Number"
-metadata/_edit_use_anchors_ = true
-
-[node name="BluffButton" type="Button" parent="Node2D2" unique_id=61446488]
+[node name="BluffButton" type="Button" parent="BluffUI" unique_id=61446488]
 offset_left = 347.0
 offset_top = 2.0
 offset_right = 509.0
@@ -85,11 +77,34 @@ offset_bottom = 48.0
 text = "Bluff"
 metadata/_edit_use_anchors_ = true
 
-[node name="Node2D" type="Node2D" parent="." unique_id=1203750555]
+[node name="Control" type="Control" parent="BluffUI" unique_id=1933192621]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BluffInput" type="LineEdit" parent="BluffUI/Control" unique_id=1728926931]
+layout_mode = 0
+offset_left = 238.00002
+offset_top = -280.11996
+offset_right = 405.0
+offset_bottom = -235.11996
+placeholder_text = "Enter Bluff Number"
+metadata/_edit_use_anchors_ = true
+
+[node name="ActionButton" type="Node2D" parent="." unique_id=1203750555]
 position = Vector2(-598.9584, -528.125)
 scale = Vector2(1.0416666, 1.0416666)
 
-[node name="DrawCardButton" type="Button" parent="Node2D" unique_id=1605012144]
+[node name="DrawCardButton" type="Button" parent="ActionButton" unique_id=1605012144]
 offset_left = 241.0
 offset_top = 574.0
 offset_right = 396.0
@@ -97,7 +112,7 @@ offset_bottom = 620.0
 text = "Draw Card"
 metadata/_edit_use_anchors_ = true
 
-[node name="StayButton" type="Button" parent="Node2D" unique_id=1478570547]
+[node name="StayButton" type="Button" parent="ActionButton" unique_id=1478570547]
 offset_left = 413.0
 offset_top = 575.0
 offset_right = 572.0
@@ -105,14 +120,20 @@ offset_bottom = 620.0
 text = "Stay"
 metadata/_edit_use_anchors_ = true
 
-[node name="Node2D3" type="Node2D" parent="." unique_id=1323523315]
+[node name="RestartUI" type="Node2D" parent="." unique_id=1323523315]
 position = Vector2(-598.9584, -528.125)
 scale = Vector2(1.0416666, 1.0416666)
 
-[node name="RestartButton" type="Button" parent="Node2D3" unique_id=906117710]
-offset_left = 1071.0
-offset_top = 8.0
-offset_right = 1141.0
-offset_bottom = 46.0
+[node name="RestartButton" type="Button" parent="RestartUI" unique_id=906117710]
+offset_left = 1045.3999
+offset_top = 24.120003
+offset_right = 1115.3999
+offset_bottom = 62.120003
 text = "Restart"
 metadata/_edit_use_anchors_ = true
+
+[connection signal="pressed" from="BluffUI/BluffButton" to="." method="_on_bluff_button_pressed"]
+[connection signal="text_submitted" from="BluffUI/Control/BluffInput" to="." method="_on_bluff_input_text_submitted"]
+[connection signal="pressed" from="ActionButton/DrawCardButton" to="." method="_on_draw_card_button_pressed"]
+[connection signal="pressed" from="ActionButton/StayButton" to="." method="_on_stay_button_pressed"]
+[connection signal="pressed" from="RestartUI/RestartButton" to="." method="_on_restart_button_pressed"]
