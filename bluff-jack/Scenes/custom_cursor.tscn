@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://ce13cso1trfvc"]
+
+[ext_resource type="Script" uid="uid://d2o3ouomkml2m" path="res://Assets/Scripts/CustomCursor.gd" id="1_nbt4g"]
+[ext_resource type="Texture2D" uid="uid://b0645ma48nxbt" path="res://Assets/ui/reticle.png" id="2_xubj0"]
+
+[node name="Custom Cursor" type="Node2D" unique_id=1705748054]
+texture_filter = 5
+scale = Vector2(2.5, 2.5)
+script = ExtResource("1_nbt4g")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=755315881]
+texture_filter = 5
+position = Vector2(9.6, 6.4)
+texture = ExtResource("2_xubj0")

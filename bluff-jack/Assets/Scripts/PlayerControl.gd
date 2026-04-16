@@ -19,6 +19,7 @@ var is_player_turn = false;
 @onready var showdown_buttons = $ShowdownButtons;
 @onready var player_life_label = $PlayerLifeLabel;
 @onready var opponent_life_label = $OpponentLifeLabel;
+@onready var monitor_cards = $MonitorCards;
 signal restart_game;
 
 
@@ -63,7 +64,7 @@ func start_match():
 	
 # Restarting the round
 func start_round():
-	$MonitorCards.clear_cards()
+	monitor_cards.clear_cards()
 	cards = []
 	actual_total = 0
 	claimed_total = 0
@@ -91,24 +92,20 @@ func _on_draw_card_button_pressed():
 		$ActualTotalLabel.text = "Actual Total: " + str(calculate_total());
 	else:
 		game_manager.player_state = game_manager.State.BLUFF;
-		
-	game_manager.end_turn();
-	draw_cards();
-	actual_total = calculate_total();
-	
 	screen_shake()
-	
-	$ActualTotalLabel.text = "Actual Total: " + str(calculate_total());
+	game_manager.end_turn();
 	
 func draw_cards() -> void:
 	var card;
 	if cards.size() < 2:
+		print("card size is less than 2");
 		for i in range(2):
 			card = randi_range(1, 9);
 			$MonitorCards.show_card(card)
 			cards.append(card);
 		print(cards);
 	elif cards.size() < 5:
+		print("card size is less than 5");
 		card = randi_range(1, 9);
 		cards.append(card);
 		$MonitorCards.show_card(card);
@@ -234,6 +231,7 @@ func _on_call_bluff_button_pressed() -> void:
 
 func _on_pass_button_pressed() -> void:
 	print("I'll accept that number");
+
 func screen_shake():
 	var original_pos = position
 	
