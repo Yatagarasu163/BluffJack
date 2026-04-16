@@ -6,68 +6,68 @@
 [ext_resource type="Script" uid="uid://ny3drku50ag8" path="res://Assets/Scripts/MonitorCards.gd" id="4_cm0pq"]
 
 [node name="Main" type="Node2D" unique_id=382712453]
-position = Vector2(575.00006, 507)
 script = ExtResource("1_glv2v")
 
 [node name="table" type="Sprite2D" parent="." unique_id=1488168273]
+position = Vector2(574.9583, 504.12494)
 scale = Vector2(0.96, 0.96)
 texture = ExtResource("2_r0du0")
 
 [node name="Monitor" type="Sprite2D" parent="." unique_id=615090485]
-position = Vector2(16.999939, 34)
+position = Vector2(591.9583, 538.125)
 scale = Vector2(0.93749994, 0.93749994)
 texture = ExtResource("3_cm0pq")
 
 [node name="ActualTotalLabel" type="Label" parent="." unique_id=707240355]
-offset_left = -568.00006
-offset_top = -499.0
-offset_right = -402.00006
-offset_bottom = -460.0
+offset_left = 6.958313
+offset_top = 5.125
+offset_right = 172.95831
+offset_bottom = 44.125
 text = "Actual Total:0"
 metadata/_edit_use_anchors_ = true
 
 [node name="ClaimedTotalLabel" type="Label" parent="." unique_id=1559161359]
-offset_left = -563.8334
-offset_top = -468.79166
-offset_right = -417.83337
-offset_bottom = -431.79166
+offset_left = 11.125
+offset_top = 35.333344
+offset_right = 157.125
+offset_bottom = 72.33334
 text = "Claimed Total: -"
 metadata/_edit_use_anchors_ = true
 
 [node name="ResultLabel" type="Label" parent="." unique_id=1979220070]
-offset_left = -564.87506
-offset_top = -437.54166
-offset_right = -511.87506
-offset_bottom = -414.54166
+offset_left = 10.083313
+offset_top = 66.58334
+offset_right = 63.083313
+offset_bottom = 89.58334
 text = "Result:"
 metadata/_edit_use_anchors_ = true
 
 [node name="OpponentActionLabel" type="Label" parent="." unique_id=1161481911]
-offset_left = -77.00006
-offset_top = -500.0
-offset_right = 100.99994
-offset_bottom = -459.0
+offset_left = 497.9583
+offset_top = 4.125
+offset_right = 675.9583
+offset_bottom = 45.125
 text = "Opponent :"
 metadata/_edit_use_anchors_ = true
 
 [node name="PlayerLifeLabel" type="Label" parent="." unique_id=1260512833]
-offset_left = -547.00006
-offset_top = 6.0
-offset_right = -397.00006
-offset_bottom = 43.0
+offset_left = 27.958313
+offset_top = 510.125
+offset_right = 177.95831
+offset_bottom = 547.125
 text = "Player Life: 3"
 metadata/_edit_use_anchors_ = true
 
 [node name="OpponentLifeLabel" type="Label" parent="." unique_id=1644546417]
-offset_left = 407.99994
-offset_top = -454.0
-offset_right = 571.99994
-offset_bottom = -414.0
+offset_left = 982.9583
+offset_top = 50.125
+offset_right = 1146.9583
+offset_bottom = 90.125
 text = "Opponent Life: 3"
 metadata/_edit_use_anchors_ = true
 
 [node name="BluffUI" type="Node2D" parent="." unique_id=1918217277]
-position = Vector2(-347.91672, 69.791626)
+position = Vector2(227.04166, 573.9166)
 scale = Vector2(1.0416666, 1.0416666)
 
 [node name="BluffButton" type="Button" parent="BluffUI" unique_id=61446488]
@@ -91,6 +91,7 @@ offset_right = 20.0
 offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
+metadata/_edit_use_anchors_ = true
 
 [node name="BluffInput" type="LineEdit" parent="BluffUI/Control" unique_id=1728926931]
 layout_mode = 0
@@ -102,7 +103,7 @@ placeholder_text = "Enter Bluff Number"
 metadata/_edit_use_anchors_ = true
 
 [node name="ActionButton" type="Node2D" parent="." unique_id=1203750555]
-position = Vector2(-598.9584, -528.125)
+position = Vector2(-24, -24)
 scale = Vector2(1.0416666, 1.0416666)
 
 [node name="DrawCardButton" type="Button" parent="ActionButton" unique_id=1605012144]
@@ -122,7 +123,7 @@ text = "Stay"
 metadata/_edit_use_anchors_ = true
 
 [node name="RestartUI" type="Node2D" parent="." unique_id=1323523315]
-position = Vector2(-598.9584, -528.125)
+position = Vector2(-24, -24)
 scale = Vector2(1.0416666, 1.0416666)
 
 [node name="RestartButton" type="Button" parent="RestartUI" unique_id=906117710]
@@ -134,6 +135,7 @@ text = "Restart"
 metadata/_edit_use_anchors_ = true
 
 [node name="MonitorCards" type="Node2D" parent="." unique_id=1026316270]
+position = Vector2(574.9584, 504.125)
 script = ExtResource("4_cm0pq")
 
 [node name="Slot1" type="Marker2D" parent="MonitorCards" unique_id=1195413463]

@@ -52,7 +52,7 @@ func _on_draw_card_button_pressed():
 	draw_cards();
 	actual_total = calculate_total();
 	
-	$ActualTotalLabel.text = "Actual Total: " + str(actual_total)
+	$ActualTotalLabel.text = "Actual Total: " + str(calculate_total());
 	
 func draw_cards() -> void:
 	if game_over:
@@ -70,6 +70,10 @@ func draw_cards() -> void:
 		cards.append(card);
 		print(cards);
 		return
+		
+	var card = randi_range(1, 9)
+	cards.append(card)
+	$MonitorCards.show_card(card)
 	
 
 func calculate_total() -> int:
@@ -77,23 +81,6 @@ func calculate_total() -> int:
 	for card in cards:
 		total += card;
 	return total;
-	
-	if game_over:
-		return
-	
-	if cards.size() >= 5:
-		$ResultLabel.text = "Result: Max 5 cards drawn"
-		return
-		
-	var card = randi_range(1, 9)
-	cards.append(card)
-	$MonitorCards.show_card(card)
-
-
-	actual_total = 0
-	for i in cards:
-		actual_total += i
-	
 	$ActualTotalLabel.text = "Actual Total: " + str(actual_total)
 
 # To have actual number without bluffing

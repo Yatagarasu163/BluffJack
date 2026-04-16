@@ -1,6 +1,11 @@
 extends Node2D
 
-var is_player_turn = false;
+enum Turn {PLAYER, ENEMY}
+var player_turn = null;
+signal current_turn(turn: Turn);
+signal start_game;
+var player_ready = false;
+var enemy_ready = false;
 
 #Turn mechanics: 
 #1) Flip a coin (winner starts)
@@ -12,15 +17,37 @@ var is_player_turn = false;
 #7) If both bluffs, both choose whether to accept the bluff or not.
 #8) Calculate who wins, then display the winner and trigger round end stuff
 
-@onready var player = get_tree().get_nodes_in_group("Player")[0];
-
 func _ready() -> void:
-	print(player.is_player_turn);
+	pass
+
+func register_player() -> void:
+	player_ready = true;
+	_try_start();
+	
+func register_enemy() -> void:
+	enemy_ready = true;
+	_try_start();
+	
+func _try_start():
+	if player_ready and enemy_ready:
+		print("All systems ready. Starting game.");
+		start_match();
+	
 
 func start_match() -> void:
-	is_player_turn = randf() < 0.5;
-	player.start_match();
-	player.start_round();
-	if is_player_turn:
-		player.is_player_turn = true;
-	pass
+	emit_signal("start_game");
+	#if randf() < 0.5:
+		#player_turn = Turn.PLAYER;
+		#emit_signal("current_turn", Turn.PLAYER);
+	#else:
+	player_turn = Turn.ENEMY;
+	emit_signal("current_turn", Turn.ENEMY);
+
+func end_turn() -> void:
+	if player_turn == Turn.PLAYER:
+		player_turn = Turn.ENEMY;
+		emit_signal("current_turn", Turn.ENEMY);
+	else:
+		player_turn = Turn.PLAYER;
+		emit_signal("current_turn", Turn.PLAYER);
+		

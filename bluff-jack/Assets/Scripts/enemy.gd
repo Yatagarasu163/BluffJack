@@ -5,12 +5,40 @@ var hasStarted = false;
 var callOutChance = 50;
 var numbers = [];
 var playerBluffVal;
+var enemy_turn = false;
+var turn = 0;
+var is_in_draw_mode = true;
 
 
 # Chance mechanics
 @export var winningVal = 21;
 @export var paranoia_value = 3.0;
 
+func _ready() -> void:
+	game_manager.turn_changed.connect(_on_turn_changed);
+	game_manager.start_game.connect(_on_match_started);
+	game_manager.register_enemy();
+	pass
+
+func _on_turn_changed(turn):
+	if turn == game_manager.Turn.ENEMY:
+		take_turn();
+
+func _on_match_started() -> void:
+	newRound();
+
+func take_turn() -> void:
+	if is_in_draw_mode:
+		if drawCardDecider():
+			drawCard();
+	else:
+		var roundDecision = roundDecider();
+		var real_value = calculateTotal();
+		if roundDecision["bluffing"]:
+			print("Enemy is bluffing: ", roundDecision["value"]);
+		else:
+			print("Enemy is not bluffing: ", roundDecision["value"]);
+	game_manager.end_turn();
 
 # Starts a new hand for the AI
 func newRound() -> void:
@@ -22,24 +50,8 @@ func newRound() -> void:
 
 # Testing purposes
 func _on_button_pressed() -> void:
-	newRound()
-	
-	while drawCardDecider():
-		drawCard();
-	
-	print("Final Hand: ", numbers);
-	print("Final Total: ", calculateTotal());
-	
-	var roundDecision = roundDecider();
-	print("AI Decision: ", roundDecision);
-	
-	var real_value = randi_range(1, 45);
-	var bluff_value = randi_range(real_value, winningVal);
-	
-	print("Player Real Value: ", real_value);
-	print("Player Bluff Value: ", bluff_value);
-	
-	print("AI calls bluff?: ", callsBluff(real_value, bluff_value));
+	take_turn();
+
 
 # Calculates the total value of the numbers in the AI's hand.
 func calculateTotal() -> int:
@@ -81,9 +93,11 @@ func drawCardDecider() -> bool:
 	var target = winningVal;
 	
 	if currentTotal >= target:
+		is_in_draw_mode = false;
 		return false;
 	
 	if card_count >= 5:
+		is_in_draw_mode = false;
 		return false;
 
 	var distance = target - currentTotal
@@ -94,7 +108,8 @@ func drawCardDecider() -> bool:
 	draw_chance += randf_range(-0.05, 0.05);
 	draw_chance = clamp(draw_chance, 0.0, 1.0);
 	
-	return randf() < draw_chance;
+	is_in_draw_mode = randf() < draw_chance
+	return is_in_draw_mode;
 
 # Draws a card for the AI.
 func drawCard() -> void:
