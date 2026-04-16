@@ -2,46 +2,68 @@ extends Node2D
 
 #Life Counter
 var player_life = 3
-var opponent_life = 3
-
 var actual_total = 0
 var claimed_total = 0
-var opponent_total = 0
 var game_over = false
 var cards = []
 var is_player_turn = false;
 @onready var bluff_buttons = $BluffUI;
 @onready var draw_buttons = $ActionButton;
-@onready var player_life_label = get_node("PlayerLifeLabel");
+@onready var showdown_buttons = $ShowdownButtons;
+@onready var player_life_label = $PlayerLifeLabel;
+@onready var opponent_life_label = $OpponentLifeLabel;
+signal restart_game;
+
 
 # starting the game
 func _ready():
-	#print(player_life_label);
-	print("I am: ", self);
-	print("My children: ", get_children());
-	print("Looking for: ", get_node_or_null("PlayerLifeLabel"));
 	randomize()
 	start_match()
+	game_manager.register_player(self);
+	game_manager.current_turn.connect(_on_turn_changed);
+	game_manager.start_game.connect(_on_match_started);
+
+func get_life() -> int:
+	return player_life;
+
+func _on_turn_changed(turn) -> void:
+	if turn == game_manager.Turn.PLAYER:
+		if game_manager.player_state == game_manager.State.DRAW: 
+			to_phase_1();
+		elif game_manager.player_state == game_manager.State.BLUFF:
+			if game_manager.enemy_state == game_manager.State.BLUFF:
+				print("IN BLUFF PHASE NOW");
+				to_phase_2();
+			else:
+				to_phase_2();
+		else:
+			if game_manager.enemy_state == game_manager.State.BLUFF:
+				game_manager.end_turn();
+			elif game_manager.enemy_state == game_manager.State.SHOWDOWN:
+				to_phase_3();
+	else:
+		to_enemy_turn();
+
+func _on_match_started() -> void:
+	start_match();
 
 #Starting the Match
-func  start_match():
+func start_match():
 	player_life = 3
-	opponent_life = 3
-	update_life_labels()
+	game_manager.update_life_labels()
 	start_round()
 	
 # Restarting the round
 func start_round():
+	$MonitorCards.clear_cards()
 	cards = []
 	actual_total = 0
 	claimed_total = 0
-	opponent_total = randi_range(15, 25)
 	game_over = false
-	draw_cards();
 	
 	to_phase_1();
 	
-	$MonitorCards.clear_cards()
+	draw_cards();
 
 	$ActualTotalLabel.text = "Actual Total: 0"
 	$ClaimedTotalLabel.text = "Claimed Total: -"
@@ -54,57 +76,68 @@ func start_round():
 	
 # Drawing the card
 func _on_draw_card_button_pressed():
-	draw_cards();
-	actual_total = calculate_total();
-	
-	$ActualTotalLabel.text = "Actual Total: " + str(calculate_total());
+	if cards.size() < 5:
+		game_manager.player_state = game_manager.State.DRAW;
+		draw_cards();
+		actual_total = calculate_total();
+		$ActualTotalLabel.text = "Actual Total: " + str(calculate_total());
+	else:
+		game_manager.player_state = game_manager.State.BLUFF;
+		
+	game_manager.end_turn();
 	
 func draw_cards() -> void:
-	if game_over:
-		return;
-	
+	var card;
 	if cards.size() < 2:
 		for i in range(2):
-			var card = randi_range(1, 9);
+			card = randi_range(1, 9);
+			$MonitorCards.show_card(card)
 			cards.append(card);
 		print(cards);
-		return;
-	
-	if cards.size() < 5:
-		var card = randi_range(1, 9);
+	elif cards.size() < 5:
+		card = randi_range(1, 9);
 		cards.append(card);
+		$MonitorCards.show_card(card);
 		print(cards);
-		return
-		
-	var card = randi_range(1, 9)
-	cards.append(card)
-	$MonitorCards.show_card(card)
+
 	
 
 func calculate_total() -> int:
 	var total = 0;
 	for card in cards:
 		total += card;
+	game_manager.player_total = total;
 	return total;
-	$ActualTotalLabel.text = "Actual Total: " + str(actual_total)
 
 # To have actual number without bluffing
 func _on_stay_button_pressed():
-	to_phase_2();
-	if game_over:
-		return
-
-	claimed_total = actual_total
-	$ClaimedTotalLabel.text = "Claimed Total: " + str(claimed_total)
-	resolve_opponent_decision()
-	
-func to_phase_2() -> void:
-	bluff_buttons.visible = true;
-	bluff_buttons.get_child(1).get_child(0).text = "";
-	draw_buttons.visible = false;
+	#if game_over:
+		#return
+	game_manager.player_state = game_manager.State.BLUFF;
+	print("Player stays. Now entering Bluff Phase...");
+	#to_enemy_turn();
+	game_manager.end_turn();
 
 func to_phase_1() -> void:
 	draw_buttons.visible = true;
+	bluff_buttons.visible = false;
+	showdown_buttons.visible = false;
+	
+func to_phase_2() -> void:
+	bluff_buttons.visible = true;
+	bluff_buttons.get_child(0).visible = true; # Makes the bluff button appear
+	bluff_buttons.get_child(1).visible = true; # Makes the truth button appear
+	bluff_buttons.get_child(2).get_child(0).visible = false;
+	draw_buttons.visible = false; # Makes the draw and stay buttons disappear
+	showdown_buttons.visible = false; # Ensures the showdown buttons are still invisible
+	
+func to_phase_3() -> void:
+	bluff_buttons.visible = false;
+	draw_buttons.visible = false;
+	showdown_buttons.visible = true;
+
+func to_enemy_turn() -> void:
+	draw_buttons.visible = false;
 	bluff_buttons.visible = false;
 
 # Bluffing mechanic activates
@@ -113,131 +146,71 @@ func _on_bluff_button_pressed():
 		return
 
 	$OpponentActionLabel.text = "Opponent: Enter bluff number and press Enter"
+	bluff_buttons.visible = true;
+	bluff_buttons.get_child(0).visible = false;
+	bluff_buttons.get_child(1).visible = false;
+	var bluff_input = bluff_buttons.get_child(2).get_child(0);
 	
-	$BluffUI/Control/BluffInput.visible = true
-	$BluffUI/Control/BluffInput.text = ""
-	$BluffUI/Control/BluffInput.grab_focus()
+	bluff_input.position = Vector2(400, -250);
+	bluff_input.visible = true;
+	bluff_input.text = "";
+	bluff_input.grab_focus();
+	print(bluff_buttons.visible);
+	print(bluff_buttons.get_child(2).visible);
+	print(bluff_buttons.get_child(2).get_child(0).visible);
 	
 func _on_bluff_input_text_submitted(new_text):
 	if game_over:
 		return
 
+	
 	if new_text.is_valid_int():
 		claimed_total = int(new_text)
+		game_manager.claimed_player_total = claimed_total;
 		$ClaimedTotalLabel.text = "Claimed Total: " + str(claimed_total)
-		$BluffUI/Control/BluffInput.visible = false
-		$BluffUI/Control/BluffInput.text = ""
-		resolve_opponent_decision()
-
-# Opponents decision
-func resolve_opponent_decision():
-	var calls_bluff = randi() % 2 == 0
-
-	if calls_bluff:
-		$OpponentActionLabel.text = "Opponent called bluff!"
-
-		if claimed_total != actual_total:
-			player_loses_round("Result: You Lose! Bluff caught.")
-		else:
-			opponent_loses_round("Result: You Win! Opponent called bluff wrongly.")
-	else:
-		$OpponentActionLabel.text = "Opponent accepted your claim."
-		resolve_normal_result()
-
-# Normal Result without bluffing 
-func resolve_normal_result():
-	var winner = get_winner(claimed_total, opponent_total)
-
-	if winner == "player":
-		opponent_loses_round("Result: You Win! Opponent had " + str(opponent_total))
-	elif winner == "opponent":
-		player_loses_round("Result: You Lose! Opponent had " + str(opponent_total))
-	else:
-		$ResultLabel.text = "Result: Draw! Opponent had " + str(opponent_total)
-		game_over = true
-		to_phase_1();
+		bluff_buttons.get_child(2).get_child(0).visible = false;
+		bluff_buttons.get_child(2).get_child(0).text = "";
+	
+	game_manager.player_state = game_manager.State.SHOWDOWN;
+	game_manager.end_turn();
 	
 
-#Winning Logic
-func get_winner(player_total, enemy_total):
-	if player_total == 21 and enemy_total != 21:
-		return "player"
-	elif enemy_total == 21 and player_total != 21:
-		return "opponent"
-	elif player_total == 21 and enemy_total == 21:
-		return "draw"
+func _on_bluff_input_text_changed(new_text: String) -> void:
+	var filtered = ""
+	
+	for c in new_text:
+		if c.is_valid_int() or c == "-":
+			filtered += c
+	
+	if filtered != new_text:
+		bluff_buttons.get_child(2).get_child(0).text = filtered
+		bluff_buttons.get_child(2).get_child(0).caret_column = filtered.length()
 
-	if player_total <= 21 and enemy_total > 21:
-		return "player"
-	elif enemy_total <= 21 and player_total > 21:
-		return "opponent"
 
-	if player_total <= 21 and enemy_total <= 21:
-		if player_total > enemy_total:
-			return "player"
-		elif enemy_total > player_total:
-			return "opponent"
-		else:
-			return "draw"
+func _on_truth_button_pressed() -> void:
+	if game_over:
+		return;
+	
+	claimed_total = calculate_total();
+	game_manager.claimed_player_total = claimed_total;
+	$ClaimedTotalLabel.text = "Claimed Total: " + str(claimed_total);
+	game_manager.player_state = game_manager.State.SHOWDOWN;
+	game_manager.end_turn();
 
-	if player_total > 21 and enemy_total > 21:
-		var player_diff = player_total - 21
-		var enemy_diff = enemy_total - 21
-
-		if player_diff < enemy_diff:
-			return "player"
-		elif enemy_diff < player_diff:
-			return "opponent"
-		else:
-			return "draw"
-
-	return "draw"
-
-# When Player Loses the round 
-func player_loses_round(message):
-	player_life -= 1
-	update_life_labels()
-	$ResultLabel.text = message
-	$BluffUI/Control/BluffInput.visible = false
-	
-	$MonitorCards.clear_cards()
-	
-	if player_life <= 0:
-		$ResultLabel.text = message + " Game Over! You lose the match."
-	
-	game_over = true
-	to_phase_1();
-		
-# If the opponent loses the round
-func opponent_loses_round(message):
-	opponent_life -= 1
-	update_life_labels()
-	$ResultLabel.text = message
-	$BluffUI/Control/BluffInput.visible = false
-	
-	$MonitorCards.clear_cards()
-	
-	if opponent_life <= 0:
-		$ResultLabel.text = message + " You win " 
-	
-	game_over = true
-	to_phase_1();
-	
-#Updating Life labels
-func update_life_labels():
-	player_life_label.text = "Player Life: " + str(player_life)
-	$OpponentLifeLabel.text ="Opponent Life: " + str(opponent_life)
-	
 # Restart Game
-func _on_restart_button_pressed():
-	if player_life <= 0 or opponent_life <= 0:
-		start_match()
-	else:
-		start_round()
-	
+func _on_restart_button_pressed() -> void:
+	emit_signal("restart_game");
 
 func set_buttons_enabled(enabled):
 	$ActionButton/DrawCardButton.disabled = not enabled
 	$ActionButton/StayButton.disabled = not enabled
 	$BluffUI/BluffButton.disabled = not enabled
 	$BluffUI/Control/BluffInput.editable = enabled
+
+
+func _on_call_bluff_button_pressed() -> void:
+	print("I call your bluff!");
+
+
+func _on_pass_button_pressed() -> void:
+	print("I'll accept that number");

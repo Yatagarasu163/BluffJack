@@ -1,0 +1,197 @@
+[gd_scene format=3 uid="uid://cduo76ib17om2"]
+
+[ext_resource type="Script" uid="uid://b2wxefweqctn1" path="res://Assets/Scripts/PlayerControl.gd" id="1_vgqql"]
+[ext_resource type="Texture2D" uid="uid://ysn5gxf7npkb" path="res://Assets/environment/table reworked the looonnggg way now in 4k (2).png" id="2_fkybt"]
+[ext_resource type="Texture2D" uid="uid://cxbha1fqn4ido" path="res://Assets/environment/monitor upscaled.png" id="3_x3wgy"]
+[ext_resource type="Script" uid="uid://ny3drku50ag8" path="res://Assets/Scripts/MonitorCards.gd" id="4_3smsa"]
+
+[node name="Player" type="Node2D" unique_id=1525742724 groups=["Player"]]
+script = ExtResource("1_vgqql")
+
+[node name="table" type="Sprite2D" parent="." unique_id=1633987005]
+position = Vector2(574.9583, 504.12494)
+scale = Vector2(0.96, 0.96)
+texture = ExtResource("2_fkybt")
+
+[node name="Monitor" type="Sprite2D" parent="." unique_id=535825998]
+position = Vector2(591.9583, 538.125)
+scale = Vector2(0.93749994, 0.93749994)
+texture = ExtResource("3_x3wgy")
+
+[node name="ActualTotalLabel" type="Label" parent="." unique_id=480444601]
+offset_left = 6.958313
+offset_top = 5.125
+offset_right = 172.95831
+offset_bottom = 44.125
+text = "Actual Total:0"
+metadata/_edit_use_anchors_ = true
+
+[node name="ClaimedTotalLabel" type="Label" parent="." unique_id=1103382847]
+offset_left = 11.125
+offset_top = 35.333344
+offset_right = 157.125
+offset_bottom = 72.33334
+text = "Claimed Total: -"
+metadata/_edit_use_anchors_ = true
+
+[node name="ResultLabel" type="Label" parent="." unique_id=1428372183]
+offset_left = 10.083313
+offset_top = 66.58334
+offset_right = 63.083313
+offset_bottom = 89.58334
+text = "Result:"
+metadata/_edit_use_anchors_ = true
+
+[node name="OpponentActionLabel" type="Label" parent="." unique_id=1444968803]
+offset_left = 497.9583
+offset_top = 4.125
+offset_right = 675.9583
+offset_bottom = 45.125
+text = "Opponent :"
+metadata/_edit_use_anchors_ = true
+
+[node name="PlayerLifeLabel" type="Label" parent="." unique_id=868105124]
+offset_left = 27.958313
+offset_top = 510.125
+offset_right = 177.95831
+offset_bottom = 547.125
+text = "Player Life: 3"
+metadata/_edit_use_anchors_ = true
+
+[node name="OpponentLifeLabel" type="Label" parent="." unique_id=377991084]
+offset_left = 982.9583
+offset_top = 50.125
+offset_right = 1146.9583
+offset_bottom = 90.125
+text = "Opponent Life: 3"
+metadata/_edit_use_anchors_ = true
+
+[node name="BluffUI" type="Node2D" parent="." unique_id=1591951808]
+top_level = true
+position = Vector2(227.04166, 573.9166)
+scale = Vector2(1.0416666, 1.0416666)
+
+[node name="BluffButton" type="Button" parent="BluffUI" unique_id=1688487395]
+offset_left = 47.960022
+offset_top = 15.440059
+offset_right = 209.96002
+offset_bottom = 61.44006
+text = "Bluff"
+metadata/_edit_use_anchors_ = true
+
+[node name="TruthButton" type="Button" parent="BluffUI" unique_id=1833122952]
+offset_left = 218.84003
+offset_top = 14.480034
+offset_right = 379.1601
+offset_bottom = 60.55999
+text = "Truth"
+
+[node name="Control" type="Control" parent="BluffUI" unique_id=942108169]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="BluffInput" type="LineEdit" parent="BluffUI/Control" unique_id=889218574]
+layout_mode = 0
+offset_left = 400.0
+offset_top = -280.12
+offset_right = 567.0
+offset_bottom = -235.12
+placeholder_text = "Enter Bluff Number"
+max_length = 2
+context_menu_enabled = false
+emoji_menu_enabled = false
+shortcut_keys_enabled = false
+middle_mouse_paste_enabled = false
+drag_and_drop_selection_enabled = false
+caret_blink = true
+metadata/_edit_use_anchors_ = true
+
+[node name="ActionButton" type="Node2D" parent="." unique_id=1218363107]
+position = Vector2(-24, -24)
+scale = Vector2(1.0416666, 1.0416666)
+
+[node name="DrawCardButton" type="Button" parent="ActionButton" unique_id=1053422085]
+offset_left = 288.91998
+offset_top = 587.64
+offset_right = 443.91998
+offset_bottom = 633.64
+text = "Draw Card"
+metadata/_edit_use_anchors_ = true
+
+[node name="StayButton" type="Button" parent="ActionButton" unique_id=975195132]
+offset_left = 460.91998
+offset_top = 588.64
+offset_right = 619.92
+offset_bottom = 633.64
+text = "Stay"
+metadata/_edit_use_anchors_ = true
+
+[node name="RestartUI" type="Node2D" parent="." unique_id=1934285765]
+position = Vector2(-24, -24)
+scale = Vector2(1.0416666, 1.0416666)
+
+[node name="RestartButton" type="Button" parent="RestartUI" unique_id=1501472694]
+offset_left = 1054.0402
+offset_top = 24.12
+offset_right = 1124.0402
+offset_bottom = 62.120003
+text = "Restart"
+metadata/_edit_use_anchors_ = true
+
+[node name="MonitorCards" type="Node2D" parent="." unique_id=857570282]
+position = Vector2(574.9584, 504.125)
+script = ExtResource("4_3smsa")
+
+[node name="Slot1" type="Marker2D" parent="MonitorCards" unique_id=1197051753]
+position = Vector2(-239.00006, 27)
+
+[node name="Slot2" type="Marker2D" parent="MonitorCards" unique_id=1895517397]
+position = Vector2(-148.00006, 27)
+
+[node name="Slot3" type="Marker2D" parent="MonitorCards" unique_id=1813905201]
+position = Vector2(-44.00006, 27)
+
+[node name="Slot4" type="Marker2D" parent="MonitorCards" unique_id=1888665571]
+position = Vector2(55.99994, 27)
+
+[node name="Slot5" type="Marker2D" parent="MonitorCards" unique_id=1476794572]
+position = Vector2(146.99994, 27)
+
+[node name="ShowdownButtons" type="Node2D" parent="." unique_id=2069252256]
+visible = false
+position = Vector2(206.20833, 553.0833)
+scale = Vector2(1.0416666, 1.0416666)
+
+[node name="CallBluffButton" type="Button" parent="ShowdownButtons" unique_id=1703066574]
+offset_left = 546.04004
+offset_top = -81.679985
+offset_right = 624.04004
+offset_bottom = -50.679985
+text = "Call Bluff"
+
+[node name="PassButton" type="Button" parent="ShowdownButtons" unique_id=100421874]
+offset_left = 564.28
+offset_top = -12.559982
+offset_right = 642.04004
+offset_bottom = 18.440018
+text = "Pass"
+
+[connection signal="pressed" from="BluffUI/BluffButton" to="." method="_on_bluff_button_pressed"]
+[connection signal="pressed" from="BluffUI/TruthButton" to="." method="_on_truth_button_pressed"]
+[connection signal="text_changed" from="BluffUI/Control/BluffInput" to="." method="_on_bluff_input_text_changed"]
+[connection signal="text_submitted" from="BluffUI/Control/BluffInput" to="." method="_on_bluff_input_text_submitted"]
+[connection signal="pressed" from="ActionButton/DrawCardButton" to="." method="_on_draw_card_button_pressed"]
+[connection signal="pressed" from="ActionButton/StayButton" to="." method="_on_stay_button_pressed"]
+[connection signal="pressed" from="ShowdownButtons/CallBluffButton" to="." method="_on_call_bluff_button_pressed"]
+[connection signal="pressed" from="ShowdownButtons/PassButton" to="." method="_on_pass_button_pressed"]
