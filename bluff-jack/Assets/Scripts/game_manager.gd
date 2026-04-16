@@ -181,3 +181,4 @@ func player_loses_round(message):
 	
 	player.game_over = true
 	player.to_phase_1();
+	
