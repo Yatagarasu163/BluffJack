@@ -1,10 +1,175 @@
 [gd_scene format=3 uid="uid://dk8vmtpnubwkt"]
 
-[ext_resource type="PackedScene" uid="uid://cduo76ib17om2" path="res://Scenes/player.tscn" id="1_uu6xs"]
-[ext_resource type="PackedScene" uid="uid://ja8b2n3bctvg" path="res://Scenes/Enemy Mechanics.tscn" id="5_fos0i"]
+[ext_resource type="Script" uid="uid://b2wxefweqctn1" path="res://Assets/Scripts/PlayerControl.gd" id="1_glv2v"]
+[ext_resource type="Texture2D" uid="uid://ysn5gxf7npkb" path="res://Assets/environment/table reworked the looonnggg way now in 4k (2).png" id="2_r0du0"]
+[ext_resource type="Texture2D" uid="uid://cxbha1fqn4ido" path="res://Assets/environment/monitor upscaled.png" id="3_cm0pq"]
+[ext_resource type="Script" uid="uid://ny3drku50ag8" path="res://Assets/Scripts/MonitorCards.gd" id="4_cm0pq"]
+[ext_resource type="Texture2D" uid="uid://b0645ma48nxbt" path="res://Assets/ui/reticle.png" id="5_fos0i"]
+[ext_resource type="Script" uid="uid://d2o3ouomkml2m" path="res://Assets/Scripts/CustomCursor.gd" id="6_3dxm6"]
 
-[node name="Room" type="Node2D" unique_id=382712453]
+[node name="Main" type="Node2D" unique_id=382712453]
+script = ExtResource("1_glv2v")
+shake_strength_max = 5.0
+shake_count = 3
+shake_speed = 0.02
 
-[node name="Player" parent="." unique_id=1525742724 instance=ExtResource("1_uu6xs")]
+[node name="table" type="Sprite2D" parent="." unique_id=1488168273]
+position = Vector2(573.9583, 505.12497)
+scale = Vector2(0.96, 0.96)
+texture = ExtResource("2_r0du0")
 
-[node name="Enemy" parent="." unique_id=572914806 instance=ExtResource("5_fos0i")]
+[node name="Monitor" type="Sprite2D" parent="." unique_id=615090485]
+position = Vector2(590.9583, 539.125)
+scale = Vector2(0.93749994, 0.93749994)
+texture = ExtResource("3_cm0pq")
+
+[node name="ActualTotalLabel" type="Label" parent="." unique_id=707240355]
+offset_left = 5.958313
+offset_top = 6.125
+offset_right = 171.95831
+offset_bottom = 45.125
+text = "Actual Total:0"
+metadata/_edit_use_anchors_ = true
+
+[node name="ClaimedTotalLabel" type="Label" parent="." unique_id=1559161359]
+offset_left = 10.125
+offset_top = 36.333344
+offset_right = 156.125
+offset_bottom = 73.33334
+text = "Claimed Total: -"
+metadata/_edit_use_anchors_ = true
+
+[node name="ResultLabel" type="Label" parent="." unique_id=1979220070]
+offset_left = 9.083313
+offset_top = 67.58334
+offset_right = 62.083313
+offset_bottom = 90.58334
+text = "Result:"
+metadata/_edit_use_anchors_ = true
+
+[node name="OpponentActionLabel" type="Label" parent="." unique_id=1161481911]
+offset_left = 496.9583
+offset_top = 5.125
+offset_right = 674.9583
+offset_bottom = 46.125
+text = "Opponent :"
+metadata/_edit_use_anchors_ = true
+
+[node name="PlayerLifeLabel" type="Label" parent="." unique_id=1260512833]
+offset_left = 26.958313
+offset_top = 511.125
+offset_right = 176.95831
+offset_bottom = 548.125
+text = "Player Life: 3"
+metadata/_edit_use_anchors_ = true
+
+[node name="OpponentLifeLabel" type="Label" parent="." unique_id=1644546417]
+offset_left = 981.9583
+offset_top = 51.125
+offset_right = 1145.9583
+offset_bottom = 91.125
+text = "Opponent Life: 3"
+metadata/_edit_use_anchors_ = true
+
+[node name="BluffUI" type="Node2D" parent="." unique_id=1918217277]
+position = Vector2(226.04166, 574.9166)
+scale = Vector2(1.0416666, 1.0416666)
+
+[node name="BluffButton" type="Button" parent="BluffUI" unique_id=61446488]
+offset_left = 397.8
+offset_top = -1.6399612
+offset_right = 559.8
+offset_bottom = 44.36004
+text = "Bluff"
+metadata/_edit_use_anchors_ = true
+
+[node name="Control" type="Control" parent="BluffUI" unique_id=1933192621]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="BluffInput" type="LineEdit" parent="BluffUI/Control" unique_id=1728926931]
+layout_mode = 0
+offset_left = 238.00002
+offset_top = -280.11996
+offset_right = 405.0
+offset_bottom = -235.11996
+placeholder_text = "Enter Bluff Number"
+metadata/_edit_use_anchors_ = true
+
+[node name="ActionButton" type="Node2D" parent="." unique_id=1203750555]
+position = Vector2(-25, -23)
+scale = Vector2(1.0416666, 1.0416666)
+
+[node name="DrawCardButton" type="Button" parent="ActionButton" unique_id=1605012144]
+offset_left = 291.8
+offset_top = 570.36
+offset_right = 446.8
+offset_bottom = 616.36
+text = "Draw Card"
+metadata/_edit_use_anchors_ = true
+
+[node name="StayButton" type="Button" parent="ActionButton" unique_id=1478570547]
+offset_left = 463.8
+offset_top = 571.36
+offset_right = 622.8
+offset_bottom = 616.36
+text = "Stay"
+metadata/_edit_use_anchors_ = true
+
+[node name="RestartUI" type="Node2D" parent="." unique_id=1323523315]
+position = Vector2(-25, -23)
+scale = Vector2(1.0416666, 1.0416666)
+
+[node name="RestartButton" type="Button" parent="RestartUI" unique_id=906117710]
+offset_left = 1054.0402
+offset_top = 24.12
+offset_right = 1124.0402
+offset_bottom = 62.120003
+text = "Restart"
+metadata/_edit_use_anchors_ = true
+
+[node name="MonitorCards" type="Node2D" parent="." unique_id=1026316270]
+position = Vector2(573.9584, 505.125)
+script = ExtResource("4_cm0pq")
+
+[node name="Slot1" type="Marker2D" parent="MonitorCards" unique_id=1195413463]
+position = Vector2(-239.00006, 27)
+
+[node name="Slot2" type="Marker2D" parent="MonitorCards" unique_id=1553201821]
+position = Vector2(-148.00006, 27)
+
+[node name="Slot3" type="Marker2D" parent="MonitorCards" unique_id=2025908435]
+position = Vector2(-44.00006, 27)
+
+[node name="Slot4" type="Marker2D" parent="MonitorCards" unique_id=191959639]
+position = Vector2(55.99994, 27)
+
+[node name="Slot5" type="Marker2D" parent="MonitorCards" unique_id=436614274]
+position = Vector2(146.99994, 27)
+
+[node name="CursorHolder" type="Node2D" parent="MonitorCards" unique_id=1024529536]
+
+[node name="Cursor" type="Sprite2D" parent="MonitorCards/CursorHolder" unique_id=1034274019]
+z_index = 100
+position = Vector2(-500, -10)
+scale = Vector2(2, 2)
+texture = ExtResource("5_fos0i")
+centered = false
+script = ExtResource("6_3dxm6")
+
+[connection signal="pressed" from="BluffUI/BluffButton" to="." method="_on_bluff_button_pressed"]
+[connection signal="text_submitted" from="BluffUI/Control/BluffInput" to="." method="_on_bluff_input_text_submitted"]
+[connection signal="pressed" from="ActionButton/DrawCardButton" to="." method="_on_draw_card_button_pressed"]
+[connection signal="pressed" from="ActionButton/StayButton" to="." method="_on_stay_button_pressed"]
+[connection signal="pressed" from="RestartUI/RestartButton" to="." method="_on_restart_button_pressed"]
