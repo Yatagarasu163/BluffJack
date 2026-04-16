@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://ja8b2n3bctvg"]
+
+[ext_resource type="Script" uid="uid://d3hrm1ctffgm6" path="res://Assets/Scripts/enemy.gd" id="1_ausa0"]
+
+[node name="Node2D" type="Node2D" unique_id=572914806]
+
+[node name="Enemy" type="Node2D" parent="." unique_id=1887263838]
+position = Vector2(400, 300)
+script = ExtResource("1_ausa0")
+paranoia_value = 1.0
+
+[node name="Button" type="Button" parent="Enemy" unique_id=1860301704]
+offset_right = 162.0
+offset_bottom = 31.0
+text = "Generate Number :)"
+
+[connection signal="pressed" from="Enemy/Button" to="Enemy" method="_on_button_pressed"]
