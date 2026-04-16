@@ -1,4 +1,4 @@
-extends Control
+extends Node2D
 
 #Life Counter
 var player_life = 3
@@ -9,6 +9,9 @@ var claimed_total = 0
 var opponent_total = 0
 var game_over = false
 var cards = []
+var is_player_turn = false;
+@onready var bluff_buttons = $Bluff;
+@onready var draw_buttons = $Draw;
 
 # starting the game
 func _ready():
@@ -29,39 +32,66 @@ func start_round():
 	claimed_total = 0
 	opponent_total = randi_range(15, 25)
 	game_over = false
-
-	$ActualTotalLabel.text = "Actual Total: 0"
-	$ClaimedTotalLabel.text = "Claimed Total: -"
-	$ResultLabel.text = "Result:"
-	$OpponentActionLabel.text = "Opponent:"
-	$BluffInput.text = ""
+	draw_cards();
 	
-	set_buttons_enabled(true)
+	print(cards);
+	
+	#$ActualTotalLabel.text = "Actual Total: 0"
+	#$ClaimedTotalLabel.text = "Claimed Total: -"
+	#$ResultLabel.text = "Result:"
+	#$OpponentActionLabel.text = "Opponent:"
+
+	to_phase_1();
+	
 # Drawing the card
 func _on_draw_card_button_pressed():
-	if game_over:
-		return
-	
-	if cards.size() >= 5:
-		$ResultLabel.text = "Result: Max 5 cards drawn"
-		return
-		
-	var card = randi_range(1, 9)
-	cards.append(card)
-
-	actual_total = 0
-	for i in cards:
-		actual_total += i
+	draw_cards();
+	actual_total = calculate_total();
 	
 	$ActualTotalLabel.text = "Actual Total: " + str(actual_total)
+	
+func draw_cards() -> void:
+	if game_over:
+		return;
+	
+	if cards.size() < 2:
+		for i in range(2):
+			var card = randi_range(1, 9);
+			cards.append(card);
+		print(cards);
+		return;
+	
+	if cards.size() < 5:
+		var card = randi_range(1, 9);
+		cards.append(card);
+		print(cards);
+		return
+	
+
+func calculate_total() -> int:
+	var total = 0;
+	for card in cards:
+		total += card;
+	return total;
+	
 # To have actual number without bluffing
 func _on_stay_button_pressed():
+	to_phase_2();
 	if game_over:
 		return
 
 	claimed_total = actual_total
 	$ClaimedTotalLabel.text = "Claimed Total: " + str(claimed_total)
 	resolve_opponent_decision()
+	
+func to_phase_2() -> void:
+	bluff_buttons.visible = true;
+	bluff_buttons.get_child(1).text = "";
+	draw_buttons.visible = false;
+
+func to_phase_1() -> void:
+	draw_buttons.visible = true;
+	bluff_buttons.visible = false;
 
 # Bluffing mechanic activates
 func _on_bluff_button_pressed():
@@ -105,7 +135,7 @@ func resolve_normal_result():
 	else:
 		$ResultLabel.text = "Result: Draw! Opponent had " + str(opponent_total)
 		game_over = true
-		set_buttons_enabled(false)
+		to_phase_1();
 	
 
 #Winning Logic
@@ -153,7 +183,7 @@ func player_loses_round(message):
 		$ResultLabel.text = message + " Game Over! You lose the match."
 	
 	game_over = true
-	set_buttons_enabled(false)
+	to_phase_1();
 		
 # If the opponent loses the round
 func opponent_loses_round(message):
@@ -165,7 +195,7 @@ func opponent_loses_round(message):
 		$ResultLabel.text = message + " You win " 
 	
 	game_over = true
-	set_buttons_enabled(false)
+	to_phase_1();
 	
 #Updating Life labels
 func update_life_labels():

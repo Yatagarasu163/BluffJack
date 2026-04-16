@@ -15,6 +15,11 @@ run/main_scene="uid://dk8vmtpnubwkt"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
+[global_group]
+
+Player=""
+Enemy=""
+
 [physics]
 
 3d/physics_engine="Jolt Physics"
@@ -22,3 +27,4 @@ config/icon="res://icon.svg"
 [rendering]
 
 rendering_device/driver.windows="d3d12"
+anti_aliasing/quality/msaa_2d=3
