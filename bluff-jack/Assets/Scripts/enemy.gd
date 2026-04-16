@@ -100,9 +100,6 @@ func newRound() -> void:
 		drawCard();
 	print("Current Enemy Starting Hand: ", numbers);
 
-# Testing purposes
-func _on_button_pressed() -> void:
-	take_turn();
 
 
 # Calculates the total value of the numbers in the AI's hand.
