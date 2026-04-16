@@ -7,6 +7,7 @@ var playerBluffVal;
 var enemy_turn = false;
 var turn_number = 0;
 var life_total = 3;
+@onready var anim = $AnimationController;
 
 
 # Chance mechanics
@@ -34,14 +35,15 @@ func take_turn() -> void:
 	if game_manager.player_turn != game_manager.Turn.ENEMY:
 		return;
 	
-	await get_tree().create_timer(0.5).timeout;
+	await get_tree().create_timer(randf_range(0.5, 1.0)).timeout;
 	
 	var should_end = false;
-	
-	print("Enemy State: ", game_manager.enemy_state);
 
 	if game_manager.player_state == game_manager.State.DRAW:
 		if game_manager.enemy_state == game_manager.State.DRAW:
+			anim.set_anim_state(anim.AnimState.SELECT);
+			await anim.anim.animation_finished;
+			anim.set_anim_state(anim.AnimState.IDLE);
 			if drawCardDecider():
 				print("Enemy going to draw a card...");
 				drawCard();
@@ -82,12 +84,28 @@ func take_turn() -> void:
 				print("Enemy is not bluffing: ", roundDecision["value"]);
 				game_manager.enemy_claimed_total = roundDecision["value"];
 			game_manager.enemy_state = game_manager.State.SHOWDOWN;
-			callsBluff(game_manager.player_total, game_manager.claimed_player_total);;
+			var checkBluff = callsBluff(game_manager.player_total, game_manager.claimed_player_total);;
+			if checkBluff:
+				print("Calling Bluff");
+				anim.set_anim_state(anim.AnimState.CALL_BLUFF);
+			else:
+				print("Passing");
+				anim.set_anim_state(anim.AnimState.PASS);
+			await anim.anim.animation_finished;
+			anim.set_anim_state(anim.AnimState.IDLE);
 			should_end = true;
 			
 		else:
 			game_manager.enemy_state = game_manager.State.SHOWDOWN;
-			callsBluff(game_manager.player_total, game_manager.claimed_player_total);;
+			var checkBluff = callsBluff(game_manager.player_total, game_manager.claimed_player_total);;
+			if checkBluff:
+				print("Calling out Bluff");
+				anim.set_anim_state(anim.AnimState.CALL_BLUFF);
+			else:
+				print("Passing");
+				anim.set_anim_state(anim.AnimState.PASS);
+			await anim.anim.animation_finished;
+			anim.set_anim_state(anim.AnimState.IDLE);
 			should_end = true;
 	
 	if should_end:
@@ -179,7 +197,7 @@ func generate_bluff_value(real_value: int) -> int:
 # Determines if the AI will call the player's bluff or not
 func callsBluff(real_val: int, bluff_val: int) -> bool:
 	var lie_size = bluff_val - real_val;
-	if abs(lie_size) <= 0:
+	if abs(lie_size) < 0:
 		return false;
 	var proximity = winningVal - bluff_val;
 	var closeness = 1.0 / (proximity + 1.0);

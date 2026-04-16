@@ -7,6 +7,8 @@ extends Node2D
 @export var shake_speed: float = 0.03
 @export var return_speed: float = 0.05
 
+@onready var main = $"..";
+
 #Life Counter
 var player_life = 3
 var actual_total = 0
@@ -74,7 +76,9 @@ func start_round():
 	
 	draw_cards();
 
-	$ActualTotalLabel.text = "Actual Total: 0"
+	game_manager.player_total = calculate_total();
+	game_manager.claimed_player_total = calculate_total();
+	$ActualTotalLabel.text = "Actual Total: " + str(game_manager.player_total);
 	$ClaimedTotalLabel.text = "Claimed Total: -"
 	$ResultLabel.text = "Result:"
 	$OpponentActionLabel.text = "Opponent:"
@@ -92,7 +96,7 @@ func _on_draw_card_button_pressed():
 		$ActualTotalLabel.text = "Actual Total: " + str(calculate_total());
 	else:
 		game_manager.player_state = game_manager.State.BLUFF;
-	screen_shake()
+	main.screen_shake()
 	game_manager.end_turn();
 	
 func draw_cards() -> void:
@@ -124,6 +128,10 @@ func calculate_total() -> int:
 func _on_stay_button_pressed():
 	#if game_over:
 		#return
+	game_manager.player_total = calculate_total();
+	game_manager.claimed_player_total = calculate_total();
+	$ActualTotalLabel.text = "Actual Total: " + str(game_manager.player_total);
+	$ClaimedTotalLabel.text = "Claimed Total: " + str(game_manager.claimed_player_total);
 	game_manager.player_state = game_manager.State.BLUFF;
 	print("Player stays. Now entering Bluff Phase...");
 	#to_enemy_turn();
@@ -131,7 +139,7 @@ func _on_stay_button_pressed():
 	to_phase_2();
 	if game_over:
 		return
-	screen_shake()
+	main.screen_shake()
 
 func to_phase_1() -> void:
 	draw_buttons.visible = true;
@@ -159,7 +167,7 @@ func to_enemy_turn() -> void:
 func _on_bluff_button_pressed():
 	if game_over:
 		return
-	screen_shake()
+	main.screen_shake()
 
 	$OpponentActionLabel.text = "Opponent: Enter bluff number and press Enter"
 	bluff_buttons.visible = true;
@@ -167,7 +175,7 @@ func _on_bluff_button_pressed():
 	bluff_buttons.get_child(1).visible = false;
 	var bluff_input = bluff_buttons.get_child(2).get_child(0);
 	
-	bluff_input.position = Vector2(400, -250);
+	bluff_input.position = Vector2(576, 324);
 	bluff_input.visible = true;
 	bluff_input.text = "";
 	bluff_input.grab_focus();
@@ -178,7 +186,7 @@ func _on_bluff_button_pressed():
 func _on_bluff_input_text_submitted(new_text):
 	if game_over:
 		return
-	screen_shake()
+	main.screen_shake()
 
 	
 	if new_text.is_valid_int():
@@ -210,6 +218,7 @@ func _on_truth_button_pressed() -> void:
 	
 	claimed_total = calculate_total();
 	game_manager.claimed_player_total = claimed_total;
+	game_manager.player_total = calculate_total();
 	$ClaimedTotalLabel.text = "Claimed Total: " + str(claimed_total);
 	game_manager.player_state = game_manager.State.SHOWDOWN;
 	game_manager.end_turn();
@@ -231,6 +240,7 @@ func _on_call_bluff_button_pressed() -> void:
 
 func _on_pass_button_pressed() -> void:
 	print("I'll accept that number");
+	game_manager.end_turn();
 
 func screen_shake():
 	var original_pos = position

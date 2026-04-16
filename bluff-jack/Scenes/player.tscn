@@ -69,9 +69,9 @@ text = "Opponent Life: 3"
 metadata/_edit_use_anchors_ = true
 
 [node name="BluffUI" type="Node2D" parent="." unique_id=1591951808]
-top_level = true
 
 [node name="BluffButton" type="Button" parent="BluffUI" unique_id=1688487395]
+texture_filter = 5
 offset_left = 790.0
 offset_top = 545.0
 offset_right = 868.0
@@ -87,26 +87,25 @@ offset_bottom = 506.0
 text = "Truth"
 
 [node name="Control" type="Control" parent="BluffUI" unique_id=942108169]
+top_level = true
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
+offset_left = -576.0
+offset_top = -324.0
+offset_right = -576.0
+offset_bottom = -324.0
 grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
 [node name="BluffInput" type="LineEdit" parent="BluffUI/Control" unique_id=889218574]
 layout_mode = 0
-offset_left = 400.0
-offset_top = -280.12
-offset_right = 567.0
-offset_bottom = -235.12
+offset_right = 175.0
+offset_bottom = 31.0
 placeholder_text = "Enter Bluff Number"
 max_length = 2
 context_menu_enabled = false
