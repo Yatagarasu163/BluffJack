@@ -6,3 +6,4 @@
 texture_filter = 5
 
 [node name="Button" parent="." unique_id=1619352531 instance=ExtResource("1_by7bj")]
+number = 9

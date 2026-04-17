@@ -1,0 +1,83 @@
+[gd_scene format=3 uid="uid://coqmidb5sllbl"]
+
+[ext_resource type="Texture2D" uid="uid://cn7ieiwren8ey" path="res://Assets/sprites/bluff inputs/0 button pressed.png" id="1_ltxtd"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bx6gg"]
+atlas = ExtResource("1_ltxtd")
+region = Rect2(18, 5, 44, 43)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qa07y"]
+atlas = ExtResource("1_ltxtd")
+region = Rect2(98, 5, 44, 43)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i5r3b"]
+atlas = ExtResource("1_ltxtd")
+region = Rect2(18, 5, 44, 43)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bys6w"]
+atlas = ExtResource("1_ltxtd")
+region = Rect2(18, 5, 44, 43)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_esv06"]
+atlas = ExtResource("1_ltxtd")
+region = Rect2(98, 5, 44, 43)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w723p"]
+atlas = ExtResource("1_ltxtd")
+region = Rect2(178, 5, 44, 43)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_a277t"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bx6gg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qa07y")
+}],
+"loop": false,
+"name": &"hover",
+"speed": 30.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i5r3b")
+}],
+"loop": false,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bys6w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_esv06")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w723p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_esv06")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bys6w")
+}],
+"loop": false,
+"name": &"pressed",
+"speed": 5.0
+}]
+
+[node name="0 Button" type="Node2D" unique_id=1216758085]
+texture_filter = 5
+
+[node name="0 Button" type="Button" parent="." unique_id=1479627441]
+offset_right = 44.0
+offset_bottom = 43.0
+flat = true
+metadata/_edit_use_anchors_ = true
+
+[node name="0 Button(Animator)" type="AnimatedSprite2D" parent="." unique_id=1719655092]
+sprite_frames = SubResource("SpriteFrames_a277t")
+animation = &"hover"
+centered = false

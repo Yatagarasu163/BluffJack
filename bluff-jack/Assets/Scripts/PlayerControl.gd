@@ -18,6 +18,8 @@ var is_player_turn = false;
 signal restart_game;
 @onready var anim = $AnimationController;
 var draw_powerup = false;
+var current_bluff_value := ""
+@onready var bluff_input = $BluffUI/Control/BluffInput
  
  
 func _ready():
@@ -27,6 +29,14 @@ func _ready():
 	game_manager.register_player(self);
 	game_manager.current_turn.connect(_on_turn_changed);
 	game_manager.start_game.connect(_on_match_started);
+	bluff_input.editable = false
+	bluff_input.visible = false
+	
+func keypad_press(value: String) -> void:
+	if current_bluff_value.length() >= 2:
+		return
+	current_bluff_value += value 
+	bluff_input.text = current_bluff_value
  
 func get_life() -> int:
 	anim._update_life_anim(player_life);
@@ -190,11 +200,12 @@ func _on_bluff_button_pressed():
 	bluff_buttons.visible = true;
 	bluff_buttons.get_child(0).visible = false;
 	bluff_buttons.get_child(1).visible = false;
-	var bluff_input = bluff_buttons.get_child(2).get_child(0);
 	
-	bluff_input.position = Vector2(576, 324);
-	bluff_input.visible = true;
-	bluff_input.text = "";
+	current_bluff_value = ""
+	bluff_input.position = Vector2(576, 324)
+	bluff_input.visible = true
+	bluff_input.text = ""
+	
 	bluff_input.grab_focus();
  
 func _on_bluff_input_text_submitted(new_text):
@@ -289,7 +300,7 @@ func _on_next_level_button_pressed() -> void:
 
 func _on_main_menu_button_pressed() -> void:
 	get_tree().change_scene_to_file("res://Scenes/Prefabs/Main_Menu.tscn")
-	pass # Replace with function body.
+	
 
 func _draw_powerup() -> void:
 	print("Before powerup: ", cards);
@@ -299,3 +310,4 @@ func _draw_powerup() -> void:
 	print("After powerup: ", cards);
 	
 	# Find a way to update the visuals here. @Saif Musthafa, the rastafarah IShowSpeed 
+	

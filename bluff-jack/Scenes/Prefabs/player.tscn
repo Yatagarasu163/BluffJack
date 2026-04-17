@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://s876qwvr3upp" path="res://Scenes/Prefabs/Buttons/call_bluff_button.tscn" id="8_ofsyp"]
 [ext_resource type="Texture2D" uid="uid://by8akvdpyrog6" path="res://Assets/sprites/player/player knife 1 pull out anim.png" id="9_k7ict"]
 [ext_resource type="PackedScene" uid="uid://blya5a1bmr7wy" path="res://Scenes/Prefabs/Buttons/pass_button.tscn" id="9_ofsyp"]
+[ext_resource type="PackedScene" uid="uid://bxojrwx4y80fy" path="res://Scenes/Prefabs/bluff_keypad_input.tscn" id="13_mhr4y"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_68wta"]
 atlas = ExtResource("9_k7ict")
@@ -322,6 +323,9 @@ texture_filter = 5
 position = Vector2(38.5, 37)
 sprite_frames = SubResource("SpriteFrames_k7ict")
 animation = &"warning"
+
+[node name="BluffInput" parent="." unique_id=457786761 instance=ExtResource("13_mhr4y")]
+texture_filter = 5
 
 [connection signal="pressed" from="FinalScreen/ReplayButton" to="." method="_on_replay_button_pressed"]
 [connection signal="pressed" from="FinalScreen/NextLevelButton" to="." method="_on_next_level_button_pressed"]

@@ -24,7 +24,7 @@ var opponent_life_label = null
 var player_state = State.DRAW
 var enemy_state = State.DRAW
 var processing_turn = false
-@onready var enemy_animation_controller = enemy.get_node("AnimationController")
+var enemy_animation_controller = null
 
 
 func _ready() -> void:
@@ -45,6 +45,11 @@ func register_player(p) -> void:
 	_try_start()
 
 func register_enemy() -> void:
+	enemy = get_tree().get_first_node_in_group("Enemy")
+
+	if enemy != null:
+		enemy_animation_controller = enemy.get_child(0)
+
 	enemy_ready = true
 	_try_start()
 

@@ -1,0 +1,92 @@
+[gd_scene format=3 uid="uid://dd0y7shk7kgnh"]
+
+[ext_resource type="Texture2D" uid="uid://bwn3fhyl6wth7" path="res://Assets/sprites/bluff inputs/bluff button pressed.png" id="1_o043t"]
+[ext_resource type="Texture2D" uid="uid://crwnqn4m654ha" path="res://Assets/texture/Enter.png" id="2_emqlt"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qkrcb"]
+atlas = ExtResource("1_o043t")
+region = Rect2(18, 5, 45, 43)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t6usb"]
+atlas = ExtResource("1_o043t")
+region = Rect2(98, 5, 45, 43)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vai2i"]
+atlas = ExtResource("1_o043t")
+region = Rect2(18, 5, 45, 43)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5rfnb"]
+atlas = ExtResource("1_o043t")
+region = Rect2(18, 5, 45, 43)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4bsac"]
+atlas = ExtResource("1_o043t")
+region = Rect2(98, 5, 45, 43)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dvsdy"]
+atlas = ExtResource("1_o043t")
+region = Rect2(178, 5, 45, 43)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_a277t"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qkrcb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t6usb")
+}],
+"loop": false,
+"name": &"hover",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vai2i")
+}],
+"loop": false,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5rfnb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4bsac")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dvsdy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dvsdy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dvsdy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4bsac")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5rfnb")
+}],
+"loop": false,
+"name": &"pressed",
+"speed": 5.0
+}]
+
+[node name="EnterButton" type="Node2D" unique_id=1160090862]
+
+[node name="EnterButton" type="Button" parent="." unique_id=2146345766]
+offset_right = 44.0
+offset_bottom = 43.0
+flat = true
+
+[node name="EnterButton" type="AnimatedSprite2D" parent="EnterButton" unique_id=78302571]
+sprite_frames = SubResource("SpriteFrames_a277t")
+animation = &"idle"
+centered = false
+
+[node name="Enter" type="Sprite2D" parent="EnterButton/EnterButton" unique_id=1910735450]
+position = Vector2(22, 18)
+texture = ExtResource("2_emqlt")
