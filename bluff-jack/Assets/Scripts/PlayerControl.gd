@@ -118,11 +118,13 @@ func _on_stay_button_pressed():
 	screen_shake()
  
 func to_phase_1() -> void:
+	print("Phase 1 is being called")
 	draw_buttons.visible = true;
 	bluff_buttons.visible = false;
 	showdown_buttons.visible = false;
  
 func to_phase_2() -> void:
+	print("Phase 2 is being called")
 	bluff_buttons.visible = true;
 	bluff_buttons.get_child(0).visible = true;
 	bluff_buttons.get_child(1).visible = true;
@@ -131,6 +133,7 @@ func to_phase_2() -> void:
 	showdown_buttons.visible = false;
  
 func to_phase_3() -> void:
+	print("Phase 3 is being called")
 	bluff_buttons.visible = false;
 	draw_buttons.visible = false;
 	showdown_buttons.visible = true;
@@ -140,18 +143,17 @@ func to_enemy_turn() -> void:
 	bluff_buttons.visible = false;
  
 func _on_bluff_button_pressed():
+	print("Bluff button pressed")
 	if game_over:
 		return
 	screen_shake()
  
-	# FIX: Removed the incorrect "Opponent: Enter bluff number" message from here
-	# This label should only show what the OPPONENT does, not prompt the player
 	bluff_buttons.visible = true;
 	bluff_buttons.get_child(0).visible = false;
 	bluff_buttons.get_child(1).visible = false;
 	var bluff_input = bluff_buttons.get_child(2).get_child(0);
  
-	bluff_input.position = Vector2(400, -250);
+	bluff_input.position = Vector2(516,245);
 	bluff_input.visible = true;
 	bluff_input.text = "";
 	bluff_input.grab_focus();

@@ -221,7 +221,7 @@ func resolve_showdown() -> void:
 
 	
 	# CASE 4: NOBODY called bluff
-	# then claimed totals become official totals
+	# then laimed totals become official totals
 	var official_player_total = claimed_player_total
 	var official_enemy_total = enemy_claimed_total
 
@@ -339,6 +339,8 @@ func player_loses_round(message):
 	player.to_phase_1()
 	_start_next_round_after_delay()
 
+
+# Wait a bit, then reset round and start next one
 func _start_next_round_after_delay() -> void:
 	await get_tree().create_timer(2.0).timeout
 

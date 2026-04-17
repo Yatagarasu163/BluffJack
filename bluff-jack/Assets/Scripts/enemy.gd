@@ -39,89 +39,85 @@ func set_opponent_label(text: String) -> void:
  
 func take_turn() -> void:
 	if game_manager.player_turn != game_manager.Turn.ENEMY:
-		return;
- 
-	await get_tree().create_timer(0.5).timeout;
- 
-	var should_end = false;
- 
+		return
+
+	await get_tree().create_timer(0.5).timeout
+
+	var should_end = false
+
 	if game_manager.player_state == game_manager.State.DRAW:
 		if game_manager.enemy_state == game_manager.State.DRAW:
 			if drawCardDecider():
-				# FIX: Show that enemy drew a card
 				set_opponent_label("Opponent: Drew a card")
-				drawCard();
-				should_end = true;
+				drawCard()
+				should_end = true
 			else:
-				# FIX: Show that enemy chose to stay
 				set_opponent_label("Opponent: Stayed")
-				game_manager.enemy_state = game_manager.State.BLUFF;
-				should_end = true;
+				game_manager.enemy_state = game_manager.State.BLUFF
+				should_end = true
 		elif game_manager.enemy_state == game_manager.State.BLUFF:
-			should_end = true;
- 
+			should_end = true
+
 	elif game_manager.player_state == game_manager.State.BLUFF:
 		if game_manager.enemy_state == game_manager.State.DRAW:
 			if drawCardDecider():
-				# FIX: Show that enemy drew a card
 				set_opponent_label("Opponent: Drew a card")
-				drawCard();
+				drawCard()
 			else:
-				# FIX: Show that enemy stayed
 				set_opponent_label("Opponent: Stayed")
-			should_end = true;
- 
+				game_manager.enemy_state = game_manager.State.BLUFF
+			should_end = true
+
 		elif game_manager.enemy_state == game_manager.State.BLUFF:
-			var roundDecision = roundDecider();
-			game_manager.enemy_claimed_total = roundDecision["value"];
-			game_manager.enemy_total = calculateTotal();
-			game_manager.enemy_state = game_manager.State.SHOWDOWN;
- 
-			# FIX: Show whether enemy bluffed or told truth, and their claimed value
+			var roundDecision = roundDecider()
+			game_manager.enemy_claimed_total = roundDecision["value"]
+			game_manager.enemy_total = calculateTotal()
+			game_manager.enemy_state = game_manager.State.SHOWDOWN
+
 			if roundDecision["bluffing"]:
 				set_opponent_label("Opponent claims: " + str(roundDecision["value"]) + " (bluffing!)")
 			else:
 				set_opponent_label("Opponent reveals: " + str(roundDecision["value"]))
- 
-			should_end = true;
- 
+
+			should_end = true
+
 		else:
-			should_end = true;
- 
+			should_end = true
+
 	elif game_manager.player_state == game_manager.State.SHOWDOWN:
-		if game_manager.enemy_state == game_manager.State.BLUFF:
-			var roundDecision = roundDecider();
-			game_manager.enemy_claimed_total = roundDecision["value"];
-			game_manager.enemy_state = game_manager.State.SHOWDOWN;
- 
-			# FIX: Show enemy bluff/truth decision
+		if game_manager.enemy_state != game_manager.State.SHOWDOWN:
+			var roundDecision = roundDecider()
+			game_manager.enemy_claimed_total = roundDecision["value"]
+			game_manager.enemy_state = game_manager.State.SHOWDOWN
+
 			if roundDecision["bluffing"]:
 				set_opponent_label("Opponent claims: " + str(roundDecision["value"]) + " (bluffing!)")
 			else:
 				set_opponent_label("Opponent reveals: " + str(roundDecision["value"]))
- 
-		game_manager.enemy_total = calculateTotal();
- 
-		var enemy_calls = callsBluff(game_manager.player_total, game_manager.claimed_player_total);
- 
-		# FIX: Show whether enemy called or accepted your bluff, with a short delay so player can read
-		await get_tree().create_timer(0.8).timeout;
- 
+
+		game_manager.enemy_total = calculateTotal()
+
+		var enemy_calls = callsBluff(game_manager.player_total, game_manager.claimed_player_total)
+
+		await get_tree().create_timer(0.8).timeout
+
 		if enemy_calls:
 			set_opponent_label("Opponent: CALLS YOUR BLUFF!")
 		else:
 			set_opponent_label("Opponent: Accepts your total")
- 
-		await get_tree().create_timer(0.8).timeout;
- 
+		if !game_manager.player_made_showdown_choice:
+			game_manager.end_turn()
+
+		await get_tree().create_timer(0.8).timeout
+
 		if enemy_calls:
-			game_manager.enemy_call_bluff();
+			game_manager.enemy_call_bluff()
 		else:
-			game_manager.enemy_pass_bluff();
-		return;
- 
+			game_manager.enemy_pass_bluff()
+		return
+
 	if should_end:
-		game_manager.end_turn();
+		game_manager.end_turn()
  
 func newRound() -> void:
 	numbers = [];
@@ -208,3 +204,4 @@ func callsBluff(real_val: int, bluff_val: int) -> bool:
 		call_chance = clamp(call_chance, 0.0, 1.0);
  
 	return randf_range(0, 1) < call_chance;
+	

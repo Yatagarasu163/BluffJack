@@ -102,7 +102,12 @@ grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
 [node name="BluffInput" type="LineEdit" parent="BluffUI/Control" unique_id=889218574]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 2.9
+anchor_top = 13.128
+anchor_right = 2.9
+anchor_bottom = 13.128
 offset_left = 400.0
 offset_top = -280.12
 offset_right = 567.0
@@ -139,9 +144,9 @@ metadata/_edit_use_anchors_ = true
 
 [node name="CallBluffButton" type="Button" parent="ShowdownButtons" unique_id=1703066574]
 offset_left = 780.0
-offset_top = 475.0
+offset_top = 474.0
 offset_right = 858.0
-offset_bottom = 506.0
+offset_bottom = 505.0
 text = "Call Bluff"
 
 [node name="PassButton" type="Button" parent="ShowdownButtons" unique_id=100421874]
