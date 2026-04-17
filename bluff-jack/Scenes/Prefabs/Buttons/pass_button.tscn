@@ -1,0 +1,170 @@
+[gd_scene format=3 uid="uid://blya5a1bmr7wy"]
+
+[ext_resource type="Script" uid="uid://cni12uk3igla6" path="res://Assets/Scripts/draw_card_button_animation.gd" id="1_08b42"]
+[ext_resource type="Texture2D" uid="uid://cx8q4i0o2pnwb" path="res://Assets/sprites/buttons/Bluff into Pass button.png" id="2_diyy1"]
+[ext_resource type="Texture2D" uid="uid://bw2shikgujix3" path="res://Assets/sprites/buttons/pass turn stay.png" id="2_x1cvi"]
+[ext_resource type="Texture2D" uid="uid://c0q1em4mkj18b" path="res://Assets/sprites/buttons/pass button hover.png" id="3_4a5am"]
+[ext_resource type="Texture2D" uid="uid://brgqv8nipygyu" path="res://Assets/sprites/buttons/pass button pressed.png" id="5_qlp16"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_72hvd"]
+atlas = ExtResource("2_x1cvi")
+region = Rect2(0, 0, 60, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4a5am"]
+atlas = ExtResource("2_x1cvi")
+region = Rect2(60, 0, 60, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qlp16"]
+atlas = ExtResource("2_x1cvi")
+region = Rect2(120, 0, 60, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l0tia"]
+atlas = ExtResource("2_x1cvi")
+region = Rect2(180, 0, 60, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_58cbq"]
+atlas = ExtResource("2_x1cvi")
+region = Rect2(240, 0, 60, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gwsig"]
+atlas = ExtResource("2_x1cvi")
+region = Rect2(300, 0, 60, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qkgm6"]
+atlas = ExtResource("3_4a5am")
+region = Rect2(0, 0, 60, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3csnc"]
+atlas = ExtResource("3_4a5am")
+region = Rect2(60, 0, 60, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0fcfu"]
+atlas = ExtResource("3_4a5am")
+region = Rect2(120, 0, 60, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v66ik"]
+atlas = ExtResource("3_4a5am")
+region = Rect2(180, 0, 60, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n6jvn"]
+atlas = ExtResource("3_4a5am")
+region = Rect2(240, 0, 60, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i0cs5"]
+atlas = ExtResource("2_diyy1")
+region = Rect2(300, 0, 60, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hw8xq"]
+atlas = ExtResource("5_qlp16")
+region = Rect2(0, 0, 60, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0i4le"]
+atlas = ExtResource("5_qlp16")
+region = Rect2(60, 0, 60, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i0aaq"]
+atlas = ExtResource("5_qlp16")
+region = Rect2(120, 0, 60, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_goyg7"]
+atlas = ExtResource("5_qlp16")
+region = Rect2(180, 0, 60, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_noqn8"]
+atlas = ExtResource("5_qlp16")
+region = Rect2(240, 0, 60, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3f17w"]
+atlas = ExtResource("5_qlp16")
+region = Rect2(300, 0, 60, 40)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ofsyp"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_72hvd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4a5am")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qlp16")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l0tia")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_58cbq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gwsig")
+}],
+"loop": false,
+"name": &"change",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qkgm6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3csnc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0fcfu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v66ik")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n6jvn")
+}],
+"loop": false,
+"name": &"hover",
+"speed": 30.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i0cs5")
+}],
+"loop": false,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hw8xq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0i4le")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i0aaq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_goyg7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_noqn8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3f17w")
+}],
+"loop": false,
+"name": &"pressed",
+"speed": 5.0
+}]
+
+[node name="PassButton" type="Button" unique_id=1750421363]
+texture_filter = 5
+offset_right = 58.0
+offset_bottom = 27.0
+flat = true
+script = ExtResource("1_08b42")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=51182872]
+texture_filter = 5
+position = Vector2(-2, -9)
+sprite_frames = SubResource("SpriteFrames_ofsyp")
+animation = &"pressed"
+centered = false

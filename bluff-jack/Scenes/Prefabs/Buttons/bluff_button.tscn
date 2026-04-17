@@ -1,0 +1,169 @@
+[gd_scene format=3 uid="uid://bvv2x88t06mxr"]
+
+[ext_resource type="Script" uid="uid://in6eb67wc52j" path="res://Assets/Scripts/bluff_button_animation.gd" id="1_nj63t"]
+[ext_resource type="Texture2D" uid="uid://cx8q4i0o2pnwb" path="res://Assets/sprites/buttons/Bluff into Pass button.png" id="2_62j23"]
+[ext_resource type="Texture2D" uid="uid://c08jga7dc2a5a" path="res://Assets/sprites/buttons/bluff button hover.png" id="3_4csi5"]
+[ext_resource type="Texture2D" uid="uid://c8vueobg1ds1a" path="res://Assets/sprites/buttons/bluff button pressed.png" id="3_62j23"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e67w7"]
+atlas = ExtResource("2_62j23")
+region = Rect2(0, 0, 60, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rxres"]
+atlas = ExtResource("2_62j23")
+region = Rect2(60, 0, 60, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o8djg"]
+atlas = ExtResource("2_62j23")
+region = Rect2(120, 0, 60, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_30gr1"]
+atlas = ExtResource("2_62j23")
+region = Rect2(180, 0, 60, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xrlsh"]
+atlas = ExtResource("2_62j23")
+region = Rect2(240, 0, 60, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cs1yd"]
+atlas = ExtResource("2_62j23")
+region = Rect2(300, 0, 60, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_svj63"]
+atlas = ExtResource("3_4csi5")
+region = Rect2(0, 0, 60, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d7rcy"]
+atlas = ExtResource("3_4csi5")
+region = Rect2(60, 0, 60, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ejwti"]
+atlas = ExtResource("3_4csi5")
+region = Rect2(120, 0, 60, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_62uir"]
+atlas = ExtResource("3_4csi5")
+region = Rect2(180, 0, 60, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_27c7k"]
+atlas = ExtResource("3_4csi5")
+region = Rect2(240, 0, 60, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3smsa"]
+atlas = ExtResource("2_62j23")
+region = Rect2(0, 0, 60, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tj2ww"]
+atlas = ExtResource("3_62j23")
+region = Rect2(0, 0, 60, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s11vd"]
+atlas = ExtResource("3_62j23")
+region = Rect2(60, 0, 60, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7n0ui"]
+atlas = ExtResource("3_62j23")
+region = Rect2(120, 0, 60, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3omot"]
+atlas = ExtResource("3_62j23")
+region = Rect2(180, 0, 60, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cie6a"]
+atlas = ExtResource("3_62j23")
+region = Rect2(240, 0, 60, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xjnkg"]
+atlas = ExtResource("3_62j23")
+region = Rect2(300, 0, 60, 40)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_x3wgy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e67w7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rxres")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o8djg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_30gr1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xrlsh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cs1yd")
+}],
+"loop": false,
+"name": &"change",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_svj63")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d7rcy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ejwti")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_62uir")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_27c7k")
+}],
+"loop": false,
+"name": &"hover",
+"speed": 30.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3smsa")
+}],
+"loop": false,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tj2ww")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s11vd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7n0ui")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3omot")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cie6a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xjnkg")
+}],
+"loop": false,
+"name": &"pressed",
+"speed": 5.0
+}]
+
+[node name="BluffButton" type="Button" unique_id=1740352822]
+texture_filter = 5
+offset_right = 45.0
+offset_bottom = 31.0
+flat = true
+script = ExtResource("1_nj63t")
+metadata/_edit_use_anchors_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1216129720]
+texture_filter = 5
+sprite_frames = SubResource("SpriteFrames_x3wgy")
+animation = &"change"
+centered = false

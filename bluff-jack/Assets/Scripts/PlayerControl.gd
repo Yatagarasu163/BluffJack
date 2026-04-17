@@ -3,7 +3,7 @@ extends Node2D
 @onready var main = $"..";
 
 #Life Counter
-var player_life = 3
+@export var player_life = 3
 var actual_total = 0
 var claimed_total = 0
 var game_over = false
@@ -16,6 +16,7 @@ var is_player_turn = false;
 @onready var opponent_life_label = $OpponentLifeLabel;
 @onready var monitor_cards = $MonitorCards;
 signal restart_game;
+@onready var anim = $AnimationController;
  
  
 func _ready():
@@ -27,6 +28,7 @@ func _ready():
 	game_manager.start_game.connect(_on_match_started);
  
 func get_life() -> int:
+	anim._update_life_anim(player_life);
 	return player_life;
  
 func _on_turn_changed(turn) -> void:
@@ -62,7 +64,7 @@ func start_round():
 	claimed_total = 0
 	game_over = false
 	
-	to_phase_1();
+	#to_phase_1();
 	
 	draw_cards();
 
@@ -109,6 +111,7 @@ func calculate_total() -> int:
 	return total;
  
 func _on_stay_button_pressed():
+	main.screen_shake()
 	#if game_over:
 		#return
 	game_manager.player_total = calculate_total();
@@ -120,19 +123,30 @@ func _on_stay_button_pressed():
 	await to_phase_2();
 	if game_over:
 		return
-	main.screen_shake()
 
 func to_phase_1() -> void:
 	print("Phase 1 is being called")
-	draw_buttons.visible = true;
+	draw_buttons.visible = false;
 	bluff_buttons.visible = false;
+	
+	showdown_buttons.visible = true;
+	showdown_buttons.get_child(0)._on_change_to_truth();
+	await showdown_buttons.get_child(0).anim.animation_finished;
+	showdown_buttons.get_child(1)._on_change_to_truth();
+	await showdown_buttons.get_child(1).anim.animation_finished;
 	showdown_buttons.visible = false;
+	
+	draw_buttons.visible = true;
+
  
 func to_phase_2() -> void:
 	print("Phase 2 is being called")
 	draw_buttons.visible = true;
 	draw_buttons.get_child(0)._on_change_to_truth();
 	await draw_buttons.get_child(0).anim.animation_finished;
+	draw_buttons.get_child(1)._on_change_to_truth();
+	await draw_buttons.get_child(1).anim.animation_finished;
+	draw_buttons.visible = false;
 	bluff_buttons.visible = true;
 	bluff_buttons.get_child(0).visible = true;
 	bluff_buttons.get_child(1).visible = true;
@@ -142,9 +156,17 @@ func to_phase_2() -> void:
  
 func to_phase_3() -> void:
 	print("Phase 3 is being called")
+	bluff_buttons.visible = true;
+	bluff_buttons.get_child(0)._on_change_to_truth();
+	await bluff_buttons.get_child(0).anim.animation_finished;
+	bluff_buttons.get_child(1)._on_change_to_truth();
+	await bluff_buttons.get_child(1).anim.animation_finished;
 	bluff_buttons.visible = false;
 	draw_buttons.visible = false;
+	showdown_buttons.get_child(0)._on_idle();
+	showdown_buttons.get_child(1)._on_idle();
 	showdown_buttons.visible = true;
+	
  
 func to_enemy_turn() -> void:
 	draw_buttons.visible = false;
@@ -155,6 +177,7 @@ func _on_bluff_button_pressed():
 	if game_over:
 		return
 	main.screen_shake()
+	await bluff_buttons.get_child(0).anim.animation_finished;
 
 	$OpponentActionLabel.text = "Opponent: Enter bluff number and press Enter"
 	bluff_buttons.visible = true;
@@ -195,6 +218,7 @@ func _on_bluff_input_text_changed(new_text: String) -> void:
 func _on_truth_button_pressed() -> void:
 	if game_over:
 		return;
+	main.screen_shake();
 	
 	await bluff_buttons.get_child(1).anim.animation_finished;
 	
@@ -217,13 +241,11 @@ func set_buttons_enabled(enabled):
 func _on_call_bluff_button_pressed() -> void:
 	if game_over:
 		return
+	main.screen_shake();
 	game_manager.player_call_bluff()
  
 func _on_pass_button_pressed() -> void:
 	if game_over:
 		return
+	main.screen_shake();
 	game_manager.player_pass_bluff()
- 
-
-	print("I'll accept that number");
-	
