@@ -420,3 +420,6 @@ func show_final_result(player_won: bool):
 	enemy.get_node("AnimationController").visible = false
 	enemy.get_node("Sprite2D").visible = false
 	
+
+func _trigger_draw_powerup() -> void:
+	player.draw_powerup = true;
