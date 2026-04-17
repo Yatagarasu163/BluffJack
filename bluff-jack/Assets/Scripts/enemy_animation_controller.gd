@@ -26,6 +26,17 @@ func _ready() -> void:
 	anim.speed_scale = randf_range(min_anim_speed, max_anim_speed);
 	print(anim.speed_scale);
 	anim.animation_finished.connect(_on_idle_finished);
+	
+func _update_knife(has_knife: bool) -> void:
+	if has_knife:
+		knife_anim.visible = true;
+		knife_anim.play("pull_out");
+		await knife_anim.animation_finished
+		knife_anim.play("knife_idle")
+		knife_anim.speed_scale = randf_range(min_anim_speed, max_anim_speed);
+	else:
+		knife_anim.visible = false;
+
 
 func set_anim_state(new_state: int) -> void:
 	if anim_state == new_state:

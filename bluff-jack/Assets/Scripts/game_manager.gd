@@ -24,6 +24,7 @@ var opponent_life_label = null
 var player_state = State.DRAW
 var enemy_state = State.DRAW
 var processing_turn = false
+@onready var enemy_animation_controller = enemy.get_node("AnimationController")
 
 
 func _ready() -> void:
@@ -238,7 +239,7 @@ func resolve_showdown() -> void:
 			", Opponent official total = " + str(official_enemy_total)
 		)
 	else:
-		player.get_node("ResultLabel").text = (
+		player.get_node("labels/ResultLabel").text = (
 			"Result: Draw! Your official total = " + str(official_player_total) +
 			", Opponent official total = " + str(official_enemy_total)
 		)
@@ -303,6 +304,12 @@ func update_life_labels():
 # Called when enemy loses a round
 func opponent_loses_round(message):
 	enemy.life_total -= 1
+	
+	if enemy.life_total == 2:
+		enemy_animation_controller._update_knife(true)
+	
+	else:
+		enemy_animation_controller._update_knife(false)
 	update_life_labels()
 
 	player.get_node("Labels/ResultLabel").text = message
@@ -362,25 +369,41 @@ func _start_next_round_after_delay() -> void:
 		player_turn = Turn.ENEMY
 		emit_signal("current_turn", Turn.ENEMY)
 
+func _on_main_menu_button_pressed() -> void:
+	get_tree().change_scene_to_file("res://Scenes/Prefabs/Main_Menu.tscn")
+
 # Final Screen showing according to the result
 func show_final_result(player_won: bool):
 	var final_result_screen = player.get_node("FinalScreen")
 	var final_result_label = player.get_node("FinalScreen/ResultLabel")
 	var replay_button = player.get_node("FinalScreen/ReplayButton")
 	var next_button = player.get_node("FinalScreen/NextLevelButton")
+	var main_menu_button = player.get_node("FinalScreen/MainMenuButton")
 	
 	if player_won:
 		final_result_label.text = "YOU WIN"
+
 		replay_button.visible = false
+		replay_button.disabled = true
+
 		next_button.visible = true
 		next_button.disabled = false
+
+		main_menu_button.visible = true
+		main_menu_button.disabled = false
 	else:
 		final_result_label.text = "ENEMY WIN"
-		
+
 		replay_button.visible = true
-		next_button.visible = true
-		next_button.disabled = true	
+		replay_button.disabled = false
+
+		next_button.visible = false
+		next_button.disabled = true
+
+		main_menu_button.visible = true
+		main_menu_button.disabled = false
 		
+	main_menu_button.visible = true
 	final_result_screen.visible = true
 		
 	player.game_over = true
@@ -393,4 +416,7 @@ func show_final_result(player_won: bool):
 	player.get_node("Labels").visible = false
 	player.get_node("MonitorCards").visible = false
 	player.get_node("RestartUI").visible = false
+	player.get_node("AnimationController").visible = false
 	enemy.get_node("AnimationController").visible = false
+	enemy.get_node("Sprite2D").visible = false
+	

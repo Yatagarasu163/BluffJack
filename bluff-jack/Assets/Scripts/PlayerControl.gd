@@ -263,8 +263,22 @@ func _next_level_button_pressed():
 
 
 func _on_replay_button_pressed() -> void:
-	pass # Replace with function body.
+	get_tree().reload_current_scene()
 
 
 func _on_next_level_button_pressed() -> void:
-	pass # Replace with function body.
+	var current_scene = get_tree().current_scene.scene_file_path
+	var file_name = current_scene.get_file()
+	var level_number = file_name.get_basename().trim_prefix("Level")
+	
+	var next_level_number = int(level_number) + 1
+	var next_scene_path = "res://Scenes/Level" + str(next_level_number) + ".tscn"
+	
+	if ResourceLoader.exists(next_scene_path):
+		get_tree().change_scene_to_file(next_scene_path)
+	else:
+		print("No more levels!")
+
+
+func _on_main_menu_button_pressed() -> void:
+	get_tree().change_scene_to_file("res://Scenes/Prefabs/Main_Menu.tscn")

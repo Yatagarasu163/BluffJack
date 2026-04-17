@@ -4,6 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://b0645ma48nxbt" path="res://Assets/ui/reticle.png" id="2_xubj0"]
 
 [node name="Custom Cursor" type="Node2D" unique_id=1705748054]
+top_level = true
+z_index = 100
 texture_filter = 5
 scale = Vector2(2.5, 2.5)
 script = ExtResource("1_nbt4g")
