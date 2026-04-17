@@ -38,7 +38,7 @@ func reset_for_new_round() -> void:
 # Helper to write to the OpponentActionLabel on the player node
 func set_opponent_label(text: String) -> void:
 	if game_manager.player != null:
-		game_manager.player.get_node("OpponentActionLabel").text = text
+		game_manager.player.get_node("Labels/OpponentActionLabel").text = text
  
 func take_turn() -> void:
 	if game_manager.player_turn != game_manager.Turn.ENEMY:

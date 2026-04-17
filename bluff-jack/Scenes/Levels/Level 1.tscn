@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://dk8vmtpnubwkt"]
+
+[ext_resource type="Script" uid="uid://bnn73avkyuhep" path="res://main.gd" id="1_o22s6"]
+[ext_resource type="PackedScene" uid="uid://cduo76ib17om2" path="res://Scenes/Prefabs/player.tscn" id="2_nytic"]
+[ext_resource type="PackedScene" uid="uid://ja8b2n3bctvg" path="res://Scenes/Prefabs/Enemy.tscn" id="3_e57xo"]
+[ext_resource type="PackedScene" uid="uid://ce13cso1trfvc" path="res://Scenes/Prefabs/custom_cursor.tscn" id="4_d80xo"]
+
+[node name="Level 1" type="Node2D" unique_id=382712453]
+script = ExtResource("1_o22s6")
+
+[node name="Player" parent="." unique_id=1525742724 instance=ExtResource("2_nytic")]
+
+[node name="Enemy" parent="." unique_id=572914806 instance=ExtResource("3_e57xo")]
+position = Vector2(575, 312)
+paranoia_value = 0.5
+
+[node name="Custom Cursor" parent="." unique_id=1705748054 instance=ExtResource("4_d80xo")]
+position = Vector2(1152, 648)

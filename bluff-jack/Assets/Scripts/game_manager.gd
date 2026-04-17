@@ -37,8 +37,8 @@ func _on_restart_game() -> void:
 
 func register_player(p) -> void:
 	player = p
-	player_life_label = player.get_node("PlayerLifeLabel")
-	opponent_life_label = player.get_node("OpponentLifeLabel")
+	player_life_label = player.get_node("Labels/PlayerLifeLabel")
+	opponent_life_label = player.get_node("Labels/OpponentLifeLabel")
 	player_ready = true
 	player.restart_game.connect(_on_restart_game)
 	_try_start()
@@ -192,7 +192,7 @@ func resolve_showdown() -> void:
 
 		# Both truthful and both called wrongly -> draw
 		if !player_lied and !enemy_lied:
-			player.get_node("ResultLabel").text = "Result: Both claims were truthful and both called bluff wrongly! Draw!"
+			player.get_node("Labels/ResultLabel").text = "Result: Both claims were truthful and both called bluff wrongly! Draw!"
 			player.get_node("BluffUI/Control/BluffInput").visible = false
 			player.game_over = true
 			player.to_phase_1()
@@ -305,14 +305,15 @@ func opponent_loses_round(message):
 	enemy.life_total -= 1
 	update_life_labels()
 
-	player.get_node("ResultLabel").text = message
+	player.get_node("Labels/ResultLabel").text = message
 	player.get_node("BluffUI/Control/BluffInput").visible = false
 	player.get_node("MonitorCards").clear_cards()
 
 	if enemy.life_total <= 0:
-		player.get_node("ResultLabel").text = message + " — You win the match!"
+		player.get_node("Labels/ResultLabel").text = message + " — You win the match!"
 		player.game_over = true
 		player.to_phase_1()
+		show_final_result(true)
 		return
 
 	player.game_over = true
@@ -325,14 +326,15 @@ func player_loses_round(message):
 	player.player_life -= 1
 	update_life_labels()
 
-	player.get_node("ResultLabel").text = message
+	player.get_node("Labels/ResultLabel").text = message
 	player.get_node("BluffUI/Control/BluffInput").visible = false
 	player.get_node("MonitorCards").clear_cards()
 
 	if player.player_life <= 0:
-		player.get_node("ResultLabel").text = message + " — Game Over! You lose the match."
+		player.get_node("Labels/ResultLabel").text = message + " — Game Over! You lose the match."
 		player.game_over = true
 		player.to_phase_1()
+		show_final_result(false)
 		return
 
 	player.game_over = true
@@ -359,3 +361,36 @@ func _start_next_round_after_delay() -> void:
 	else:
 		player_turn = Turn.ENEMY
 		emit_signal("current_turn", Turn.ENEMY)
+
+# Final Screen showing according to the result
+func show_final_result(player_won: bool):
+	var final_result_screen = player.get_node("FinalScreen")
+	var final_result_label = player.get_node("FinalScreen/ResultLabel")
+	var replay_button = player.get_node("FinalScreen/ReplayButton")
+	var next_button = player.get_node("FinalScreen/NextLevelButton")
+	
+	if player_won:
+		final_result_label.text = "YOU WIN"
+		replay_button.visible = false
+		next_button.visible = true
+		next_button.disabled = false
+	else:
+		final_result_label.text = "ENEMY WIN"
+		
+		replay_button.visible = true
+		next_button.visible = true
+		next_button.disabled = true	
+		
+	final_result_screen.visible = true
+		
+	player.game_over = true
+	
+	player.get_node("table").visible = false
+	player.get_node("Monitor").visible = false
+	player.get_node("BluffUI").visible = false
+	player.get_node("ActionButton").visible = false
+	player.get_node("ShowdownButtons").visible = false
+	player.get_node("Labels").visible = false
+	player.get_node("MonitorCards").visible = false
+	player.get_node("RestartUI").visible = false
+	enemy.get_node("AnimationController").visible = false

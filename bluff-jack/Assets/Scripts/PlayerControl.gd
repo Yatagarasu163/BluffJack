@@ -12,8 +12,8 @@ var is_player_turn = false;
 @onready var bluff_buttons = $BluffUI;
 @onready var draw_buttons = $ActionButton;
 @onready var showdown_buttons = $ShowdownButtons;
-@onready var player_life_label = $PlayerLifeLabel;
-@onready var opponent_life_label = $OpponentLifeLabel;
+@onready var player_life_label = $Labels/PlayerLifeLabel;
+@onready var opponent_life_label = $Labels/OpponentLifeLabel;
 @onready var monitor_cards = $MonitorCards;
 signal restart_game;
  
@@ -68,11 +68,11 @@ func start_round():
 
 	game_manager.player_total = calculate_total();
 	game_manager.claimed_player_total = calculate_total();
-	$ActualTotalLabel.text = "Actual Total: " + str(game_manager.player_total);
-	$ClaimedTotalLabel.text = "Claimed Total: -"
-	$ResultLabel.text = "Result:"
+	$Labels/ActualTotalLabel.text = "Actual Total: " + str(game_manager.player_total);
+	$Labels/ClaimedTotalLabel.text = "Claimed Total: -"
+	$Labels/ResultLabel.text = "Result:"
 	# FIX: Clear the OpponentActionLabel at the start of every round
-	$OpponentActionLabel.text = "Opponent:"
+	$Labels/OpponentActionLabel.text = "Opponent:"
 	$BluffUI/Control/BluffInput.visible = false
 	$BluffUI/Control/BluffInput.text = ""
 	$BluffUI/Control/BluffInput.placeholder_text = "Enter Bluff Number"
@@ -83,7 +83,7 @@ func _on_draw_card_button_pressed():
 		game_manager.player_state = game_manager.State.DRAW;
 		draw_cards();
 		actual_total = calculate_total();
-		$ActualTotalLabel.text = "Actual Total: " + str(calculate_total());
+		$Labels/ActualTotalLabel.text = "Actual Total: " + str(calculate_total());
 	else:
 		game_manager.player_state = game_manager.State.BLUFF;
 	main.screen_shake()
@@ -113,8 +113,8 @@ func _on_stay_button_pressed():
 		#return
 	game_manager.player_total = calculate_total();
 	game_manager.claimed_player_total = calculate_total();
-	$ActualTotalLabel.text = "Actual Total: " + str(game_manager.player_total);
-	$ClaimedTotalLabel.text = "Claimed Total: " + str(game_manager.claimed_player_total);
+	$Labels/ActualTotalLabel.text = "Actual Total: " + str(game_manager.player_total);
+	$Labels/ClaimedTotalLabel.text = "Claimed Total: " + str(game_manager.claimed_player_total);
 	game_manager.player_state = game_manager.State.BLUFF;
 	game_manager.end_turn();
 	await to_phase_2();
@@ -156,7 +156,7 @@ func _on_bluff_button_pressed():
 		return
 	main.screen_shake()
 
-	$OpponentActionLabel.text = "Opponent: Enter bluff number and press Enter"
+	$Labels/OpponentActionLabel.text = "Opponent: Enter bluff number and press Enter"
 	bluff_buttons.visible = true;
 	bluff_buttons.get_child(0).visible = false;
 	bluff_buttons.get_child(1).visible = false;
@@ -176,7 +176,7 @@ func _on_bluff_input_text_submitted(new_text):
 	if new_text.is_valid_int():
 		claimed_total = int(new_text)
 		game_manager.claimed_player_total = claimed_total;
-		$ClaimedTotalLabel.text = "Claimed Total: " + str(claimed_total)
+		$Labels/ClaimedTotalLabel.text = "Claimed Total: " + str(claimed_total)
 		bluff_buttons.get_child(2).get_child(0).visible = false;
 		bluff_buttons.get_child(2).get_child(0).text = "";
  
@@ -201,7 +201,7 @@ func _on_truth_button_pressed() -> void:
 	claimed_total = calculate_total();
 	game_manager.claimed_player_total = claimed_total;
 	game_manager.player_total = calculate_total();
-	$ClaimedTotalLabel.text = "Claimed Total: " + str(claimed_total);
+	$Labels/ClaimedTotalLabel.text = "Claimed Total: " + str(claimed_total);
 	game_manager.player_state = game_manager.State.SHOWDOWN;
 	game_manager.end_turn();
  
@@ -227,3 +227,18 @@ func _on_pass_button_pressed() -> void:
 
 	print("I'll accept that number");
 	
+func _replay_button_pressed():
+	print("Replay pressed")
+	get_tree().reload_current_scene()
+	
+func _next_level_button_pressed():
+	print("Next Level Pressed")
+	get_tree().change_scene_to_file("res://Scenes/Level 3.tscn")
+
+
+func _on_replay_button_pressed() -> void:
+	pass # Replace with function body.
+
+
+func _on_next_level_button_pressed() -> void:
+	pass # Replace with function body.
