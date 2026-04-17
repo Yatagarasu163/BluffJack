@@ -195,3 +195,4 @@ position = Vector2(146.99994, 27)
 [connection signal="pressed" from="ActionButton/StayButton" to="." method="_on_stay_button_pressed"]
 [connection signal="pressed" from="ShowdownButtons/CallBluffButton" to="." method="_on_call_bluff_button_pressed"]
 [connection signal="pressed" from="ShowdownButtons/PassButton" to="." method="_on_pass_button_pressed"]
+[connection signal="pressed" from="RestartUI/RestartButton" to="." method="_on_restart_button_pressed"]
