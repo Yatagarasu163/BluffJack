@@ -42,17 +42,18 @@ func set_opponent_label(text: String) -> void:
  
 func take_turn() -> void:
 	if game_manager.player_turn != game_manager.Turn.ENEMY:
-		return;
-	
-	await get_tree().create_timer(randf_range(0.5, 1.0)).timeout;
-	
-	var should_end = false;
+		return
+
+	await get_tree().create_timer(randf_range(0.5, 1.0)).timeout
+
+	var should_end = false
 
 	if game_manager.player_state == game_manager.State.DRAW:
 		if game_manager.enemy_state == game_manager.State.DRAW:
-			anim.set_anim_state(anim.AnimState.SELECT);
-			await anim.anim.animation_finished;
-			anim.set_anim_state(anim.AnimState.IDLE);
+			anim.set_anim_state(anim.AnimState.SELECT)
+			await anim.anim.animation_finished
+			anim.set_anim_state(anim.AnimState.IDLE)
+
 			if drawCardDecider():
 				set_opponent_label("Opponent: Drew a card")
 				drawCard()
@@ -61,6 +62,7 @@ func take_turn() -> void:
 				set_opponent_label("Opponent: Stayed")
 				game_manager.enemy_state = game_manager.State.BLUFF
 				should_end = true
+
 		elif game_manager.enemy_state == game_manager.State.BLUFF:
 			should_end = true
 
@@ -70,48 +72,9 @@ func take_turn() -> void:
 				set_opponent_label("Opponent: Drew a card")
 				drawCard()
 			else:
-				print("Enemy is not bluffing: ", roundDecision["value"]);
-				game_manager.enemy_claimed_total = roundDecision["value"];
-			game_manager.enemy_state = game_manager.State.SHOWDOWN;
-			should_end = true;
-		else: 
-			should_end = true;
-	elif game_manager.player_state == game_manager.State.SHOWDOWN:
-		if game_manager.enemy_state == game_manager.State.BLUFF:
-			var roundDecision = roundDecider();
-			if roundDecision["bluffing"]:
-				print("Enemy is bluffing: ", roundDecision["value"]);
-				game_manager.enemy_claimed_total = roundDecision["value"];
-			else:
-				print("Enemy is not bluffing: ", roundDecision["value"]);
-				game_manager.enemy_claimed_total = roundDecision["value"];
-			game_manager.enemy_state = game_manager.State.SHOWDOWN;
-			var checkBluff = callsBluff(game_manager.player_total, game_manager.claimed_player_total);;
-			if checkBluff:
-				print("Calling Bluff");
-				anim.set_anim_state(anim.AnimState.CALL_BLUFF);
-			else:
-				print("Passing");
-				anim.set_anim_state(anim.AnimState.PASS);
-			await anim.anim.animation_finished;
-			anim.set_anim_state(anim.AnimState.IDLE);
-			should_end = true;
-			
-		else:
-			game_manager.enemy_state = game_manager.State.SHOWDOWN;
-			var checkBluff = callsBluff(game_manager.player_total, game_manager.claimed_player_total);;
-			if checkBluff:
-				print("Calling out Bluff");
-				anim.set_anim_state(anim.AnimState.CALL_BLUFF);
-			else:
-				print("Passing");
-				anim.set_anim_state(anim.AnimState.PASS);
-			await anim.anim.animation_finished;
-			anim.set_anim_state(anim.AnimState.IDLE);
-			should_end = true;
-	
-	if should_end:
-		game_manager.end_turn();
+				set_opponent_label("Opponent: Stayed")
+				game_manager.enemy_state = game_manager.State.BLUFF
+			should_end = true
 
 		elif game_manager.enemy_state == game_manager.State.BLUFF:
 			var roundDecision = roundDecider()
@@ -144,12 +107,23 @@ func take_turn() -> void:
 
 		var enemy_calls = callsBluff(game_manager.player_total, game_manager.claimed_player_total)
 
+		if enemy_calls:
+			print("Calling out Bluff")
+			anim.set_anim_state(anim.AnimState.CALL_BLUFF)
+		else:
+			print("Passing")
+			anim.set_anim_state(anim.AnimState.PASS)
+
+		await anim.anim.animation_finished
+		anim.set_anim_state(anim.AnimState.IDLE)
+
 		await get_tree().create_timer(0.8).timeout
 
 		if enemy_calls:
 			set_opponent_label("Opponent: CALLS YOUR BLUFF!")
 		else:
 			set_opponent_label("Opponent: Accepts your total")
+
 		if !game_manager.player_made_showdown_choice:
 			game_manager.end_turn()
 
@@ -159,7 +133,13 @@ func take_turn() -> void:
 			game_manager.enemy_call_bluff()
 		else:
 			game_manager.enemy_pass_bluff()
+
 		return
+
+	if should_end:
+		game_manager.end_turn()
+
+		
 
 	if should_end:
 		game_manager.end_turn()
@@ -249,4 +229,3 @@ func callsBluff(real_val: int, bluff_val: int) -> bool:
 		call_chance = clamp(call_chance, 0.0, 1.0);
  
 	return randf_range(0, 1) < call_chance;
-	

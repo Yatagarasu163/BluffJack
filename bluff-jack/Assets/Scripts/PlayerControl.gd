@@ -226,4 +226,4 @@ func _on_pass_button_pressed() -> void:
  
 
 	print("I'll accept that number");
-	game_manager.end_turn();
+	

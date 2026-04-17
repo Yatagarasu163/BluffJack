@@ -12,7 +12,7 @@ script = ExtResource("1_cm0pq")
 
 [node name="Enemy" parent="." unique_id=572914806 instance=ExtResource("3_cm0pq")]
 position = Vector2(575, 312)
-paranoia_value = 1.0
+paranoia_value = 0.5
 
 [node name="Custom Cursor" parent="." unique_id=1705748054 instance=ExtResource("3_r0du0")]
 position = Vector2(1152, 648)
