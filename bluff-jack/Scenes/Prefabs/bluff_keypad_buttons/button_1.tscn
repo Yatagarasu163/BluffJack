@@ -1,0 +1,91 @@
+[gd_scene format=3 uid="uid://cfqjsaeljletm"]
+
+[ext_resource type="Texture2D" uid="uid://nihn1dthf7g2" path="res://Assets/sprites/bluff inputs/1 button pressed.png" id="1_6ifvv"]
+[ext_resource type="Script" uid="uid://dqowoxpn2x1q8" path="res://Assets/Scripts/button_enter.gd" id="1_n87ds"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n87ds"]
+atlas = ExtResource("1_6ifvv")
+region = Rect2(18, 5, 44, 43)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qi0xo"]
+atlas = ExtResource("1_6ifvv")
+region = Rect2(98, 5, 44, 43)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nk27q"]
+atlas = ExtResource("1_6ifvv")
+region = Rect2(18, 5, 44, 43)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t7i4c"]
+atlas = ExtResource("1_6ifvv")
+region = Rect2(18, 5, 44, 43)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jemp6"]
+atlas = ExtResource("1_6ifvv")
+region = Rect2(98, 5, 44, 43)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t25y7"]
+atlas = ExtResource("1_6ifvv")
+region = Rect2(178, 5, 44, 43)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_a00pk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n87ds")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qi0xo")
+}],
+"loop": false,
+"name": &"hover",
+"speed": 30.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nk27q")
+}],
+"loop": false,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t7i4c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jemp6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t25y7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t25y7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t25y7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jemp6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t7i4c")
+}],
+"loop": false,
+"name": &"pressed",
+"speed": 5.0
+}]
+
+[node name="Button 0" type="Node2D" unique_id=1588725735]
+texture_filter = 5
+script = ExtResource("1_n87ds")
+value = 1
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=198100826]
+sprite_frames = SubResource("SpriteFrames_a00pk")
+animation = &"pressed"
+centered = false
+
+[node name="Button" type="Button" parent="." unique_id=1980702128]
+offset_right = 44.0
+offset_bottom = 43.0
+flat = true

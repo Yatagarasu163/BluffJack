@@ -1,0 +1,91 @@
+[gd_scene format=3 uid="uid://e46efbb4hx2r"]
+
+[ext_resource type="Texture2D" uid="uid://0ngtgno8jwje" path="res://Assets/sprites/bluff inputs/backspace button pressed.png" id="1_ntfqo"]
+[ext_resource type="Script" uid="uid://dqowoxpn2x1q8" path="res://Assets/Scripts/button_enter.gd" id="1_ydjy7"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ydjy7"]
+atlas = ExtResource("1_ntfqo")
+region = Rect2(18, 5, 44, 43)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8c568"]
+atlas = ExtResource("1_ntfqo")
+region = Rect2(98, 5, 44, 43)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wgjjw"]
+atlas = ExtResource("1_ntfqo")
+region = Rect2(18, 5, 44, 43)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jk6fk"]
+atlas = ExtResource("1_ntfqo")
+region = Rect2(18, 5, 44, 43)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t67ee"]
+atlas = ExtResource("1_ntfqo")
+region = Rect2(98, 5, 44, 43)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4nfxp"]
+atlas = ExtResource("1_ntfqo")
+region = Rect2(178, 5, 44, 43)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_a00pk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ydjy7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8c568")
+}],
+"loop": false,
+"name": &"hover",
+"speed": 30.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wgjjw")
+}],
+"loop": false,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jk6fk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t67ee")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4nfxp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4nfxp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4nfxp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t67ee")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jk6fk")
+}],
+"loop": false,
+"name": &"pressed",
+"speed": 5.0
+}]
+
+[node name="Button 0" type="Node2D" unique_id=1588725735]
+texture_filter = 5
+script = ExtResource("1_ydjy7")
+value = -1
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=198100826]
+sprite_frames = SubResource("SpriteFrames_a00pk")
+animation = &"hover"
+centered = false
+
+[node name="Button" type="Button" parent="." unique_id=1980702128]
+offset_right = 44.0
+offset_bottom = 43.0
+flat = true
