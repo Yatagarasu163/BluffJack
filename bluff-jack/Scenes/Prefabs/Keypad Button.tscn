@@ -1,0 +1,96 @@
+[gd_scene format=3 uid="uid://fk6ugxo4ee4c"]
+
+[ext_resource type="Script" uid="uid://bu28rebhd40nf" path="res://Scenes/Prefabs/keypad_button.gd" id="1_irm6q"]
+[ext_resource type="Texture2D" uid="uid://bwn3fhyl6wth7" path="res://Assets/sprites/bluff inputs/bluff button pressed.png" id="1_k7gg8"]
+[ext_resource type="Texture2D" uid="uid://dhsclyrxhrn62" path="res://Assets/cards/0.png" id="3_qkrcb"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qkrcb"]
+atlas = ExtResource("1_k7gg8")
+region = Rect2(18, 5, 45, 43)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t6usb"]
+atlas = ExtResource("1_k7gg8")
+region = Rect2(98, 5, 45, 43)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vai2i"]
+atlas = ExtResource("1_k7gg8")
+region = Rect2(18, 5, 45, 43)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5rfnb"]
+atlas = ExtResource("1_k7gg8")
+region = Rect2(18, 5, 45, 43)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4bsac"]
+atlas = ExtResource("1_k7gg8")
+region = Rect2(98, 5, 45, 43)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dvsdy"]
+atlas = ExtResource("1_k7gg8")
+region = Rect2(178, 5, 45, 43)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_a277t"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qkrcb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t6usb")
+}],
+"loop": false,
+"name": &"hover",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vai2i")
+}],
+"loop": false,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5rfnb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4bsac")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dvsdy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dvsdy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dvsdy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4bsac")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5rfnb")
+}],
+"loop": false,
+"name": &"pressed",
+"speed": 5.0
+}]
+
+[node name="Keypad Input" type="Node2D" unique_id=1050717101]
+texture_filter = 5
+script = ExtResource("1_irm6q")
+number = 1
+
+[node name="Button" type="Button" parent="." unique_id=2065521965]
+offset_right = 44.0
+offset_bottom = 43.0
+flat = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1505940116]
+sprite_frames = SubResource("SpriteFrames_a277t")
+animation = &"pressed"
+centered = false
+
+[node name="Sprite2D" type="Sprite2D" parent="AnimatedSprite2D" unique_id=106844345]
+position = Vector2(22, 16)
+texture = ExtResource("3_qkrcb")

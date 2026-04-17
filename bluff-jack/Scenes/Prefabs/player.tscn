@@ -4,9 +4,85 @@
 [ext_resource type="Texture2D" uid="uid://ysn5gxf7npkb" path="res://Assets/environment/table reworked the looonnggg way now in 4k (2).png" id="2_fkybt"]
 [ext_resource type="Texture2D" uid="uid://cxbha1fqn4ido" path="res://Assets/environment/monitor upscaled.png" id="3_x3wgy"]
 [ext_resource type="Script" uid="uid://ny3drku50ag8" path="res://Assets/Scripts/MonitorCards.gd" id="4_3smsa"]
-[ext_resource type="PackedScene" uid="uid://bvv2x88t06mxr" path="res://Scenes/Prefabs/bluff_button.tscn" id="4_v34u6"]
-[ext_resource type="PackedScene" uid="uid://7xjkrw7cig06" path="res://Scenes/Prefabs/draw_card_button.tscn" id="5_ak25i"]
-[ext_resource type="PackedScene" uid="uid://co4x1x5aymfy5" path="res://Scenes/Prefabs/truth_button.tscn" id="5_fdt7q"]
+[ext_resource type="PackedScene" uid="uid://bvv2x88t06mxr" path="res://Scenes/Prefabs/Buttons/bluff_button.tscn" id="4_v34u6"]
+[ext_resource type="PackedScene" uid="uid://7xjkrw7cig06" path="res://Scenes/Prefabs/Buttons/draw_card_button.tscn" id="5_ak25i"]
+[ext_resource type="PackedScene" uid="uid://co4x1x5aymfy5" path="res://Scenes/Prefabs/Buttons/truth_button.tscn" id="5_fdt7q"]
+[ext_resource type="PackedScene" uid="uid://bq1neeol8ekcp" path="res://Scenes/Prefabs/Buttons/stay_button.tscn" id="7_68wta"]
+[ext_resource type="Script" uid="uid://dn6e6ei30wju4" path="res://Assets/Scripts/animation_controller.gd" id="8_fdt7q"]
+[ext_resource type="PackedScene" uid="uid://s876qwvr3upp" path="res://Scenes/Prefabs/Buttons/call_bluff_button.tscn" id="8_ofsyp"]
+[ext_resource type="Texture2D" uid="uid://by8akvdpyrog6" path="res://Assets/sprites/player/player knife 1 pull out anim.png" id="9_k7ict"]
+[ext_resource type="PackedScene" uid="uid://blya5a1bmr7wy" path="res://Scenes/Prefabs/Buttons/pass_button.tscn" id="9_ofsyp"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_68wta"]
+atlas = ExtResource("9_k7ict")
+region = Rect2(0, 0, 60, 60)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b8ttq"]
+atlas = ExtResource("9_k7ict")
+region = Rect2(60, 0, 60, 60)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ofsyp"]
+atlas = ExtResource("9_k7ict")
+region = Rect2(120, 0, 60, 60)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mhr4y"]
+atlas = ExtResource("9_k7ict")
+region = Rect2(180, 0, 60, 60)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qapsg"]
+atlas = ExtResource("9_k7ict")
+region = Rect2(240, 0, 60, 60)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eejau"]
+atlas = ExtResource("9_k7ict")
+region = Rect2(300, 0, 60, 60)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rc3i2"]
+atlas = ExtResource("9_k7ict")
+region = Rect2(360, 0, 60, 60)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ultsi"]
+atlas = ExtResource("9_k7ict")
+region = Rect2(420, 0, 60, 60)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_823f0"]
+atlas = ExtResource("9_k7ict")
+region = Rect2(480, 0, 60, 60)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_k7ict"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_68wta")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b8ttq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ofsyp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mhr4y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qapsg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eejau")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rc3i2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ultsi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_823f0")
+}],
+"loop": false,
+"name": &"warning",
+"speed": 5.0
+}]
 
 [node name="Player" type="Node2D" unique_id=1525742724 groups=["Player"]]
 script = ExtResource("1_vgqql")
@@ -53,6 +129,7 @@ text = "Next
 "
 
 [node name="table" type="Sprite2D" parent="." unique_id=1633987005]
+z_index = -2
 texture_filter = 5
 position = Vector2(574.9583, 504.12494)
 scale = Vector2(0.96, 0.96)
@@ -168,29 +245,27 @@ offset_right = 839.0
 offset_bottom = 505.0
 metadata/_edit_use_anchors_ = true
 
-[node name="StayButton" type="Button" parent="ActionButton" unique_id=975195132]
+[node name="StayButton" parent="ActionButton" unique_id=326495602 instance=ExtResource("7_68wta")]
 offset_left = 790.0
 offset_top = 545.0
 offset_right = 868.0
 offset_bottom = 576.0
-text = "Stay"
-metadata/_edit_use_anchors_ = true
 
 [node name="ShowdownButtons" type="Node2D" parent="." unique_id=2069252256]
 
-[node name="CallBluffButton" type="Button" parent="ShowdownButtons" unique_id=1703066574]
+[node name="CallBluffButton" parent="ShowdownButtons" unique_id=252614603 instance=ExtResource("8_ofsyp")]
 offset_left = 780.0
-offset_top = 474.0
-offset_right = 858.0
+offset_top = 475.0
+offset_right = 839.0
 offset_bottom = 505.0
-text = "Call Bluff"
+metadata/_edit_use_anchors_ = true
 
-[node name="PassButton" type="Button" parent="ShowdownButtons" unique_id=100421874]
+[node name="PassButton" parent="ShowdownButtons" unique_id=1750421363 instance=ExtResource("9_ofsyp")]
 offset_left = 790.0
 offset_top = 545.0
 offset_right = 868.0
 offset_bottom = 576.0
-text = "Pass"
+metadata/_edit_use_anchors_ = true
 
 [node name="RestartUI" type="Node2D" parent="." unique_id=1934285765]
 position = Vector2(-24, -24)
@@ -230,6 +305,18 @@ position = Vector2(146.99994, 27)
 
 [connection signal="pressed" from="FinalScreen/ReplayButton" to="." method="_on_replay_button_pressed"]
 [connection signal="pressed" from="FinalScreen/NextLevelButton" to="." method="_on_next_level_button_pressed"]
+[node name="AnimationController" type="Node2D" parent="." unique_id=1272929798]
+texture_filter = 5
+position = Vector2(878, 379)
+scale = Vector2(4, 4)
+script = ExtResource("8_fdt7q")
+
+[node name="knifeAnim" type="AnimatedSprite2D" parent="AnimationController" unique_id=8615692]
+texture_filter = 5
+position = Vector2(38.5, 37)
+sprite_frames = SubResource("SpriteFrames_k7ict")
+animation = &"warning"
+
 [connection signal="pressed" from="BluffUI/BluffButton" to="." method="_on_bluff_button_pressed"]
 [connection signal="pressed" from="BluffUI/TruthButton" to="." method="_on_truth_button_pressed"]
 [connection signal="text_changed" from="BluffUI/Control/BluffInput" to="." method="_on_bluff_input_text_changed"]
