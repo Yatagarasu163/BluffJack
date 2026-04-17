@@ -18,6 +18,7 @@ var is_player_turn = false;
 signal restart_game;
 @onready var anim = $AnimationController;
 var draw_powerup = false;
+var hand_powerup = false;
 var current_bluff_value := ""
 @onready var bluff_input = $BluffUI/Control/BluffInput
  
@@ -48,7 +49,10 @@ func _on_turn_changed(turn) -> void:
 		# Triggers the draw powerup from the enemy
 		if draw_powerup:
 			_draw_powerup();
-			draw_powerup = true;
+			draw_powerup = false;
+		if hand_powerup:
+			_hand_powerup();
+			hand_powerup = false;
 			
 		if game_manager.player_state == game_manager.State.DRAW:
 			to_phase_1();
@@ -157,6 +161,8 @@ func to_phase_1() -> void:
 
  
 func to_phase_2() -> void:
+	_hand_powerup();
+	
 	print("Phase 2 is being called")
 	draw_buttons.visible = true;
 	draw_buttons.get_child(0)._on_change_to_truth();
@@ -311,3 +317,11 @@ func _draw_powerup() -> void:
 	
 	# Find a way to update the visuals here. @Saif Musthafa, the rastafarah IShowSpeed 
 	
+func _hand_powerup() -> void:
+	print("Before powerup: ", cards);
+	var changed_card_position: int = randi_range(0, cards.size() - 1);
+	var new_value:int = randi_range(1, 9);
+	cards[changed_card_position] = new_value;
+	print("After powerup: ", cards);
+	
+	# Find a way to update the visuals here. @Saif Musthafa, the rastafarah IShowSpeed 

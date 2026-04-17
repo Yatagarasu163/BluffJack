@@ -17,5 +17,4 @@ has_draw_powerup = true
 paranoia_value = 0.5
 
 [node name="Custom Cursor" parent="." unique_id=1705748054 instance=ExtResource("4_2dwo8")]
-z_index = 100
 position = Vector2(1152, 648)

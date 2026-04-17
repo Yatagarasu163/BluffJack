@@ -9,6 +9,8 @@ var turn_number = 0;
 var life_total = 3;
 @onready var anim = $AnimationController;
 @export var has_draw_powerup = false;
+@export var has_hand_powerup = false;
+@export var has_winning_val_powerup = false;
 
 
 # Chance mechanics
@@ -23,6 +25,10 @@ func _ready() -> void:
 	print("Enemy Registered")
 	if has_draw_powerup:
 		game_manager._trigger_draw_powerup();
+	if has_hand_powerup:
+		game_manager._trigger_hand_powerup();
+	if has_winning_val_powerup:
+		game_manager._trigger_winning_val_powerup();
  
 func _on_turn_changed(turn):
 	if turn == game_manager.Turn.ENEMY:

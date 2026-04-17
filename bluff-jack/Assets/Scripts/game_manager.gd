@@ -25,6 +25,7 @@ var player_state = State.DRAW
 var enemy_state = State.DRAW
 var processing_turn = false
 var enemy_animation_controller = null
+@export var winning_value = 21;
 
 
 func _ready() -> void:
@@ -119,19 +120,19 @@ func try_resolve_showdown() -> void:
 # if both on same side, closer/higher according to the rules wins
 
 func get_winner(input_player_total, enemy_input_total):
-	if input_player_total == 21 and enemy_input_total != 21:
+	if input_player_total == winning_value and enemy_input_total != winning_value:
 		return "player"
-	elif enemy_input_total == 21 and input_player_total != 21:
+	elif enemy_input_total == winning_value and input_player_total != winning_value:
 		return "opponent"
-	elif input_player_total == 21 and enemy_input_total == 21:
+	elif input_player_total == winning_value and enemy_input_total == winning_value:
 		return "draw"
 
-	if input_player_total <= 21 and enemy_input_total > 21:
+	if input_player_total <= winning_value and enemy_input_total > winning_value:
 		return "player"
-	elif enemy_input_total <= 21 and input_player_total > 21:
+	elif enemy_input_total <= winning_value and input_player_total > winning_value:
 		return "opponent"
 
-	if input_player_total <= 21 and enemy_input_total <= 21:
+	if input_player_total <= winning_value and enemy_input_total <= winning_value:
 		if input_player_total > enemy_input_total:
 			return "player"
 		elif enemy_input_total > input_player_total:
@@ -139,9 +140,9 @@ func get_winner(input_player_total, enemy_input_total):
 		else:
 			return "draw"
 
-	if input_player_total > 21 and enemy_input_total > 21:
-		var player_diff = input_player_total - 21
-		var enemy_diff = enemy_input_total - 21
+	if input_player_total > winning_value and enemy_input_total > winning_value:
+		var player_diff = input_player_total - winning_value
+		var enemy_diff = enemy_input_total - winning_value
 
 		if player_diff < enemy_diff:
 			return "player"
@@ -428,3 +429,9 @@ func show_final_result(player_won: bool):
 
 func _trigger_draw_powerup() -> void:
 	player.draw_powerup = true;
+
+func _trigger_hand_powerup() -> void:
+	player.hand_powerup = true;
+
+func _trigger_winning_val_powerup() -> void:
+	winning_value = randi_range(16, 35);
