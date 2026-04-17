@@ -1,12 +1,7 @@
 extends Node2D
- 
-#Screen Shake Values
-@export var shake_strength_min: float = 2.0
-@export var shake_strength_max: float = 6.0
-@export var shake_count: int = 4
-@export var shake_speed: float = 0.03
-@export var return_speed: float = 0.05
- 
+
+@onready var main = $"..";
+
 #Life Counter
 var player_life = 3
 var actual_total = 0
@@ -66,11 +61,14 @@ func start_round():
 	actual_total = 0
 	claimed_total = 0
 	game_over = false
- 
-	to_phase_1()
-	draw_cards()
- 
-	$ActualTotalLabel.text = "Actual Total: 0"
+	
+	to_phase_1();
+	
+	draw_cards();
+
+	game_manager.player_total = calculate_total();
+	game_manager.claimed_player_total = calculate_total();
+	$ActualTotalLabel.text = "Actual Total: " + str(game_manager.player_total);
 	$ClaimedTotalLabel.text = "Claimed Total: -"
 	$ResultLabel.text = "Result:"
 	# FIX: Clear the OpponentActionLabel at the start of every round
@@ -80,6 +78,7 @@ func start_round():
 	$BluffUI/Control/BluffInput.placeholder_text = "Enter Bluff Number"
  
 func _on_draw_card_button_pressed():
+	await draw_buttons.get_child(0).anim.animation_finished;
 	if cards.size() < 5:
 		game_manager.player_state = game_manager.State.DRAW;
 		draw_cards();
@@ -87,7 +86,7 @@ func _on_draw_card_button_pressed():
 		$ActualTotalLabel.text = "Actual Total: " + str(calculate_total());
 	else:
 		game_manager.player_state = game_manager.State.BLUFF;
-	screen_shake()
+	main.screen_shake()
 	game_manager.end_turn();
  
 func draw_cards() -> void:
@@ -110,13 +109,19 @@ func calculate_total() -> int:
 	return total;
  
 func _on_stay_button_pressed():
+	#if game_over:
+		#return
+	game_manager.player_total = calculate_total();
+	game_manager.claimed_player_total = calculate_total();
+	$ActualTotalLabel.text = "Actual Total: " + str(game_manager.player_total);
+	$ClaimedTotalLabel.text = "Claimed Total: " + str(game_manager.claimed_player_total);
 	game_manager.player_state = game_manager.State.BLUFF;
 	game_manager.end_turn();
-	to_phase_2();
+	await to_phase_2();
 	if game_over:
 		return
-	screen_shake()
- 
+	main.screen_shake()
+
 func to_phase_1() -> void:
 	print("Phase 1 is being called")
 	draw_buttons.visible = true;
@@ -125,6 +130,9 @@ func to_phase_1() -> void:
  
 func to_phase_2() -> void:
 	print("Phase 2 is being called")
+	draw_buttons.visible = true;
+	draw_buttons.get_child(0)._on_change_to_truth();
+	await draw_buttons.get_child(0).anim.animation_finished;
 	bluff_buttons.visible = true;
 	bluff_buttons.get_child(0).visible = true;
 	bluff_buttons.get_child(1).visible = true;
@@ -146,14 +154,15 @@ func _on_bluff_button_pressed():
 	print("Bluff button pressed")
 	if game_over:
 		return
-	screen_shake()
- 
+	main.screen_shake()
+
+	$OpponentActionLabel.text = "Opponent: Enter bluff number and press Enter"
 	bluff_buttons.visible = true;
 	bluff_buttons.get_child(0).visible = false;
 	bluff_buttons.get_child(1).visible = false;
 	var bluff_input = bluff_buttons.get_child(2).get_child(0);
- 
-	bluff_input.position = Vector2(516,245);
+	
+	bluff_input.position = Vector2(576, 324);
 	bluff_input.visible = true;
 	bluff_input.text = "";
 	bluff_input.grab_focus();
@@ -161,8 +170,9 @@ func _on_bluff_button_pressed():
 func _on_bluff_input_text_submitted(new_text):
 	if game_over:
 		return
-	screen_shake()
- 
+	main.screen_shake()
+
+	
 	if new_text.is_valid_int():
 		claimed_total = int(new_text)
 		game_manager.claimed_player_total = claimed_total;
@@ -185,8 +195,12 @@ func _on_bluff_input_text_changed(new_text: String) -> void:
 func _on_truth_button_pressed() -> void:
 	if game_over:
 		return;
+	
+	await bluff_buttons.get_child(1).anim.animation_finished;
+	
 	claimed_total = calculate_total();
 	game_manager.claimed_player_total = claimed_total;
+	game_manager.player_total = calculate_total();
 	$ClaimedTotalLabel.text = "Claimed Total: " + str(claimed_total);
 	game_manager.player_state = game_manager.State.SHOWDOWN;
 	game_manager.end_turn();
@@ -210,14 +224,6 @@ func _on_pass_button_pressed() -> void:
 		return
 	game_manager.player_pass_bluff()
  
-func screen_shake():
-	var original_pos = position
-	var tween = create_tween()
-	for i in range(shake_count):
-		var strength = randf_range(shake_strength_min, shake_strength_max)
-		var offset = Vector2(
-			randf_range(-strength, strength),
-			randf_range(-strength, strength)
-		)
-		tween.tween_property(self, "position", original_pos + offset, 0.03)
-	tween.tween_property(self, "position", original_pos, 0.05)
+
+	print("I'll accept that number");
+	game_manager.end_turn();

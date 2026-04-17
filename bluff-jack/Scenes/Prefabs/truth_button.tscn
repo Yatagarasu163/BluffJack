@@ -1,0 +1,106 @@
+[gd_scene format=3 uid="uid://co4x1x5aymfy5"]
+
+[ext_resource type="Script" uid="uid://bxc1d2wgokr27" path="res://Scenes/Prefabs/truth_button_animation.gd" id="1_4ehd6"]
+[ext_resource type="Texture2D" uid="uid://ed06qjvitmjx" path="res://Assets/sprites/buttons/draw button turned truth.png" id="2_8rqc5"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4qej4"]
+atlas = ExtResource("2_8rqc5")
+region = Rect2(300, 0, 60, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_86hb3"]
+atlas = ExtResource("2_8rqc5")
+region = Rect2(240, 0, 60, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rpwlx"]
+atlas = ExtResource("2_8rqc5")
+region = Rect2(300, 0, 60, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vrit1"]
+atlas = ExtResource("2_8rqc5")
+region = Rect2(300, 0, 60, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2pci1"]
+atlas = ExtResource("2_8rqc5")
+region = Rect2(240, 0, 60, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q0rfh"]
+atlas = ExtResource("2_8rqc5")
+region = Rect2(180, 0, 60, 40)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jg1x2"]
+animations = [{
+"frames": [],
+"loop": false,
+"name": &"change",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4qej4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_86hb3")
+}],
+"loop": false,
+"name": &"hover",
+"speed": 30.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rpwlx")
+}],
+"loop": false,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vrit1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vrit1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vrit1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vrit1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vrit1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2pci1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2pci1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2pci1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q0rfh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q0rfh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q0rfh")
+}],
+"loop": false,
+"name": &"pressed",
+"speed": 5.0
+}]
+
+[node name="TruthButton" type="Button" unique_id=1675204810]
+texture_filter = 5
+offset_right = 78.0
+offset_bottom = 31.0
+flat = true
+script = ExtResource("1_4ehd6")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1068440154]
+texture_filter = 5
+sprite_frames = SubResource("SpriteFrames_jg1x2")
+animation = &"hover"
+centered = false

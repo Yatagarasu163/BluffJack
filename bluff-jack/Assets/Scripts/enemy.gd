@@ -7,7 +7,10 @@ var playerBluffVal;
 var enemy_turn = false;
 var turn_number = 0;
 var life_total = 3;
- 
+@onready var anim = $AnimationController;
+
+
+# Chance mechanics
 @export var winningVal = 21;
 @export var paranoia_value = 3.0;
  
@@ -39,14 +42,17 @@ func set_opponent_label(text: String) -> void:
  
 func take_turn() -> void:
 	if game_manager.player_turn != game_manager.Turn.ENEMY:
-		return
-
-	await get_tree().create_timer(0.5).timeout
-
-	var should_end = false
+		return;
+	
+	await get_tree().create_timer(randf_range(0.5, 1.0)).timeout;
+	
+	var should_end = false;
 
 	if game_manager.player_state == game_manager.State.DRAW:
 		if game_manager.enemy_state == game_manager.State.DRAW:
+			anim.set_anim_state(anim.AnimState.SELECT);
+			await anim.anim.animation_finished;
+			anim.set_anim_state(anim.AnimState.IDLE);
 			if drawCardDecider():
 				set_opponent_label("Opponent: Drew a card")
 				drawCard()
@@ -64,9 +70,48 @@ func take_turn() -> void:
 				set_opponent_label("Opponent: Drew a card")
 				drawCard()
 			else:
-				set_opponent_label("Opponent: Stayed")
-				game_manager.enemy_state = game_manager.State.BLUFF
-			should_end = true
+				print("Enemy is not bluffing: ", roundDecision["value"]);
+				game_manager.enemy_claimed_total = roundDecision["value"];
+			game_manager.enemy_state = game_manager.State.SHOWDOWN;
+			should_end = true;
+		else: 
+			should_end = true;
+	elif game_manager.player_state == game_manager.State.SHOWDOWN:
+		if game_manager.enemy_state == game_manager.State.BLUFF:
+			var roundDecision = roundDecider();
+			if roundDecision["bluffing"]:
+				print("Enemy is bluffing: ", roundDecision["value"]);
+				game_manager.enemy_claimed_total = roundDecision["value"];
+			else:
+				print("Enemy is not bluffing: ", roundDecision["value"]);
+				game_manager.enemy_claimed_total = roundDecision["value"];
+			game_manager.enemy_state = game_manager.State.SHOWDOWN;
+			var checkBluff = callsBluff(game_manager.player_total, game_manager.claimed_player_total);;
+			if checkBluff:
+				print("Calling Bluff");
+				anim.set_anim_state(anim.AnimState.CALL_BLUFF);
+			else:
+				print("Passing");
+				anim.set_anim_state(anim.AnimState.PASS);
+			await anim.anim.animation_finished;
+			anim.set_anim_state(anim.AnimState.IDLE);
+			should_end = true;
+			
+		else:
+			game_manager.enemy_state = game_manager.State.SHOWDOWN;
+			var checkBluff = callsBluff(game_manager.player_total, game_manager.claimed_player_total);;
+			if checkBluff:
+				print("Calling out Bluff");
+				anim.set_anim_state(anim.AnimState.CALL_BLUFF);
+			else:
+				print("Passing");
+				anim.set_anim_state(anim.AnimState.PASS);
+			await anim.anim.animation_finished;
+			anim.set_anim_state(anim.AnimState.IDLE);
+			should_end = true;
+	
+	if should_end:
+		game_manager.end_turn();
 
 		elif game_manager.enemy_state == game_manager.State.BLUFF:
 			var roundDecision = roundDecider()
@@ -190,7 +235,7 @@ func generate_bluff_value(real_value: int) -> int:
  
 func callsBluff(real_val: int, bluff_val: int) -> bool:
 	var lie_size = bluff_val - real_val;
-	if abs(lie_size) <= 0:
+	if abs(lie_size) < 0:
 		return false;
 	var proximity = winningVal - bluff_val;
 	var closeness = 1.0 / (proximity + 1.0);
