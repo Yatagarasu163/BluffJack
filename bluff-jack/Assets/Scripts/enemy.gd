@@ -8,6 +8,7 @@ var enemy_turn = false;
 var turn_number = 0;
 var life_total = 3;
 @onready var anim = $AnimationController;
+@export var has_draw_powerup = false;
 
 
 # Chance mechanics
@@ -20,6 +21,8 @@ func _ready() -> void:
 	game_manager.start_game.connect(_on_match_started);
 	game_manager.register_enemy();
 	print("Enemy Registered")
+	if has_draw_powerup:
+		game_manager._trigger_draw_powerup();
  
 func _on_turn_changed(turn):
 	if turn == game_manager.Turn.ENEMY:
@@ -27,6 +30,7 @@ func _on_turn_changed(turn):
  
 func _on_match_started() -> void:
 	life_total = 3;
+
  
 func new_game() -> void:
 	life_total = 3;

@@ -394,3 +394,6 @@ func show_final_result(player_won: bool):
 	player.get_node("MonitorCards").visible = false
 	player.get_node("RestartUI").visible = false
 	enemy.get_node("AnimationController").visible = false
+
+func _trigger_draw_powerup() -> void:
+	player.draw_powerup = true;

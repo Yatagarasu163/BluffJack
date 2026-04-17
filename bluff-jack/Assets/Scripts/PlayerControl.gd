@@ -17,6 +17,7 @@ var is_player_turn = false;
 @onready var monitor_cards = $MonitorCards;
 signal restart_game;
 @onready var anim = $AnimationController;
+var draw_powerup = false;
  
  
 func _ready():
@@ -33,6 +34,12 @@ func get_life() -> int:
  
 func _on_turn_changed(turn) -> void:
 	if turn == game_manager.Turn.PLAYER:
+		
+		# Triggers the draw powerup from the enemy
+		if draw_powerup:
+			_draw_powerup();
+			draw_powerup = true;
+			
 		if game_manager.player_state == game_manager.State.DRAW:
 			to_phase_1();
 		elif game_manager.player_state == game_manager.State.BLUFF:
@@ -67,7 +74,7 @@ func start_round():
 	#to_phase_1();
 	
 	draw_cards();
-
+	
 	game_manager.player_total = calculate_total();
 	game_manager.claimed_player_total = calculate_total();
 	$Labels/ActualTotalLabel.text = "Actual Total: " + str(game_manager.player_total);
@@ -268,3 +275,12 @@ func _on_replay_button_pressed() -> void:
 
 func _on_next_level_button_pressed() -> void:
 	pass # Replace with function body.
+
+func _draw_powerup() -> void:
+	print("Before powerup: ", cards);
+	var changed_card_position:int = randi_range(0, 1);
+	var new_value:int = randi_range(1, 9);
+	cards[changed_card_position] = new_value;
+	print("After powerup: ", cards);
+	
+	# Find a way to update the visuals here. @Saif Musthafa, the rastafarah IShowSpeed 

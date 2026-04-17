@@ -82,8 +82,8 @@ func set_anim_state(new_state: int) -> void:
 					anim.play("knife_pass");
 					anim.speed_scale = randf_range(min_anim_speed, max_anim_speed);
 
-func _on_select_option() -> void:
-	anim.play()
+
+		
 
 func _on_idle_finished() -> void:
 	if enemy_life > 1:
