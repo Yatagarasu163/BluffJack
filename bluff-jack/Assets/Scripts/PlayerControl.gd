@@ -346,7 +346,7 @@ func _on_next_level_button_pressed() -> void:
 	var current_level = int(level_text)
 
 	var next_level = current_level + 1
-	var next_scene_path = "res://Scenes/Level" + str(next_level) + ".tscn"
+	var next_scene_path = "res://Scenes/Levels/Level " + str(next_level) + ".tscn"
 
 	if ResourceLoader.exists(next_scene_path):
 		get_tree().change_scene_to_file(next_scene_path)
