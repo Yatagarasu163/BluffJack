@@ -8,15 +8,12 @@ func _ready() -> void:
 	pressed.connect(_on_pressed);
 
 func _on_hover() -> void:
-	await anim.animation_finished;
 	anim.play("hover");
 
 func _on_idle() -> void:
-	await anim.animation_finished;
 	anim.play("idle");
 
 func _on_pressed() -> void:
-	await anim.animation_finished;
 	anim.play("pressed");
 
 func _on_change_to_truth() -> void:

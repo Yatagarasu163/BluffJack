@@ -11,7 +11,7 @@ var sfx_library = {
 	"knife_pull_out": preload("res://Assets/music/knife_pull_out.mp3"),
 	"button_press": preload("res://Assets/music/button_press.mp3"),
 	"crying_voiceline": preload("res://Assets/music/crying_voiceline.mp3"),
-	"i_have_voiceline": preload("res://Assets/music/i_have_voiceline.mp3")
+	"i_have_voiceline": preload("res://Assets/music/i_have_voiceline.mp3"),
 }
 
 var sfx_players = []

@@ -31,6 +31,9 @@ var current_level = 0;
 
 func _ready() -> void:
 	current_level = 0;
+	call_deferred("_go_to_menu");
+
+func _go_to_menu():
 	get_tree().change_scene_to_file("res://Scenes/Prefabs/Main_Menu.tscn");
 
 # Restart the whole match when restart signal is used
@@ -41,8 +44,6 @@ func _on_restart_game() -> void:
 
 func register_player(p) -> void:
 	player = p
-	player_life_label = player.get_node("Labels/PlayerLifeLabel")
-	opponent_life_label = player.get_node("Labels/OpponentLifeLabel")
 	player_ready = true
 	player.restart_game.connect(_on_restart_game)
 	_try_start()
@@ -338,6 +339,7 @@ func opponent_loses_round(message):
 # Called when player loses a round
 func player_loses_round(message):
 	player.player_life -= 1
+	player.anim._update_life_anim(player.player_life)
 	update_life_labels()
 
 	player.get_node("Labels/ResultLabel").text = message

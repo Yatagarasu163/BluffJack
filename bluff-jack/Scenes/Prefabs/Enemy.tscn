@@ -825,6 +825,8 @@ sprite_frames = SubResource("SpriteFrames_f2t0i")
 animation = &"call_bluff"
 
 [node name="KnifeSprite" type="AnimatedSprite2D" parent="AnimationController" unique_id=1948912999]
+z_index = 10
+z_as_relative = false
 texture_filter = 5
 position = Vector2(-45, 0)
 scale = Vector2(0.5, 0.5)

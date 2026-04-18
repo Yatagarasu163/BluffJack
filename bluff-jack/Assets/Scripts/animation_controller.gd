@@ -5,6 +5,9 @@ extends Node2D
 @export var min_anim_speed = 0.8;
 @export var max_anim_speed = 1.5;
 
+func _ready() -> void:
+	anim.visible = false;
+
 func _update_life_anim(player_life : int) -> void:
 	match player_life:
 		3:

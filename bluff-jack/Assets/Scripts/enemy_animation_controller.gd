@@ -41,9 +41,8 @@ func _update_knife(has_knife: bool) -> void:
 	if has_knife:
 		knife_anim.visible = true;
 		knife_anim.play("pull_out");
-		await knife_anim.animation_finished
-		knife_anim.play("knife_idle")
 		knife_anim.speed_scale = randf_range(min_anim_speed, max_anim_speed);
+		audio_manager.play_sfx("knife_pull_out");
 	else:
 		knife_anim.visible = false;
 
@@ -63,6 +62,7 @@ func set_anim_state(new_state: int) -> void:
 				AnimState.SELECT:
 					anim.play("select");
 					anim.speed_scale = randf_range(min_anim_speed, max_anim_speed);
+					await anim.animation_finished;
 					audio_manager.play_sfx("button_press");
 				AnimState.CALL_BLUFF:
 					anim.play("call_bluff");
@@ -82,6 +82,7 @@ func set_anim_state(new_state: int) -> void:
 				AnimState.SELECT:
 					anim.play("select");
 					anim.speed_scale = randf_range(min_anim_speed, max_anim_speed);
+					await anim.animation_finished;
 					audio_manager.play_sfx("button_press");
 				AnimState.CALL_BLUFF:
 					anim.play("call_bluff");
@@ -100,6 +101,7 @@ func set_anim_state(new_state: int) -> void:
 				AnimState.SELECT:
 					anim.play("knife_select");
 					anim.speed_scale = randf_range(min_anim_speed, max_anim_speed);
+					await anim.animation_finished;
 					audio_manager.play_sfx("button_press");
 				AnimState.CALL_BLUFF:
 					anim.play("knife_call_bluff");
@@ -116,7 +118,7 @@ func claim_anim(claimed_total: int) -> void:
 	one_visual.texture = card_textures[one_digit];
 	
 	chat_visual.visible = true;
-	await get_tree().create_timer(1.0).timeout;
+	await get_tree().create_timer(3.0).timeout;
 	chat_visual.visible = false;
 		
 

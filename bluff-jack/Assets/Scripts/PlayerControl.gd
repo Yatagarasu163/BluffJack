@@ -12,8 +12,6 @@ var is_player_turn = false;
 @onready var bluff_buttons = $BluffUI;
 @onready var draw_buttons = $ActionButton;
 @onready var showdown_buttons = $ShowdownButtons;
-@onready var player_life_label = $Labels/PlayerLifeLabel;
-@onready var opponent_life_label = $Labels/OpponentLifeLabel;
 @onready var monitor_cards = $MonitorCards;
 signal restart_game;
 @onready var anim = $AnimationController;
@@ -81,6 +79,13 @@ func start_match():
 	game_manager.update_life_labels()
 	start_round()
 
+func _process(_delta: float) -> void:
+	$Labels/WinningLabel.text = "Winning Value: " + str(game_manager.winning_value);
+	if player_life == 1:
+		if !$LowHealthBreathing.playing:
+			$LowHealthBreathing.play();
+	else:
+		$LowHealthBreathing.stop();
 
 func start_round():
 	game_manager.reset_round_flags()
@@ -250,6 +255,7 @@ func _on_bluff_button_pressed():
 	#tens_digit = 0
 	#ones_digit = 0
 	#bluff_display.show_number(tens_digit, ones_digit)
+	bluff_input_panel.visible = true;
 	bluff_input_panel._set_visible();
 
 func _on_truth_button_pressed() -> void:

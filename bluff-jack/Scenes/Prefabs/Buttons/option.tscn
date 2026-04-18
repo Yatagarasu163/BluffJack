@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://bj5tojgvj0vja"]
+
+[ext_resource type="Texture2D" uid="uid://cp226hb7uceo2" path="res://Assets/sprites/buttons/option button.png" id="1_er8pj"]
+
+[node name="Option" type="Button" unique_id=1134965529]
+offset_left = 534.0
+offset_top = 385.0
+offset_right = 629.0
+offset_bottom = 433.0
+flat = true
+metadata/_edit_use_anchors_ = true
+
+[node name="Option" type="Sprite2D" parent="." unique_id=2019459534]
+texture_filter = 5
+position = Vector2(48, 48)
+texture = ExtResource("1_er8pj")

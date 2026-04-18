@@ -96,10 +96,10 @@ func take_turn() -> void:
 			game_manager.enemy_state = game_manager.State.SHOWDOWN
 
 			audio_manager.play_sfx("i_have_voiceline");
-			if roundDecision["bluffing"]:
-				set_opponent_label("Opponent claims: " + str(roundDecision["value"]) + " (bluffing!)")
-			else:
-				set_opponent_label("Opponent reveals: " + str(roundDecision["value"]))
+			#if roundDecision["bluffing"]:
+				#set_opponent_label("Opponent claims: " + str(roundDecision["value"]) + " (bluffing!)")
+			#else:
+				#set_opponent_label("Opponent claims: " + str(roundDecision["value"]))
 			game_manager.enemy_claimed_total = roundDecision["value"];
 			# Adds the claim visual here
 			anim.claim_anim(roundDecision["value"]);
@@ -116,10 +116,10 @@ func take_turn() -> void:
 			game_manager.enemy_state = game_manager.State.SHOWDOWN
 
 			audio_manager.play_sfx("i_have_voiceline");
-			if roundDecision["bluffing"]:
-				set_opponent_label("Opponent claims: " + str(roundDecision["value"]) + " (bluffing!)")
-			else:
-				set_opponent_label("Opponent reveals: " + str(roundDecision["value"]))
+			#if roundDecision["bluffing"]:
+				#set_opponent_label("Opponent claims: " + str(roundDecision["value"]))
+			#else:
+				#set_opponent_label("Opponent claims: " + str(roundDecision["value"]))
 			game_manager.enemy_claimed_total = roundDecision["value"];
 			
 			anim.claim_anim(roundDecision["value"]);
