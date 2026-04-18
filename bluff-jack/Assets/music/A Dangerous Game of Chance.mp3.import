@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://ofmprxorros6"
+path="res://.godot/imported/A Dangerous Game of Chance.mp3-d8003c8ef62aacb2b78392f9386cead1.mp3str"
+
+[deps]
+
+source_file="res://Assets/music/A Dangerous Game of Chance.mp3"
+dest_files=["res://.godot/imported/A Dangerous Game of Chance.mp3-d8003c8ef62aacb2b78392f9386cead1.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
