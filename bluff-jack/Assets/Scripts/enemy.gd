@@ -95,10 +95,14 @@ func take_turn() -> void:
 			game_manager.enemy_total = calculateTotal()
 			game_manager.enemy_state = game_manager.State.SHOWDOWN
 
+			audio_manager.play_sfx("i_have_voiceline");
 			if roundDecision["bluffing"]:
 				set_opponent_label("Opponent claims: " + str(roundDecision["value"]) + " (bluffing!)")
 			else:
 				set_opponent_label("Opponent reveals: " + str(roundDecision["value"]))
+			game_manager.enemy_claimed_total = roundDecision["value"];
+			# Adds the claim visual here
+			anim.claim_anim(roundDecision["value"]);
 
 			should_end = true
 
@@ -116,6 +120,9 @@ func take_turn() -> void:
 				set_opponent_label("Opponent claims: " + str(roundDecision["value"]) + " (bluffing!)")
 			else:
 				set_opponent_label("Opponent reveals: " + str(roundDecision["value"]))
+			game_manager.enemy_claimed_total = roundDecision["value"];
+			
+			anim.claim_anim(roundDecision["value"]);
 
 		game_manager.enemy_total = calculateTotal()
 
@@ -187,7 +194,7 @@ func roundDecider() -> Dictionary:
 		shown_value = generate_bluff_value(totalInHand);
 	else:
 		shown_value = totalInHand;
- 
+ 	
 	return {
 		"bluffing": will_bluff,
 		"value": shown_value
@@ -229,7 +236,7 @@ func generate_bluff_value(real_value: int) -> int:
  
 func callsBluff(real_val: int, bluff_val: int) -> bool:
 	var lie_size = bluff_val - real_val;
-	if abs(lie_size) < 0:
+	if lie_size <= 0:
 		return false;
 	var proximity = winningVal - bluff_val;
 	var closeness = 1.0 / (proximity + 1.0);

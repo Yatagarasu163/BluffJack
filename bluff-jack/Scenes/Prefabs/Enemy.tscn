@@ -12,6 +12,8 @@
 [ext_resource type="Texture2D" uid="uid://donbfhaeliuyc" path="res://Assets/sprites/enemy/knife enemy talking.png" id="7_4i623"]
 [ext_resource type="Texture2D" uid="uid://cl06bo03ea2uq" path="res://Assets/sprites/enemy/enemy screen.png" id="9_tqh7e"]
 [ext_resource type="Texture2D" uid="uid://hl2tdqu0m50b" path="res://Assets/sprites/enemy/Knife Pull out animation.png" id="11_fdwnq"]
+[ext_resource type="Texture2D" uid="uid://bqbkbpnx2n6t0" path="res://Assets/sprites/enemy/chat bubble.png" id="12_a00fl"]
+[ext_resource type="Texture2D" uid="uid://dhsclyrxhrn62" path="res://Assets/cards/0.png" id="13_m6yjo"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mo1ky"]
 atlas = ExtResource("3_1exfc")
@@ -828,6 +830,24 @@ position = Vector2(-45, 0)
 scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_wuihc")
 animation = &"pull_out"
+
+[node name="ChatBubbleSprite" type="Sprite2D" parent="AnimationController" unique_id=1446780718]
+position = Vector2(12, -79.09091)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("12_a00fl")
+centered = false
+
+[node name="TensDigit" type="Sprite2D" parent="AnimationController/ChatBubbleSprite" unique_id=1001967530]
+position = Vector2(72, 145)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("13_m6yjo")
+centered = false
+
+[node name="OnesDigit" type="Sprite2D" parent="AnimationController/ChatBubbleSprite" unique_id=1734503542]
+position = Vector2(87, 145)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("13_m6yjo")
+centered = false
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=534381846]
 z_index = 2

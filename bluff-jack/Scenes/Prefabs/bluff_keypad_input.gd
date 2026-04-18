@@ -33,9 +33,7 @@ func update_keypad_display() -> void:
 
 func keypad_press(value: int) -> void:
 	print("keypad pressed: ", value)
-
-	var tens_visual = bluff_keypad.get_child(0);
-	var ones_visual = bluff_keypad.get_child(1);
+	audio_manager.play_sfx("button_press");
 
 	if value >= 0:
 		tens_digit = ones_digit;
