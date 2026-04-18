@@ -26,10 +26,12 @@ var enemy_state = State.DRAW
 var processing_turn = false
 var enemy_animation_controller = null
 @export var winning_value = 21;
+var current_level = 0;
 
 
 func _ready() -> void:
-	pass
+	current_level = 0;
+	get_tree().change_scene_to_file("res://Scenes/Prefabs/Main_Menu.tscn");
 
 # Restart the whole match when restart signal is used
 func _on_restart_game() -> void:
@@ -434,3 +436,19 @@ func _trigger_hand_powerup() -> void:
 
 func _trigger_winning_val_powerup() -> void:
 	winning_value = randi_range(16, 35);
+
+func _change_level() -> void:
+	
+	if current_level == 0:
+		get_tree().change_scene_to_file("res://Scenes/Prefabs/Main_Menu.tscn");
+	elif current_level == 7:
+		current_level = 0;
+		get_tree().change_scene_to_file("res://Scenes/Prefabs/Main_Menu.tscn");
+	else:
+		var path = "res://Scenes/Level " + str(current_level) + ".tscn";
+		get_tree().change_scene_to_file(path);
+		
+	current_level += 1;
+	
+	get_tree().change_scene_to_file("res://Scenes/Level 3.tscn")
+	pass

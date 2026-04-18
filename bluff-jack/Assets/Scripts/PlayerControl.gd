@@ -183,6 +183,9 @@ func to_phase_1() -> void:
 
 func to_phase_2() -> void:	
 	print("Phase 2 is being called")
+	draw_buttons.visible = false;
+	bluff_buttons.visible = false;
+	showdown_buttons.visible = false;
 
 	draw_buttons.visible = true
 	draw_buttons.get_child(0)._on_change_to_truth()
@@ -202,6 +205,11 @@ func to_phase_2() -> void:
 
 func to_phase_3() -> void:
 	print("Phase 3 is being called")
+	
+	draw_buttons.visible = false;
+	bluff_buttons.visible = false;
+	showdown_buttons.visible = false;
+	
 
 	bluff_buttons.visible = true
 	bluff_buttons.get_child(0)._on_change_to_truth()
@@ -221,6 +229,7 @@ func to_enemy_turn() -> void:
 	draw_buttons.visible = false
 	bluff_buttons.visible = false
 	bluff_input_panel.visible = false
+	showdown_buttons.visible = false;
 
 
 func _on_bluff_button_pressed():
@@ -321,7 +330,7 @@ func _replay_button_pressed():
 func _next_level_button_pressed():
 	audio_manager.play_sfx("button_press");
 	print("Next Level Pressed")
-	get_tree().change_scene_to_file("res://Scenes/Level 3.tscn")
+	game_manager._change_level();
 
 
 func _on_replay_button_pressed() -> void:

@@ -4,6 +4,9 @@ extends Node2D
 @onready var knife_anim = $KnifeSprite;
 @export var min_anim_speed = 0.8;
 @export var max_anim_speed = 1.5;
+@onready var ten_visual = $ChatBubbleSprite/TensDigit;
+@onready var one_visual = $ChatBubbleSprite/OnesDigit;
+@onready var chat_visual = $ChatBubbleSprite;
 enum AnimState {
 	IDLE,
 	SELECT,
@@ -15,9 +18,16 @@ enum AnimState {
 	KNIFE_PASS
 }
 @onready var enemy_life = $"..".life_total;
+var card_textures = {};
 var anim_state = AnimState.IDLE;
 
 func _ready() -> void:
+	
+	chat_visual.visible = false;
+	
+	for i in range(0, 10):
+		card_textures[i] = load("res://Assets/cards/%d.png" % i)
+	
 	knife_anim.visible = false;
 	if enemy_life > 1:
 		anim.play("idle");
@@ -98,7 +108,16 @@ func set_anim_state(new_state: int) -> void:
 					anim.play("knife_pass");
 					anim.speed_scale = randf_range(min_anim_speed, max_anim_speed);
 
-
+func claim_anim(claimed_total: int) -> void:
+	var ten_digit = int(claimed_total / 10);
+	var one_digit = int(claimed_total % 10);
+	
+	ten_visual.texture = card_textures[ten_digit];
+	one_visual.texture = card_textures[one_digit];
+	
+	chat_visual.visible = true;
+	await get_tree().create_timer(1.0).timeout;
+	chat_visual.visible = false;
 		
 
 func _on_idle_finished() -> void:
