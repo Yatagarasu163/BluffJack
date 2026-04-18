@@ -12,8 +12,10 @@ func _update_life_anim(player_life : int) -> void:
 		2: 
 			anim.visible = true;
 			anim.play("warning");
+			audio_manager.play_sfx("knife_pull_out");
 			anim.speed_scale = randf_range(min_anim_speed, max_anim_speed);
 		1:
 			anim.visible = true;
 			anim.play("warning");
+			audio_manager.play_sfx("knife_pull_out");
 			anim.speed_scale = randf_range(min_anim_speed, max_anim_speed);

@@ -53,6 +53,7 @@ func set_anim_state(new_state: int) -> void:
 				AnimState.SELECT:
 					anim.play("select");
 					anim.speed_scale = randf_range(min_anim_speed, max_anim_speed);
+					audio_manager.play_sfx("button_press");
 				AnimState.CALL_BLUFF:
 					anim.play("call_bluff");
 					anim.speed_scale = randf_range(min_anim_speed, max_anim_speed);
@@ -62,6 +63,7 @@ func set_anim_state(new_state: int) -> void:
 		2:
 			knife_anim.visible = true;
 			knife_anim.play("pull_out");
+			audio_manager.play_sfx("knife_pull_out");
 			knife_anim.speed_scale = randf_range(min_anim_speed, max_anim_speed);
 			match anim_state:
 				AnimState.IDLE:
@@ -70,6 +72,7 @@ func set_anim_state(new_state: int) -> void:
 				AnimState.SELECT:
 					anim.play("select");
 					anim.speed_scale = randf_range(min_anim_speed, max_anim_speed);
+					audio_manager.play_sfx("button_press");
 				AnimState.CALL_BLUFF:
 					anim.play("call_bluff");
 					anim.speed_scale = randf_range(min_anim_speed, max_anim_speed);
@@ -79,6 +82,7 @@ func set_anim_state(new_state: int) -> void:
 			
 		1: 
 			knife_anim.visible = false;
+			audio_manager.play_sfx("crying_voiceline");
 			match anim_state:
 				AnimState.IDLE:
 					anim.play("knife_idle");
@@ -86,6 +90,7 @@ func set_anim_state(new_state: int) -> void:
 				AnimState.SELECT:
 					anim.play("knife_select");
 					anim.speed_scale = randf_range(min_anim_speed, max_anim_speed);
+					audio_manager.play_sfx("button_press");
 				AnimState.CALL_BLUFF:
 					anim.play("knife_call_bluff");
 					anim.speed_scale = randf_range(min_anim_speed, max_anim_speed);

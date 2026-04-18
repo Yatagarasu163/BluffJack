@@ -47,11 +47,12 @@ func get_life() -> int:
 
 func _on_turn_changed(turn) -> void:
 	if turn == game_manager.Turn.PLAYER:
-
 		if draw_powerup:
+			print("DRAW POWERUP TRIGGERING");
 			_draw_powerup();
 			draw_powerup = false;
 		if hand_powerup:
+			print("HAND POWERUP TRIGGERING")
 			_hand_powerup();
 			hand_powerup = false;
 			
@@ -107,6 +108,7 @@ func start_round():
 
 
 func _on_draw_card_button_pressed():
+	audio_manager.play_sfx("button_press");
 	await draw_buttons.get_child(0).anim.animation_finished
 
 	if cards.size() < 5:
@@ -145,6 +147,7 @@ func calculate_total() -> int:
 
 
 func _on_stay_button_pressed():
+	audio_manager.play_sfx("button_press");
 	main.screen_shake()
 
 	game_manager.player_total = calculate_total()
@@ -178,9 +181,7 @@ func to_phase_1() -> void:
 	draw_buttons.visible = true
 
 
-func to_phase_2() -> void:
-	_hand_powerup();
-	
+func to_phase_2() -> void:	
 	print("Phase 2 is being called")
 
 	draw_buttons.visible = true
@@ -223,6 +224,7 @@ func to_enemy_turn() -> void:
 
 
 func _on_bluff_button_pressed():
+	audio_manager.play_sfx("button_press");
 	print("Bluff button pressed")
 
 	if game_over:
@@ -242,17 +244,20 @@ func _on_bluff_button_pressed():
 	bluff_input_panel._set_visible();
 
 func _on_truth_button_pressed() -> void:
+	audio_manager.play_sfx("button_press");
+	
 	if game_over:
 		return
 
 	main.screen_shake()
 	await bluff_buttons.get_child(1).anim.animation_finished
-
-	claimed_total = calculate_total()
-	game_manager.claimed_player_total = claimed_total
-	game_manager.player_total = calculate_total()
-
-	$Labels/ClaimedTotalLabel.text = "Claimed Total: " + str(claimed_total)
+	
+	claimed_total = calculate_total();
+	game_manager.claimed_player_total = claimed_total;
+	game_manager.player_total = claimed_total;
+	
+	print(claimed_total)
+	$Labels/ClaimedTotalLabel.text = "Claimed Total: " + str(claimed_total);
 
 	bluff_input_panel.visible = false
 
@@ -260,33 +265,8 @@ func _on_truth_button_pressed() -> void:
 	game_manager.end_turn()
 
 
-#func keypad_press(value: String) -> void:
-	#print("not a valid int")
-	#if !value.is_valid_int():
-		#return
-#
-	#tens_digit = ones_digit
-	#ones_digit = int(value)
-#
-	#bluff_display.show_number(tens_digit, ones_digit)
-#
-	#claimed_total = tens_digit * 10 + ones_digit
-	#game_manager.claimed_player_total = claimed_total
-#
-	#print("claimed_total = ", claimed_total)
-
-
-#func _on_backspace_button_pressed() -> void:
-	#ones_digit = tens_digit
-	#tens_digit = 0
-#
-	#bluff_display.show_number(tens_digit, ones_digit)
-#
-	#claimed_total = tens_digit * 10 + ones_digit
-	#game_manager.claimed_player_total = claimed_total
-
-
 func _on_enter_button_pressed() -> void:
+	audio_manager.play_sfx("button_press");
 	if game_over:
 		return
 
@@ -294,7 +274,7 @@ func _on_enter_button_pressed() -> void:
 
 	claimed_total = tens_digit * 10 + ones_digit
 	game_manager.claimed_player_total = claimed_total
-	$Labels/ClaimedTotalLabel.text = "Claimed Total: " + str(claimed_total)
+	$Labels/ClaimedTotalLabel.text = "Claimed Total: " + str(claimed_total);
 
 	bluff_input_panel.visible = false
 
@@ -310,6 +290,7 @@ func set_buttons_enabled(enabled):
 
 
 func _on_call_bluff_button_pressed() -> void:
+	audio_manager.play_sfx("button_press");
 	if game_over:
 		return
 
@@ -318,6 +299,7 @@ func _on_call_bluff_button_pressed() -> void:
 
 
 func _on_pass_button_pressed() -> void:
+	audio_manager.play_sfx("button_press");
 	if game_over:
 		return
 
@@ -326,24 +308,29 @@ func _on_pass_button_pressed() -> void:
 
 
 func _on_restart_button_pressed() -> void:
+	audio_manager.play_sfx("button_press");
 	emit_signal("restart_game")
 
 
 func _replay_button_pressed():
+	audio_manager.play_sfx("button_press");
 	print("Replay pressed")
 	get_tree().reload_current_scene()
 
 
 func _next_level_button_pressed():
+	audio_manager.play_sfx("button_press");
 	print("Next Level Pressed")
 	get_tree().change_scene_to_file("res://Scenes/Level 3.tscn")
 
 
 func _on_replay_button_pressed() -> void:
+	audio_manager.play_sfx("button_press");
 	get_tree().reload_current_scene()
 
 
 func _on_next_level_button_pressed() -> void:
+	audio_manager.play_sfx("button_press");
 	var current_scene = get_tree().current_scene.scene_file_path
 	var file_name = current_scene.get_file()
 	var level_number = file_name.get_basename().trim_prefix("Level")
@@ -358,12 +345,13 @@ func _on_next_level_button_pressed() -> void:
 
 
 func _on_main_menu_button_pressed() -> void:
+	audio_manager.play_sfx("button_press");
 	get_tree().change_scene_to_file("res://Scenes/Prefabs/Main_Menu.tscn")
 
 
 func _draw_powerup() -> void:
+	
 	print("Before powerup: ", cards)
-
 	var changed_card_position: int = randi_range(0, 1)
 	var new_value: int = randi_range(1, 9)
 
@@ -373,6 +361,7 @@ func _draw_powerup() -> void:
 	monitor_cards.show_hand(cards)
 	
 func _hand_powerup() -> void:
+	print("HAND IS CHANGING");
 	print("Before powerup: ", cards)
 	
 	var changed_card_position: int = randi_range(0, cards.size() - 1);
