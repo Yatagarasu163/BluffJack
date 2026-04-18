@@ -49,3 +49,9 @@ func clear_cards():
 			)
 
 	shown_cards.clear()
+	
+func show_hand(card_values: Array) -> void:
+	clear_cards()
+	
+	for value in card_values:
+		show_card(value)

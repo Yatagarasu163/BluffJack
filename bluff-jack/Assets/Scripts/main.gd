@@ -1,6 +1,6 @@
 extends Node2D
 
-#Scren Shake Values
+#Screen Shake Values
 @export var shake_strength_min: float = 2.0
 @export var shake_strength_max: float = 6.0
 @export var shake_count: int = 4
@@ -22,3 +22,4 @@ func screen_shake():
 		tween.tween_property(self, "position", original_pos + offset, 0.03)
 	#Returning it to the original Position
 	tween.tween_property(self, "position", original_pos, 0.05)
+	

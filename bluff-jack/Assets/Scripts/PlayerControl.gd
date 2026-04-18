@@ -370,6 +370,7 @@ func _draw_powerup() -> void:
 	cards[changed_card_position] = new_value
 
 	print("After powerup: ", cards)
+	monitor_cards.show_hand(cards)
 	
 func _hand_powerup() -> void:
 	print("Before powerup: ", cards)
@@ -380,6 +381,7 @@ func _hand_powerup() -> void:
 	cards[changed_card_position] = new_value;
 	
 	print("After powerup: ", cards);
+	monitor_cards.show_hand(cards)
 
 
 #func _on_button_0_pressed() -> void:

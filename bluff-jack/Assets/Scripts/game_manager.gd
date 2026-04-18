@@ -228,7 +228,7 @@ func resolve_showdown() -> void:
 
 	
 	# CASE 4: NOBODY called bluff
-	# then laimed totals become official totals
+	# then claimed totals become official totals
 	var official_player_total = claimed_player_total
 	var official_enemy_total = enemy_claimed_total
 
@@ -319,7 +319,7 @@ func opponent_loses_round(message):
 	update_life_labels()
 
 	player.get_node("Labels/ResultLabel").text = message
-	player.get_node("BluffUI/Control/BluffInput").visible = false
+	
 	player.get_node("MonitorCards").clear_cards()
 
 	if enemy.life_total <= 0:
@@ -428,6 +428,7 @@ func show_final_result(player_won: bool):
 
 func _trigger_draw_powerup() -> void:
 	player.draw_powerup = true;
+	
 
 func _trigger_hand_powerup() -> void:
 	player.hand_powerup = true;
