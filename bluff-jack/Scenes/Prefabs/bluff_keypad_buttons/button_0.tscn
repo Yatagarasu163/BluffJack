@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://7hbrk2jtewpc"]
 
 [ext_resource type="Texture2D" uid="uid://cn7ieiwren8ey" path="res://Assets/sprites/bluff inputs/0 button pressed.png" id="1_4t1mk"]
-[ext_resource type="Script" uid="uid://dqowoxpn2x1q8" path="res://Assets/Scripts/button_enter.gd" id="1_sovnk"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_61tga"]
 atlas = ExtResource("1_4t1mk")
@@ -77,14 +76,15 @@ animations = [{
 
 [node name="Button 0" type="Node2D" unique_id=1588725735]
 texture_filter = 5
-script = ExtResource("1_sovnk")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=198100826]
 sprite_frames = SubResource("SpriteFrames_a00pk")
 animation = &"pressed"
 centered = false
 
-[node name="Button" type="Button" parent="." unique_id=1980702128]
+[node name="Button 0" type="Button" parent="." unique_id=1980702128]
 offset_right = 44.0
 offset_bottom = 43.0
 flat = true
+
+[connection signal="pressed" from="Button 0" to="." method="_on_button_0_pressed"]

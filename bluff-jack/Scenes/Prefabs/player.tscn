@@ -231,19 +231,7 @@ grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="BluffInput" type="LineEdit" parent="BluffUI/Control" unique_id=889218574]
-layout_mode = 0
-offset_right = 175.0
-offset_bottom = 31.0
-placeholder_text = "Enter Bluff Number"
-max_length = 2
-context_menu_enabled = false
-emoji_menu_enabled = false
-shortcut_keys_enabled = false
-middle_mouse_paste_enabled = false
-drag_and_drop_selection_enabled = false
-caret_blink = true
-metadata/_edit_use_anchors_ = true
+[node name="BluffInputPanel" parent="." unique_id=457786761 instance=ExtResource("13_mhr4y")]
 
 [node name="ActionButton" type="Node2D" parent="." unique_id=1218363107]
 
@@ -324,16 +312,11 @@ position = Vector2(38.5, 37)
 sprite_frames = SubResource("SpriteFrames_k7ict")
 animation = &"warning"
 
-[node name="BluffInput" parent="." unique_id=457786761 instance=ExtResource("13_mhr4y")]
-texture_filter = 5
-
 [connection signal="pressed" from="FinalScreen/ReplayButton" to="." method="_on_replay_button_pressed"]
 [connection signal="pressed" from="FinalScreen/NextLevelButton" to="." method="_on_next_level_button_pressed"]
 [connection signal="pressed" from="FinalScreen/MainMenuButton" to="." method="_on_main_menu_button_pressed"]
 [connection signal="pressed" from="BluffUI/BluffButton" to="." method="_on_bluff_button_pressed"]
 [connection signal="pressed" from="BluffUI/TruthButton" to="." method="_on_truth_button_pressed"]
-[connection signal="text_changed" from="BluffUI/Control/BluffInput" to="." method="_on_bluff_input_text_changed"]
-[connection signal="text_submitted" from="BluffUI/Control/BluffInput" to="." method="_on_bluff_input_text_submitted"]
 [connection signal="pressed" from="ActionButton/DrawCardButton" to="." method="_on_draw_card_button_pressed"]
 [connection signal="pressed" from="ActionButton/StayButton" to="." method="_on_stay_button_pressed"]
 [connection signal="pressed" from="ShowdownButtons/CallBluffButton" to="." method="_on_call_bluff_button_pressed"]

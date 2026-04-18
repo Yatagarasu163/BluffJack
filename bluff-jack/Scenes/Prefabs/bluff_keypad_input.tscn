@@ -14,7 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://e46efbb4hx2r" path="res://Scenes/Prefabs/bluff_keypad_buttons/button_back.tscn" id="12_5isif"]
 [ext_resource type="PackedScene" uid="uid://d1wkym0662ikg" path="res://Scenes/Prefabs/bluff_keypad_buttons/button_enter.tscn" id="13_4oyw6"]
 
-[node name="BluffInput" type="Node2D" unique_id=457786761]
+[node name="BluffInputPanel" type="Node2D" unique_id=457786761]
 texture_filter = 5
 
 [node name="bluffkeypad" type="Sprite2D" parent="." unique_id=1384234730]
@@ -23,38 +23,68 @@ scale = Vector2(1.5, 1.5)
 texture = ExtResource("1_513r8")
 centered = false
 
-[node name="Button 0" parent="." unique_id=1588725735 instance=ExtResource("2_tj837")]
-position = Vector2(95, 268)
+[node name="TensDigit" type="Marker2D" parent="bluffkeypad" unique_id=726501970]
+position = Vector2(116, 36.666668)
 
-[node name="Button 1" parent="." unique_id=490886748 instance=ExtResource("3_jak12")]
-position = Vector2(37, 67)
+[node name="OnesDigit" type="Marker2D" parent="bluffkeypad" unique_id=1691696101]
+position = Vector2(140.66667, 36.666668)
 
-[node name="Button 2" parent="." unique_id=1678998830 instance=ExtResource("4_2hsje")]
-position = Vector2(95, 67)
+[node name="Button 0" parent="bluffkeypad" unique_id=1588725735 instance=ExtResource("2_tj837")]
+position = Vector2(111.333336, 194.66667)
+scale = Vector2(0.6666667, 0.6666667)
+script = null
 
-[node name="Button 3" parent="." unique_id=1168698071 instance=ExtResource("5_rd2us")]
-position = Vector2(153, 67)
+[node name="Button 1" parent="bluffkeypad" unique_id=490886748 instance=ExtResource("3_jak12")]
+position = Vector2(72.66667, 60.666668)
+scale = Vector2(0.6666667, 0.6666667)
+script = null
 
-[node name="Button 4" parent="." unique_id=679371407 instance=ExtResource("6_xu571")]
-position = Vector2(37, 134)
+[node name="Button 2" parent="bluffkeypad" unique_id=1678998830 instance=ExtResource("4_2hsje")]
+position = Vector2(111.333336, 60.666668)
+scale = Vector2(0.6666667, 0.6666667)
+script = null
 
-[node name="Button 5" parent="." unique_id=1369602578 instance=ExtResource("7_65s6d")]
-position = Vector2(95, 134)
+[node name="Button 3" parent="bluffkeypad" unique_id=1168698071 instance=ExtResource("5_rd2us")]
+position = Vector2(150, 60.666668)
+scale = Vector2(0.6666667, 0.6666667)
+script = null
 
-[node name="Button 6" parent="." unique_id=201409328 instance=ExtResource("8_gnabx")]
-position = Vector2(153, 134)
+[node name="Button 4" parent="bluffkeypad" unique_id=679371407 instance=ExtResource("6_xu571")]
+position = Vector2(72.66667, 105.333336)
+scale = Vector2(0.6666667, 0.6666667)
+script = null
 
-[node name="Button 7" parent="." unique_id=1345646045 instance=ExtResource("9_qg38h")]
-position = Vector2(37, 201)
+[node name="Button 5" parent="bluffkeypad" unique_id=1369602578 instance=ExtResource("7_65s6d")]
+position = Vector2(111.333336, 105.333336)
+scale = Vector2(0.6666667, 0.6666667)
+script = null
 
-[node name="Button 8" parent="." unique_id=254191505 instance=ExtResource("10_k6sr4")]
-position = Vector2(95, 201)
+[node name="Button 6" parent="bluffkeypad" unique_id=201409328 instance=ExtResource("8_gnabx")]
+position = Vector2(150, 105.333336)
+scale = Vector2(0.6666667, 0.6666667)
+script = null
 
-[node name="Button 9" parent="." unique_id=2129942853 instance=ExtResource("11_djpo0")]
-position = Vector2(153, 201)
+[node name="Button 7" parent="bluffkeypad" unique_id=1345646045 instance=ExtResource("9_qg38h")]
+position = Vector2(72.66667, 150)
+scale = Vector2(0.6666667, 0.6666667)
+script = null
 
-[node name="Button 10" parent="." unique_id=41156096 instance=ExtResource("12_5isif")]
-position = Vector2(37, 268)
+[node name="Button 8" parent="bluffkeypad" unique_id=254191505 instance=ExtResource("10_k6sr4")]
+position = Vector2(111.333336, 150)
+scale = Vector2(0.6666667, 0.6666667)
+script = null
 
-[node name="Button 11" parent="." unique_id=1087934909 instance=ExtResource("13_4oyw6")]
-position = Vector2(153, 268)
+[node name="Button 9" parent="bluffkeypad" unique_id=2129942853 instance=ExtResource("11_djpo0")]
+position = Vector2(150, 150)
+scale = Vector2(0.6666667, 0.6666667)
+script = null
+
+[node name="BackspaceButton" parent="bluffkeypad" unique_id=41156096 instance=ExtResource("12_5isif")]
+position = Vector2(72.66667, 194.66667)
+scale = Vector2(0.6666667, 0.6666667)
+script = null
+
+[node name="EnterButton" parent="bluffkeypad" unique_id=1087934909 instance=ExtResource("13_4oyw6")]
+position = Vector2(150, 194.66667)
+scale = Vector2(0.6666667, 0.6666667)
+script = null

@@ -79,7 +79,6 @@ animations = [{
 [node name="Keypad Input" type="Node2D" unique_id=1050717101]
 texture_filter = 5
 script = ExtResource("1_irm6q")
-number = 1
 
 [node name="Button" type="Button" parent="." unique_id=2065521965]
 offset_right = 44.0
