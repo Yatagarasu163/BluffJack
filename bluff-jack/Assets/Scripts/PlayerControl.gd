@@ -330,19 +330,19 @@ func _on_replay_button_pressed() -> void:
 
 
 func _on_next_level_button_pressed() -> void:
-	audio_manager.play_sfx("button_press");
-	var current_scene = get_tree().current_scene.scene_file_path
-	var file_name = current_scene.get_file()
-	var level_number = file_name.get_basename().trim_prefix("Level")
+	var current_scene_path = get_tree().current_scene.scene_file_path
+	var file_name = current_scene_path.get_file().get_basename()
 
-	var next_level_number = int(level_number) + 1
-	var next_scene_path = "res://Scenes/Level" + str(next_level_number) + ".tscn"
+	var level_text = file_name.replace("Level", "").strip_edges()
+	var current_level = int(level_text)
+
+	var next_level = current_level + 1
+	var next_scene_path = "res://Scenes/Level" + str(next_level) + ".tscn"
 
 	if ResourceLoader.exists(next_scene_path):
 		get_tree().change_scene_to_file(next_scene_path)
 	else:
 		print("No more levels!")
-
 
 func _on_main_menu_button_pressed() -> void:
 	audio_manager.play_sfx("button_press");
