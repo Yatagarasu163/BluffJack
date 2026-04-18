@@ -372,6 +372,7 @@ script = ExtResource("1_vgqql")
 
 [node name="FinalScreen" type="Control" parent="." unique_id=758214855]
 visible = false
+z_index = 5
 texture_filter = 5
 layout_mode = 3
 anchors_preset = 0

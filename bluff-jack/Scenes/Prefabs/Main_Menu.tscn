@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://dbrt387eyd72v" path="res://Assets/sprites/buttons/exit button.png" id="5_ck7g4"]
 [ext_resource type="Texture2D" uid="uid://bgakqj07kvvpj" path="res://Assets/sprites/background.png" id="6_sqp03"]
 [ext_resource type="Script" uid="uid://dl6btl8dohftr" path="res://Scenes/Prefabs/animated_sprite_2d.gd" id="7_7hcaw"]
+[ext_resource type="Texture2D" uid="uid://dp6rki11kth58" path="res://Assets/sprites/warning sign.png" id="8_0vn7l"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7hcaw"]
 atlas = ExtResource("6_sqp03")
@@ -341,6 +342,12 @@ offset_right = 548.0
 offset_bottom = 209.0
 scale = Vector2(3, 3)
 text = "BluffJack"
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1550362642]
+texture_filter = 5
+position = Vector2(247, 264)
+texture = ExtResource("8_0vn7l")
+centered = false
 
 [connection signal="pressed" from="Start" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="Rule" to="." method="_on_rule_button_pressed"]

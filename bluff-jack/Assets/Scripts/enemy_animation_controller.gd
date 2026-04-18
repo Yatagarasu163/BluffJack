@@ -37,6 +37,9 @@ func _ready() -> void:
 	print(anim.speed_scale);
 	anim.animation_finished.connect(_on_idle_finished);
 	
+func _process(_delta: float) -> void:
+	enemy_life = $"..".life_total;
+	
 func _update_knife(has_knife: bool) -> void:
 	if has_knife:
 		knife_anim.visible = true;
