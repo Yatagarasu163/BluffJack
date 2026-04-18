@@ -23,6 +23,9 @@ func _ready() -> void:
 	game_manager.start_game.connect(_on_match_started);
 	game_manager.register_enemy();
 	print("Enemy Registered")
+	print("Draw: ", has_draw_powerup);
+	print("Hand: ", has_hand_powerup);
+	print("Winning val: ", has_winning_val_powerup);
 	if has_draw_powerup:
 		game_manager._trigger_draw_powerup();
 	if has_hand_powerup:
@@ -108,6 +111,7 @@ func take_turn() -> void:
 			game_manager.enemy_claimed_total = roundDecision["value"]
 			game_manager.enemy_state = game_manager.State.SHOWDOWN
 
+			audio_manager.play_sfx("i_have_voiceline");
 			if roundDecision["bluffing"]:
 				set_opponent_label("Opponent claims: " + str(roundDecision["value"]) + " (bluffing!)")
 			else:

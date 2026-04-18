@@ -319,7 +319,6 @@ func opponent_loses_round(message):
 	update_life_labels()
 
 	player.get_node("Labels/ResultLabel").text = message
-	player.get_node("BluffUI/Control/BluffInput").visible = false
 	player.get_node("MonitorCards").clear_cards()
 
 	if enemy.life_total <= 0:
