@@ -372,6 +372,16 @@ func _draw_powerup() -> void:
 	cards[changed_card_position] = new_value
 
 	print("After powerup: ", cards)
+	
+func _hand_powerup() -> void:
+	print("Before powerup: ", cards)
+	
+	var changed_card_position: int = randi_range(0, cards.size());
+	var new_value: int = randi_range(1, 9);
+	
+	cards[changed_card_position] = new_value;
+	
+	print("After powerup: ", cards);
 
 
 func _on_button_0_pressed() -> void:

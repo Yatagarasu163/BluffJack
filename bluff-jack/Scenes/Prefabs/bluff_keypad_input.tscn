@@ -32,52 +32,42 @@ position = Vector2(140.66667, 36.666668)
 [node name="Button 0" parent="bluffkeypad" unique_id=1588725735 instance=ExtResource("2_tj837")]
 position = Vector2(111.333336, 194.66667)
 scale = Vector2(0.6666667, 0.6666667)
-script = null
 
 [node name="Button 1" parent="bluffkeypad" unique_id=490886748 instance=ExtResource("3_jak12")]
 position = Vector2(72.66667, 60.666668)
 scale = Vector2(0.6666667, 0.6666667)
-script = null
 
 [node name="Button 2" parent="bluffkeypad" unique_id=1678998830 instance=ExtResource("4_2hsje")]
 position = Vector2(111.333336, 60.666668)
 scale = Vector2(0.6666667, 0.6666667)
-script = null
 
 [node name="Button 3" parent="bluffkeypad" unique_id=1168698071 instance=ExtResource("5_rd2us")]
 position = Vector2(150, 60.666668)
 scale = Vector2(0.6666667, 0.6666667)
-script = null
 
 [node name="Button 4" parent="bluffkeypad" unique_id=679371407 instance=ExtResource("6_xu571")]
 position = Vector2(72.66667, 105.333336)
 scale = Vector2(0.6666667, 0.6666667)
-script = null
 
 [node name="Button 5" parent="bluffkeypad" unique_id=1369602578 instance=ExtResource("7_65s6d")]
 position = Vector2(111.333336, 105.333336)
 scale = Vector2(0.6666667, 0.6666667)
-script = null
 
 [node name="Button 6" parent="bluffkeypad" unique_id=201409328 instance=ExtResource("8_gnabx")]
 position = Vector2(150, 105.333336)
 scale = Vector2(0.6666667, 0.6666667)
-script = null
 
 [node name="Button 7" parent="bluffkeypad" unique_id=1345646045 instance=ExtResource("9_qg38h")]
 position = Vector2(72.66667, 150)
 scale = Vector2(0.6666667, 0.6666667)
-script = null
 
 [node name="Button 8" parent="bluffkeypad" unique_id=254191505 instance=ExtResource("10_k6sr4")]
 position = Vector2(111.333336, 150)
 scale = Vector2(0.6666667, 0.6666667)
-script = null
 
 [node name="Button 9" parent="bluffkeypad" unique_id=2129942853 instance=ExtResource("11_djpo0")]
 position = Vector2(150, 150)
 scale = Vector2(0.6666667, 0.6666667)
-script = null
 
 [node name="BackspaceButton" parent="bluffkeypad" unique_id=41156096 instance=ExtResource("12_5isif")]
 position = Vector2(72.66667, 194.66667)
