@@ -445,10 +445,9 @@ func _change_level() -> void:
 		current_level = 0;
 		get_tree().change_scene_to_file("res://Scenes/Prefabs/Main_Menu.tscn");
 	else:
-		var path = "res://Scenes/Level " + str(current_level) + ".tscn";
+		var path = "res://Scenes/Levels/Level " + str(current_level) + ".tscn";
 		get_tree().change_scene_to_file(path);
 		
 	current_level += 1;
 	
-	get_tree().change_scene_to_file("res://Scenes/Level 3.tscn")
-	pass
+	

@@ -1,9 +1,12 @@
 [gd_scene format=3 uid="uid://cduo76ib17om2"]
 
 [ext_resource type="Script" uid="uid://b2wxefweqctn1" path="res://Assets/Scripts/PlayerControl.gd" id="1_vgqql"]
+[ext_resource type="Texture2D" uid="uid://dt7kt4vv5gygf" path="res://Assets/sprites/buttons/retry button.png" id="2_eejau"]
 [ext_resource type="Texture2D" uid="uid://ysn5gxf7npkb" path="res://Assets/environment/table reworked the looonnggg way now in 4k (2).png" id="2_fkybt"]
+[ext_resource type="Texture2D" uid="uid://bfv41hkvm7u2t" path="res://Assets/sprites/buttons/next level button.png" id="3_rc3i2"]
 [ext_resource type="Texture2D" uid="uid://cxbha1fqn4ido" path="res://Assets/environment/monitor upscaled.png" id="3_x3wgy"]
 [ext_resource type="Script" uid="uid://ny3drku50ag8" path="res://Assets/Scripts/MonitorCards.gd" id="4_3smsa"]
+[ext_resource type="Texture2D" uid="uid://dupouni8ugj7w" path="res://Assets/sprites/buttons/main menu button.png" id="4_rc3i2"]
 [ext_resource type="PackedScene" uid="uid://bvv2x88t06mxr" path="res://Scenes/Prefabs/Buttons/bluff_button.tscn" id="4_v34u6"]
 [ext_resource type="PackedScene" uid="uid://7xjkrw7cig06" path="res://Scenes/Prefabs/Buttons/draw_card_button.tscn" id="5_ak25i"]
 [ext_resource type="PackedScene" uid="uid://co4x1x5aymfy5" path="res://Scenes/Prefabs/Buttons/truth_button.tscn" id="5_fdt7q"]
@@ -114,28 +117,49 @@ vertical_alignment = 1
 
 [node name="ReplayButton" type="Button" parent="FinalScreen" unique_id=1105766181]
 layout_mode = 0
-offset_left = 627.0
-offset_top = 351.0
-offset_right = 738.0
-offset_bottom = 385.0
+offset_left = 642.0
+offset_top = 349.0
+offset_right = 737.0
+offset_bottom = 394.0
 text = "Restart"
+flat = true
+
+[node name="ReplayButton" type="Sprite2D" parent="FinalScreen/ReplayButton" unique_id=612109342]
+texture_filter = 5
+position = Vector2(47, 45)
+texture = ExtResource("2_eejau")
 
 [node name="NextLevelButton" type="Button" parent="FinalScreen" unique_id=1587168104]
 layout_mode = 0
-offset_left = 628.0
-offset_top = 351.0
-offset_right = 739.0
-offset_bottom = 385.0
+offset_left = 641.0
+offset_top = 346.0
+offset_right = 736.0
+offset_bottom = 392.0
 text = "Next
 "
+flat = true
+
+[node name="Sprite2D" type="Sprite2D" parent="FinalScreen/NextLevelButton" unique_id=1751763392]
+texture_filter = 5
+position = Vector2(48, 48)
+texture = ExtResource("3_rc3i2")
 
 [node name="MainMenuButton" type="Button" parent="FinalScreen" unique_id=311693504]
-layout_mode = 0
-offset_left = 482.0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.37130433
+anchor_right = 0.37130433
+offset_left = 55.00003
 offset_top = 351.0
-offset_right = 590.0
-offset_bottom = 386.0
+offset_right = 151.00003
+offset_bottom = 398.0
 text = "Main Menu"
+flat = true
+metadata/_edit_use_anchors_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="FinalScreen/MainMenuButton" unique_id=1819869904]
+position = Vector2(48, 48)
+texture = ExtResource("4_rc3i2")
 
 [node name="table" type="Sprite2D" parent="." unique_id=1633987005]
 z_index = -2
