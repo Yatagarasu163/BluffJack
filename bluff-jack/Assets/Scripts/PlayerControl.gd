@@ -25,7 +25,7 @@ var ones_digit := 0
 
 # Keypad panel references
 @onready var bluff_input_panel = $BluffInputPanel
-@onready var bluff_display = $BluffInputPanel/bluffkeypad
+@onready var bluff_display = $BluffInputPanel
 
 
 func _ready():
@@ -93,7 +93,7 @@ func start_round():
 	ones_digit = 0
 
 	bluff_input_panel.visible = false
-	bluff_display.show_number(0, 0)
+	#bluff_display.show_number(0, 0)
 
 	draw_cards()
 
@@ -236,12 +236,10 @@ func _on_bluff_button_pressed():
 	bluff_buttons.get_child(0).visible = false
 	bluff_buttons.get_child(1).visible = false
 
-	tens_digit = 0
-	ones_digit = 0
-	bluff_display.show_number(tens_digit, ones_digit)
-
-	bluff_input_panel.visible = true
-
+	#tens_digit = 0
+	#ones_digit = 0
+	#bluff_display.show_number(tens_digit, ones_digit)
+	bluff_input_panel._set_visible();
 
 func _on_truth_button_pressed() -> void:
 	if game_over:
@@ -262,30 +260,30 @@ func _on_truth_button_pressed() -> void:
 	game_manager.end_turn()
 
 
-func keypad_press(value: String) -> void:
-	print("not a valid int")
-	if !value.is_valid_int():
-		return
+#func keypad_press(value: String) -> void:
+	#print("not a valid int")
+	#if !value.is_valid_int():
+		#return
+#
+	#tens_digit = ones_digit
+	#ones_digit = int(value)
+#
+	#bluff_display.show_number(tens_digit, ones_digit)
+#
+	#claimed_total = tens_digit * 10 + ones_digit
+	#game_manager.claimed_player_total = claimed_total
+#
+	#print("claimed_total = ", claimed_total)
 
-	tens_digit = ones_digit
-	ones_digit = int(value)
 
-	bluff_display.show_number(tens_digit, ones_digit)
-
-	claimed_total = tens_digit * 10 + ones_digit
-	game_manager.claimed_player_total = claimed_total
-
-	print("claimed_total = ", claimed_total)
-
-
-func _on_backspace_button_pressed() -> void:
-	ones_digit = tens_digit
-	tens_digit = 0
-
-	bluff_display.show_number(tens_digit, ones_digit)
-
-	claimed_total = tens_digit * 10 + ones_digit
-	game_manager.claimed_player_total = claimed_total
+#func _on_backspace_button_pressed() -> void:
+	#ones_digit = tens_digit
+	#tens_digit = 0
+#
+	#bluff_display.show_number(tens_digit, ones_digit)
+#
+	#claimed_total = tens_digit * 10 + ones_digit
+	#game_manager.claimed_player_total = claimed_total
 
 
 func _on_enter_button_pressed() -> void:
@@ -376,7 +374,7 @@ func _draw_powerup() -> void:
 func _hand_powerup() -> void:
 	print("Before powerup: ", cards)
 	
-	var changed_card_position: int = randi_range(0, cards.size());
+	var changed_card_position: int = randi_range(0, cards.size() - 1);
 	var new_value: int = randi_range(1, 9);
 	
 	cards[changed_card_position] = new_value;
@@ -384,42 +382,42 @@ func _hand_powerup() -> void:
 	print("After powerup: ", cards);
 
 
-func _on_button_0_pressed() -> void:
-	print("0")
-	keypad_press("0")
-
-func _on_button_1_pressed() -> void:
-	print("1")
-	keypad_press("1")
-
-func _on_button_2_pressed() -> void:
-	print("2")
-	keypad_press("2")
-
-func _on_button_3_pressed() -> void:
-	print("3")
-	keypad_press("3")
-
-func _on_button_4_pressed() -> void:
-	print("4")
-	keypad_press("4")
-
-func _on_button_5_pressed() -> void:
-	print("5")
-	keypad_press("5")
-
-func _on_button_6_pressed() -> void:
-	print("6")
-	keypad_press("6")
-
-func _on_button_7_pressed() -> void:
-	print("7")
-	keypad_press("7")
-
-func _on_button_8_pressed() -> void:
-	print("8")
-	keypad_press("8")
-
-func _on_button_9_pressed() -> void:
-	print("9")
-	keypad_press("9")
+#func _on_button_0_pressed() -> void:
+	#print("0")
+	#keypad_press("0")
+#
+#func _on_button_1_pressed() -> void:
+	#print("1")
+	#keypad_press("1")
+#
+#func _on_button_2_pressed() -> void:
+	#print("2")
+	#keypad_press("2")
+#
+#func _on_button_3_pressed() -> void:
+	#print("3")
+	#keypad_press("3")
+#
+#func _on_button_4_pressed() -> void:
+	#print("4")
+	#keypad_press("4")
+#
+#func _on_button_5_pressed() -> void:
+	#print("5")
+	#keypad_press("5")
+#
+#func _on_button_6_pressed() -> void:
+	#print("6")
+	#keypad_press("6")
+#
+#func _on_button_7_pressed() -> void:
+	#print("7")
+	#keypad_press("7")
+#
+#func _on_button_8_pressed() -> void:
+	#print("8")
+	#keypad_press("8")
+#
+#func _on_button_9_pressed() -> void:
+	#print("9")
+	#keypad_press("9")

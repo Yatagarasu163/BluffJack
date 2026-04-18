@@ -3,6 +3,7 @@ extends Node2D
 @onready var anim = $AnimatedSprite2D;
 @onready var btn = $Button;
 @export var value = 0;
+@onready var controller = $"../..";
 var is_pressed_anim = false;
 
 # Called when the node enters the scene tree for the first time.
@@ -30,7 +31,7 @@ func _on_pressed() -> void:
 	
 	is_pressed_anim = false;
 	
-	_return_button_value();
+	controller.keypad_press(_return_button_value());
 	
 func _return_button_value() -> int:
 	return value;

@@ -232,6 +232,9 @@ grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
 [node name="BluffInputPanel" parent="." unique_id=457786761 instance=ExtResource("13_mhr4y")]
+z_index = 5
+z_as_relative = false
+position = Vector2(440, 100)
 
 [node name="ActionButton" type="Node2D" parent="." unique_id=1218363107]
 
