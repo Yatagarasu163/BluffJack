@@ -1,6 +1,5 @@
 [gd_scene format=3 uid="uid://d2e5aff1sikld"]
 
-[ext_resource type="Script" uid="uid://dqowoxpn2x1q8" path="res://Assets/Scripts/button_enter.gd" id="1_bognh"]
 [ext_resource type="Texture2D" uid="uid://cqloy0jgh2yo8" path="res://Assets/sprites/bluff inputs/4 button pressed.png" id="1_l3n2f"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bognh"]
@@ -75,17 +74,15 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Button 0" type="Node2D" unique_id=1588725735]
+[node name="Button 4" type="Node2D" unique_id=1588725735]
 texture_filter = 5
-script = ExtResource("1_bognh")
-value = 4
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=198100826]
 sprite_frames = SubResource("SpriteFrames_a00pk")
 animation = &"hover"
 centered = false
 
-[node name="Button" type="Button" parent="." unique_id=1980702128]
+[node name="Button 4" type="Button" parent="." unique_id=1980702128]
 offset_right = 44.0
 offset_bottom = 43.0
 flat = true
