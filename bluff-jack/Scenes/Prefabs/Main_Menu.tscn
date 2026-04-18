@@ -1,3 +1,18 @@
 [gd_scene format=3 uid="uid://da0uw0nlhr8cw"]
 
+[ext_resource type="Texture2D" uid="uid://bresahk46lia8" path="res://Assets/cards/9.png" id="1_13oby"]
+
 [node name="MainMenu" type="Node2D" unique_id=1330387310]
+
+[node name="Button" type="Button" parent="." unique_id=1179109792]
+offset_left = 554.0
+offset_top = 336.0
+offset_right = 570.0
+offset_bottom = 360.0
+flat = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Button" unique_id=1775502548]
+texture_filter = 5
+position = Vector2(-8, -4)
+texture = ExtResource("1_13oby")
+centered = false

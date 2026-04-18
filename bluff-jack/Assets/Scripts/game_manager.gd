@@ -449,6 +449,4 @@ func _change_level() -> void:
 		get_tree().change_scene_to_file(path);
 		
 	current_level += 1;
-	
-	get_tree().change_scene_to_file("res://Scenes/Level 3.tscn")
 	pass
